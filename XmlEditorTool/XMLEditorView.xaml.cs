@@ -36,9 +36,11 @@ namespace XmlEditorTool
             bool validFormat = false;
             foreach (String s in format)
             {
-                if (s.Contains(".xml"))
+                if (s.Equals("FileName"))
                 {
-                    validFormat = true;
+                    string[] str = e.Data.GetData(s) as string[];
+                    if (str[0].Contains(".xml"))
+                        validFormat = true;
                 }
             }
 
@@ -50,7 +52,7 @@ namespace XmlEditorTool
 
                 // Assuming you have one file that you care about, pass it off to whatever
                 // handling code you have defined.
-                XMLService.LoadTreeViewFromXmlFile(files[0], XmlTreeView);
+                XMLService.BuildTree(files[0], XmlTreeView);
                 XmlTreeView.Visibility = Visibility.Visible;
             }
         }

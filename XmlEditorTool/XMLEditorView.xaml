@@ -41,7 +41,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="1" Name="UploadPanel" Drop="UploadDrop" 
-                        AllowDrop="True">
+                        AllowDrop="True" Background="Transparent">
 
                 <Button HorizontalAlignment="Center" 
                 VerticalAlignment="Center" Click="UploadFileClick"
