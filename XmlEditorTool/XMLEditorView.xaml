@@ -1,0 +1,59 @@
+﻿<Page x:Class="XmlEditorTool.XMLEditorView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:XmlEditorTool"
+      mc:Ignorable="d" 
+      d:DesignHeight="350" d:DesignWidth="720"
+      Title="Xml Editor Tool - Editor">
+
+    <Grid>
+        <Grid.Resources>
+            <Image x:Key="UploadImage" Height="64"
+                   Source="File-Adobe-Dreamweaver-XML-01-icon.png"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Label Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center" Background="Navy" 
+               Foreground="White">XML File View</Label>
+
+        
+        <!-- File Upload Panel -->
+        <Grid Name="FileUploadGrid" Grid.Column="0" Grid.Row="1" Background="LightGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1" Name="UploadPanel" Drop="UploadDrop" 
+                        AllowDrop="True">
+
+                <Button HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Click="UploadFileClick"
+                Content="{StaticResource UploadImage}">
+                </Button>
+            </StackPanel>
+            <Label Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Top">Drop .xml file or click button</Label>
+        </Grid>
+        
+        <!-- Treeview Panel -->
+        <TreeView Name="XmlTreeView" Grid.Column="0" Grid.Row="1" Visibility="Hidden"></TreeView>
+
+    </Grid>
+</Page>
