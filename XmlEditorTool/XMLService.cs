@@ -13,6 +13,9 @@ namespace XmlEditorTool
 {
     class XMLService
     {
+        private static string NAME = "Name";
+        private static string LOC_NAME = "LocName";
+
         public static void LoadTreeViewFromXmlFile(string filename, System.Windows.Controls.TreeView view)
         {
             //Load the XML Document
@@ -80,6 +83,7 @@ namespace XmlEditorTool
             {
                 //Should be Root
                 Header = doc.DocumentElement.Name,
+                Name = doc.DocumentElement.GetAttribute(NAME),
                 IsExpanded = true
             };
             treeView.Items.Add(treeNode);
@@ -94,11 +98,16 @@ namespace XmlEditorTool
                 {
                     case XmlNodeType.Element:
                         XmlElement childElement = child as XmlElement;
+
+                        string specificNode = (childElement.GetAttribute(NAME) != null ? " \"" + childElement.GetAttribute(NAME) + "\"" : "");
+                        if (specificNode.Trim().Equals(""))
+                            specificNode = (childElement.GetAttribute(LOC_NAME) != null ? " \"" + childElement.GetAttribute(LOC_NAME) + "\"" : null);
+
                         TreeViewItem childTreeNode = new TreeViewItem
                         {
                             //Get First attribute where it is equal to value
-                            Header = childElement.Name,//.Attributes().First(s => s.Name == "value").Value,
-                            //DataContext = childElement,
+                            Header = !specificNode.Trim().Equals("") ? (childElement.Name + specificNode) : childElement.Name,
+                            
                             //Automatically expand elements
                             IsExpanded = true
                         };
@@ -107,7 +116,7 @@ namespace XmlEditorTool
                         break;
                     case XmlNodeType.Text:
                         XmlText childText = child as XmlText;
-                        treeNode.Items.Add(new TreeViewItem { Header = childText.Value, });
+                        treeNode.Items.Add(new TreeViewItem { Header = childText.Value.Trim() != ""? childText.Value : "", });
                         break;
                 }
             }
