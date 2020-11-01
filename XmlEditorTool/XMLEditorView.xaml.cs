@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XmlEditorTool.Utility;
 
 namespace XmlEditorTool
 {
@@ -81,6 +82,14 @@ namespace XmlEditorTool
                 XMLService.BuildTree(filename, XmlTreeView);
                 XmlTreeView.Visibility = Visibility.Visible;
             }
+        }
+
+        private void XmlTreeViewItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            string itemName = (e.NewValue as TreeViewItem).Name;
+            string fileToUse = ComponentMapperManager.GetInstance().GetSourceFile(itemName);
+
+            FileNameLabel.Content = fileToUse;
         }
     }
 }

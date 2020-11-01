@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace XmlEditorTool
 {
     class XMLService
     {
-        private static string NAME = "Name";
-        private static string LOC_NAME = "LocName";
+        private const string NAME = "Name";
+        private const string LOC_NAME = "LocName";
 
         public static void LoadTreeViewFromXmlFile(string filename, System.Windows.Controls.TreeView view)
         {
@@ -107,7 +104,7 @@ namespace XmlEditorTool
                         {
                             //Get First attribute where it is equal to value
                             Header = !specificNode.Trim().Equals("") ? (childElement.Name + specificNode) : childElement.Name,
-                            
+                            Name = childElement.Name,
                             //Automatically expand elements
                             IsExpanded = true
                         };
