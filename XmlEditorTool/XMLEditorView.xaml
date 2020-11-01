@@ -11,7 +11,7 @@
     <Grid>
         <Grid.Resources>
             <Image x:Key="UploadImage" Height="64"
-                   Source="File-Adobe-Dreamweaver-XML-01-icon.png"/>
+                   Source="Resources/File-Adobe-Dreamweaver-XML-01-icon.png"/>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition ></ColumnDefinition>
@@ -53,7 +53,12 @@
         </Grid>
         
         <!-- Treeview Panel -->
-        <TreeView Name="XmlTreeView" Grid.Column="0" Grid.Row="1" Visibility="Hidden"></TreeView>
-
+        <TreeView Name="XmlTreeView" Grid.Column="0" Grid.Row="1" 
+                  Visibility="Hidden" SelectedItemChanged="XmlTreeViewItemSelected"></TreeView>
+        
+        <!-- Right Panel -->
+        <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center" Background="Navy" 
+               Foreground="White"></Label>
     </Grid>
 </Page>

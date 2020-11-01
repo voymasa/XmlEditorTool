@@ -1,0 +1,4 @@
+Component,SourceFile
+AnimationComponent,EngineAnimationComponent.h
+AudioComponent,EngineAudioComponent.h
+Action,Action.h
