@@ -106,7 +106,7 @@ namespace XmlEditorTool
 
         private void CloseApp(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
     }
 }
