@@ -30,37 +30,46 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
             <!-- Mapper File -->
             <Label Name="MapperFileLoc" Grid.Row="0" Grid.Column="0"
-                   VerticalAlignment="Top" HorizontalAlignment="Left">
+                   VerticalAlignment="Center" HorizontalAlignment="Center">
                 Component to Source Mapper File:</Label>
             <TextBox Name="MapperFileTxtBox" Grid.Row="0" Grid.Column="1"
-                     Width="200" Height="35" VerticalAlignment="Top"
-                     HorizontalAlignment="Center"/>
+                     Width="200" Height="35" VerticalAlignment="Center"
+                     HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
             <Button Name="MapperFileBtn" Grid.Row="0" Grid.Column="2"
                     Width="80" Height="35" Click="OpenMapperDialog"
-                    VerticalAlignment="Top" HorizontalAlignment="Right">Browse</Button>
+                    VerticalAlignment="Center" HorizontalAlignment="Right">Browse</Button>
             
             <!-- Source Files -->
             <Label Name="SourceFileDir" Grid.Row="1" Grid.Column="0"
-                   VerticalAlignment="Top" HorizontalAlignment="Left">
+                   VerticalAlignment="Center" HorizontalAlignment="Left">
                 Source File Directory:
             </Label>
             <TextBox Name="SourceFileDirTxtBox" Grid.Row="1" Grid.Column="1"
-                       Width="200" Height="35" VerticalAlignment="Top"
-                       HorizontalAlignment="Center">
+                       Width="200" Height="35" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center">
             </TextBox>
             <Button Name="SourceFileDirBtn" Grid.Row="1" Grid.Column="2"
-                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                    VerticalAlignment="Center" HorizontalAlignment="Right"
                     Width="80" Height="35" Click="OpenSourceFileDialog">
                 Browse
+            </Button>
+            
+            <!-- Save settings -->
+            <Button Name="SaveChanges" Grid.Row="4" Grid.Column="2"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="80" Height="35" Click="SaveSettings">
+                Apply
             </Button>
         </Grid>
     </Grid>

@@ -23,6 +23,7 @@ namespace XmlEditorTool
         public MainWindow()
         {
             InitializeComponent();
+            Properties.Settings.Default.Reload();
         }
     }
 }
