@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\App.xaml
-3-606320112
+51523440585
 
-91955291487
+111878930168
 122-1304113135
-MainWindow.xaml;XmlEditorToolHomeView.xaml;XMLEditorView.xaml;
+MainWindow.xaml;SettingsPageView.xaml;SettingsWindowView.xaml;XmlEditorToolHomeView.xaml;XMLEditorView.xaml;
 
 False
 

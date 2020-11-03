@@ -58,6 +58,10 @@ namespace XmlEditorTool
             }
         }
 
+        /**
+         * This method opens the file selected from the Open Dialogue and displays its
+         * contents in the left window panel
+         */
         private void UploadFileClick(object sender, RoutedEventArgs e)
         {
             if (XmlTreeView.IsVisible)
@@ -90,6 +94,19 @@ namespace XmlEditorTool
             string fileToUse = ComponentMapperManager.GetInstance().GetSourceFile(itemName);
 
             FileNameLabel.Content = fileToUse;
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            // Create object of the settings window object type
+            // Call the show method on that window
+            SettingsWindowView settings = new SettingsWindowView();
+            settings.Show();
+        }
+
+        private void CloseApp(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

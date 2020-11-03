@@ -26,3 +26,7 @@ C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\System.Runtime
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool.csprojAssemblyReference.cache
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool.csproj.CopyComplete
+C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsPageView.g.cs
+C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsPageView.baml
+C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsWindowView.g.cs
+C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsWindowView.baml
