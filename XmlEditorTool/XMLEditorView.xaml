@@ -20,17 +20,33 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <!-- Menu -->
+        <Border Grid.Row="0" Background="LightGray" BorderThickness="2,2,0,2"/>
+        <Border Grid.Row="0" Grid.Column="1" Background="LightGray" BorderThickness="0,2,2,2"/>
+
+        <Menu Name="MenuBar" Width="Auto" Background="Transparent" HorizontalAlignment="Left" 
+              VerticalAlignment="Center" IsMainMenu="True" Grid.Row="0">
+            <Menu.BitmapEffect>
+                <DropShadowBitmapEffect/>
+            </Menu.BitmapEffect>
+            <MenuItem Header="Application" Name="AppMenu">
+                <MenuItem Header="Settings" Name="Settings" Click="OpenSettings"></MenuItem>
+                <MenuItem Header="Close" Name="Exit" Click="CloseApp"></MenuItem>
+            </MenuItem>
+        </Menu>
+        
         <!-- Header -->
-        <Label Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center"
+        <Label Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" Background="Navy" 
                Foreground="White">XML File View</Label>
 
         
         <!-- File Upload Panel -->
-        <Grid Name="FileUploadGrid" Grid.Column="0" Grid.Row="1" Background="LightGray">
+        <Grid Name="FileUploadGrid" Grid.Column="0" Grid.Row="2" Background="LightGray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -53,11 +69,11 @@
         </Grid>
         
         <!-- Treeview Panel -->
-        <TreeView Name="XmlTreeView" Grid.Column="0" Grid.Row="1" 
+        <TreeView Name="XmlTreeView" Grid.Column="0" Grid.Row="2" 
                   Visibility="Hidden" SelectedItemChanged="XmlTreeViewItemSelected"></TreeView>
         
         <!-- Right Panel -->
-        <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"
+        <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" Background="Navy" 
                Foreground="White"></Label>
     </Grid>

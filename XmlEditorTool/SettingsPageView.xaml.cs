@@ -16,14 +16,14 @@ using System.Windows.Shapes;
 namespace XmlEditorTool
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SettingsPageView.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class SettingsPageView : Page
     {
-        public MainWindow()
+        public SettingsPageView()
         {
             InitializeComponent();
-            Properties.Settings.Default.Reload();
+            // TODO -- add a viewmodel and model to improve loading of the current settings upon page generation
         }
     }
 }

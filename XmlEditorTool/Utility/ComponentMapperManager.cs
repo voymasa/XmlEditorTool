@@ -32,10 +32,6 @@ namespace XmlEditorTool.Utility
         private Dictionary<string,string> ComponentSourceFileMap;
         public Dictionary<string,string> ComponentSourceFileMapProperty { get => ComponentSourceFileMap; set => ComponentSourceFileMap = value; }
 
-        // TODO -- replace this with a reference to preferences settings
-        private const string RESOURCE_FOLDER = "Resources/";
-        private const string COMPONENT_SOURCE_MAP_FILE = "ComponentToSrcFileMap.csv";
-
         private void ReloadMapping()
         {
             ComponentSourceFileMapProperty = null;
@@ -49,7 +45,7 @@ namespace XmlEditorTool.Utility
              * parse the contents with a csv parser, into the dictionary
              */
             // TODO -- change the const string reference to use a settings value
-            using (var stream = new StreamReader(Resources.ComponentToSourceFileMap))
+            using (var stream = new StreamReader(Settings.Default.MapperFile))
             using (var csv = new CsvReader(stream, CultureInfo.InvariantCulture))
             {
                 using (var dr = new CsvDataReader(csv))
