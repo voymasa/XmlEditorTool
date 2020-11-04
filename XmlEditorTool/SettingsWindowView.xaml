@@ -65,7 +65,18 @@
                 Browse
             </Button>
             
+            <!-- Macro prefix -->
+            <Label Name="MacroPrefix" Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                Macro Prefix:
+            </Label>
+            <TextBox Name="MacroPrefixTxtBox" Grid.Row="2" Grid.Column="1"
+                       Width="200" Height="35" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center">
+            </TextBox>
+            
             <!-- Save settings -->
+            <TextBlock Name="OpMsg" Grid.Row="3" Grid.Column="1"></TextBlock>
             <Button Name="SaveChanges" Grid.Row="4" Grid.Column="2"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
                     Width="80" Height="35" Click="SaveSettings">

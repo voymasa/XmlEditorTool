@@ -25,6 +25,7 @@ namespace XmlEditorTool
             InitializeComponent();
             MapperFileTxtBox.Text = Properties.Settings.Default.MapperFile;
             SourceFileDirTxtBox.Text = Properties.Settings.Default.SourceFileDir;
+            MacroPrefixTxtBox.Text = Properties.Settings.Default.MacroPrefix;
         }
 
         private void OpenMapperDialog(object sender, RoutedEventArgs e)
@@ -67,7 +68,18 @@ namespace XmlEditorTool
         {
             Properties.Settings.Default.MapperFile = MapperFileTxtBox.Text;
             Properties.Settings.Default.SourceFileDir = SourceFileDirTxtBox.Text;
-            Properties.Settings.Default.Save();
+            Properties.Settings.Default.MacroPrefix = MacroPrefixTxtBox.Text;
+            try
+            {
+                Properties.Settings.Default.Save();
+                OpMsg.Foreground = Brushes.Green;
+                OpMsg.Text = "Settings Saved.";
+            }
+            catch
+            {
+                OpMsg.Foreground = Brushes.Red;
+                OpMsg.Text = "Failed to save settings.";
+            }
         }
 
         private void CloseSettings(object sender, RoutedEventArgs e)
