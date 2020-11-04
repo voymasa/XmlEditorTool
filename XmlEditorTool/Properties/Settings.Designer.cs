@@ -46,5 +46,17 @@ namespace XmlEditorTool.Properties {
                 this["SourceFileDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MacroPrefix {
+            get {
+                return ((string)(this["MacroPrefix"]));
+            }
+            set {
+                this["MacroPrefix"] = value;
+            }
+        }
     }
 }
