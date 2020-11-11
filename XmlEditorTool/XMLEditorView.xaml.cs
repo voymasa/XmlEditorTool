@@ -105,14 +105,30 @@ namespace XmlEditorTool
 
             FileNameLabel.Content = fileToUse;
 
-            List<ComponentData> macroList = new List<ComponentData>();
+            List<ComponentData> componentDataList = new List<ComponentData>();
+
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
+            List<string> macroList = XMLService.ParseMacroList(fileToUse);
             // iterate through the list and compare the substring preceding the ( to the macro table/enums
-            // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
-            // add the Data object to the List<Data>
+            foreach (string s in macroList)
+            {
+                // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
+                ComponentData data = new ComponentData();
+                int openParIndex = s.IndexOf("(");
+                if (openParIndex < 0)
+                    continue;
+                string macroName = s.Substring(0, openParIndex);
+                string[] args = s.Substring(openParIndex).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                data.AttributeName = args[0];
+                data.ContentValue = args[1];
+                // find the corresponding datatype of the macro content value, i.e. default value
+                data.Datatype = data.ContentValue.GetType().ToString(); // this will be determined by some mapper between the macro name and a list
+                // add the Data object to the List<Data>
+                componentDataList.Add(data);
+            }
 
             // final step is to set the List<Data> as the itemsource for the datagrid
-            DgGrid.ItemsSource = macroList;
+            DgGrid.ItemsSource = componentDataList;
             DgGrid.Visibility = Visibility.Visible;
         }
 

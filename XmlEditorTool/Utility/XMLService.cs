@@ -67,12 +67,16 @@ namespace XmlEditorTool
          * @param sourceFile a string of the filepath to the sourcefile containing the macros
          * returns List<string> containing the lines that are macros, or null if the MacroPrefix setting hasn't been set
          */
-        public List<string> ParseMacroList(string sourceFile)
+        public static List<string> ParseMacroList(string sourceFile)
         {
+            List<string> macros = new List<string>();
+
+            if (!sourceFile.Contains(".h")) // TODO -- figure out a better "null"check
+                return macros;
+            string filepath = Properties.Settings.Default.SourceFileDir + "/" + sourceFile;
             if (String.IsNullOrWhiteSpace(Properties.Settings.Default.MacroPrefix))
                 return null;
-            List<string> macros = new List<string>();
-            using (StreamReader reader = new StreamReader(sourceFile))
+            using (StreamReader reader = new StreamReader(filepath))
             {
                 // read the file line by line and check if it contains the macro prefix
                 string currentLine;
@@ -80,7 +84,7 @@ namespace XmlEditorTool
                 {
                     currentLine = reader.ReadLine();
                     // if it contains the macro prefix, add that line to the macros List<string> object                
-                    if (currentLine.Contains(Properties.Settings.Default.MacroPrefix))
+                    if (currentLine != null && currentLine.Contains(Properties.Settings.Default.MacroPrefix))
                     {
                         macros.Add(currentLine);
                     }

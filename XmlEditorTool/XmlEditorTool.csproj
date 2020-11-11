@@ -79,6 +79,7 @@
     <Compile Include="Utility\ComponentData.cs" />
     <Compile Include="Utility\ComponentMapperManager.cs" />
     <Compile Include="Utility\DataTemplateSelector.cs" />
+    <Compile Include="Utility\MacroMapperHelper.cs" />
     <Compile Include="XmlEditorToolHomeView.xaml.cs">
       <DependentUpon>XmlEditorToolHomeView.xaml</DependentUpon>
     </Compile>
@@ -139,6 +140,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\ComponentToSrcFileMap.csv" />
+    <None Include="Resources\MacroDatatypeCsv.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
