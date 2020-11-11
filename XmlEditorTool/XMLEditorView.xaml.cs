@@ -115,14 +115,15 @@ namespace XmlEditorTool
                 // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
                 ComponentData data = new ComponentData();
                 int openParIndex = s.IndexOf("(");
+                int closeParIndex = s.IndexOf(")");
                 if (openParIndex < 0)
                     continue;
                 string macroName = s.Substring(0, openParIndex);
-                string[] args = s.Substring(openParIndex).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] args = s.Substring(openParIndex, closeParIndex - openParIndex).Replace("(","").Replace(")","").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 data.AttributeName = args[0];
                 data.ContentValue = args[1];
                 // find the corresponding datatype of the macro content value, i.e. default value
-                data.Datatype = data.ContentValue.GetType().ToString(); // this will be determined by some mapper between the macro name and a list
+                data.Datatype = data.ContentValue.GetType().Name.ToString(); // this will be determined by some mapper between the macro name and a list
                 // add the Data object to the List<Data>
                 componentDataList.Add(data);
             }
