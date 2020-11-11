@@ -30,3 +30,4 @@ C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsPageVi
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsPageView.baml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsWindowView.g.cs
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsWindowView.baml
+C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\GeneratedInternalTypeHelper.g.cs

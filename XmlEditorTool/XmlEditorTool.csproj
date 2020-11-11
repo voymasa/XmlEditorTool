@@ -76,7 +76,9 @@
     <Compile Include="SettingsWindowView.xaml.cs">
       <DependentUpon>SettingsWindowView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utility\ComponentData.cs" />
     <Compile Include="Utility\ComponentMapperManager.cs" />
+    <Compile Include="Utility\DataTemplateSelector.cs" />
     <Compile Include="XmlEditorToolHomeView.xaml.cs">
       <DependentUpon>XmlEditorToolHomeView.xaml</DependentUpon>
     </Compile>
