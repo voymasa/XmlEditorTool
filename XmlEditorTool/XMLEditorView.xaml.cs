@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using XmlEditorTool.Utility;
 
 namespace XmlEditorTool
@@ -24,6 +26,14 @@ namespace XmlEditorTool
         public XMLEditorView()
         {
             InitializeComponent();
+            // create/load the datalist here
+            var dataList = new List<ComponentData> { 
+                new ComponentData { AttributeName = "First", Datatype = "String", ContentValue = "hello" },
+                new ComponentData { AttributeName = "Second", Datatype = "Enum", ContentValue = new List<object> { "a","b","ab" } },
+                new ComponentData { AttributeName = "Third", Datatype = "Int", ContentValue = 42},
+                new ComponentData { AttributeName = "Fourth", Datatype = "Boolean", ContentValue= false}
+            };
+            DgGrid.ItemsSource = dataList;
         }
 
         private void UploadDrop(object sender, DragEventArgs e)
@@ -90,10 +100,45 @@ namespace XmlEditorTool
 
         private void XmlTreeViewItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            DgGrid.Visibility = Visibility.Hidden;
             string itemName = (e.NewValue as TreeViewItem).Name;
             string fileToUse = ComponentMapperManager.GetInstance().GetSourceFile(itemName);
 
             FileNameLabel.Content = fileToUse;
+
+            List<ComponentData> componentDataList = new List<ComponentData>();
+
+            // read through the file and store in a List<string> each line that contains the Macro Prefix setting
+            List<string> macroList = XMLService.ParseMacroList(fileToUse);
+            // iterate through the list and compare the substring preceding the ( to the macro table/enums
+            foreach (string s in macroList)
+            {
+                // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
+                ComponentData data = new ComponentData();
+                int openParIndex = s.IndexOf("(");
+                int closeParIndex = s.IndexOf(")");
+                if (openParIndex < 0)
+                    continue;
+                string macroName = s.Substring(0, openParIndex);
+                string[] args = s.Substring(openParIndex, closeParIndex - openParIndex).Replace("(","").Replace(")","").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                data.AttributeName = args[0];
+                data.ContentValue = args[1];
+                // find the corresponding datatype of the macro content value, i.e. default value
+                data.Datatype = data.ContentValue.GetType().Name.ToString(); // this will be determined by some mapper between the macro name and a list
+                // get the value of the attribute with the same name, and grab the value
+                XmlElement xmlElement = ApplicationManager.GetInstance().XmlElements.Find(x => x.Name.Equals(itemName) && x.HasAttribute(args[0]));
+                if (xmlElement != null)
+                {
+                    string attributeValue = xmlElement.GetAttribute(args[0]);
+                    data.ContentValue = attributeValue;
+                }
+                // add the Data object to the List<Data>
+                componentDataList.Add(data);
+            }
+
+            // final step is to set the List<Data> as the itemsource for the datagrid
+            DgGrid.ItemsSource = componentDataList;
+            DgGrid.Visibility = Visibility.Visible;
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)

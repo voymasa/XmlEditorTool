@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XmlEditorTool"
+      xmlns:utility="clr-namespace:XmlEditorTool.Utility"
       mc:Ignorable="d" 
       d:DesignHeight="350" d:DesignWidth="720"
       Title="Xml Editor Tool - Editor">
@@ -76,5 +77,87 @@
         <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" Background="Navy" 
                Foreground="White"></Label>
+        <DataGrid x:Name="DgGrid" Grid.Column="1" Grid.Row="2"
+                  AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Resources>
+                <DataTemplate x:Key="BasicStringTemplate">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Path=AttributeName}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=String1}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=Datatype}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=String1Datatype}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="{Binding Path=AttributeValue}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=String1Value}"/>
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate x:Key="BasicStringSizeTemplate">
+                    <TextBlock Text="{Binding ContentValue}"/>
+                    <!-- Figure out a way to have multiple columns for this template -->
+                </DataTemplate>
+
+                <DataTemplate x:Key="IntegerTemplate">
+                    <TextBox Text="{Binding ContentValue}"/>
+                </DataTemplate>
+                <DataTemplate x:Key="StringTemplate">
+                    <TextBox Text="{Binding ContentValue}"/>
+                </DataTemplate>
+                <DataTemplate x:Key="EnumTemplate">
+                    <ComboBox ItemsSource="{Binding ContentValue}">
+                    </ComboBox>
+                </DataTemplate>
+                <DataTemplate x:Key="BooleanTemplate">
+                    <CheckBox Content="{Binding ContentValue}">
+                        <CheckBox.Style>
+                            <Style TargetType="CheckBox">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ContentValue}" Value="True">
+                                        <Setter Property="IsChecked" Value="True"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ContentValue}" Value="False">
+                                        <Setter Property="IsChecked" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+                </DataTemplate>
+
+
+                <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
+                                                    EnumTemplate="{StaticResource EnumTemplate}"
+                                                    StringTemplate="{StaticResource StringTemplate}"
+                                                    BooleanTemplate="{StaticResource BooleanTemplate}"
+                                                    IntegerTemplate="{StaticResource IntegerTemplate}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Attribute">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding AttributeName}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Datatype">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Datatype}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Value" CellTemplateSelector="{StaticResource TemplateSelector}">
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace XmlEditorTool
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".csv";
             dlg.Filter = "Comma-Seperated Value (*.csv)|*.csv";
+            dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.MapperFile);
 
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
@@ -56,6 +58,7 @@ namespace XmlEditorTool
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.ShowNewFolderButton = true;
+                dlg.SelectedPath = Properties.Settings.Default.SourceFileDir;
                 DialogResult result = dlg.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {

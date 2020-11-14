@@ -58,5 +58,17 @@ namespace XmlEditorTool.Properties {
                 this["MacroPrefix"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DatatypeMapFile {
+            get {
+                return ((string)(this["DatatypeMapFile"]));
+            }
+            set {
+                this["DatatypeMapFile"] = value;
+            }
+        }
     }
 }
