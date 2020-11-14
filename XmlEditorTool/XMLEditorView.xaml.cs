@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using XmlEditorTool.Utility;
 
 namespace XmlEditorTool
@@ -124,6 +125,13 @@ namespace XmlEditorTool
                 data.ContentValue = args[1];
                 // find the corresponding datatype of the macro content value, i.e. default value
                 data.Datatype = data.ContentValue.GetType().Name.ToString(); // this will be determined by some mapper between the macro name and a list
+                // get the value of the attribute with the same name, and grab the value
+                XmlElement xmlElement = ApplicationManager.GetInstance().XmlElements.Find(x => x.Name.Equals(itemName) && x.HasAttribute(args[0]));
+                if (xmlElement != null)
+                {
+                    string attributeValue = xmlElement.GetAttribute(args[0]);
+                    data.ContentValue = attributeValue;
+                }
                 // add the Data object to the List<Data>
                 componentDataList.Add(data);
             }
