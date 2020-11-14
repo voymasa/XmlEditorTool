@@ -86,16 +86,21 @@ namespace XmlEditorTool
             using (StreamReader reader = new StreamReader(filepath))
             {
                 // read the file line by line and check if it contains the macro prefix
-                string currentLine;
-                do
+                string currentLine = reader.ReadLine();
+                while(currentLine != null)
                 {
-                    currentLine = reader.ReadLine();
+                    if (currentLine != null && (currentLine.Trim().StartsWith("//") || currentLine.Trim().StartsWith("#")))
+                    {
+                        currentLine = reader.ReadLine();
+                        continue;
+                    }
                     // if it contains the macro prefix, add that line to the macros List<string> object                
-                    if (currentLine != null && currentLine.Contains(Properties.Settings.Default.MacroPrefix))
+                    else if (currentLine != null && currentLine.Contains(Properties.Settings.Default.MacroPrefix))
                     {
                         macros.Add(currentLine);
                     }
-                } while (reader.ReadLine() != null) ;
+                    currentLine = reader.ReadLine();
+                }
             }
 
             return macros;
