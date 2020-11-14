@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Xml;
+using XmlEditorTool.Utility;
 
 namespace XmlEditorTool
 {
@@ -18,6 +19,8 @@ namespace XmlEditorTool
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(filepath);
+            ApplicationManager.GetInstance().XmlDocument = doc;
+            ApplicationManager.GetInstance().XmlElements.Add(doc.DocumentElement);
             TreeViewItem treeNode = new TreeViewItem
             {
                 //Should be Root
@@ -37,15 +40,19 @@ namespace XmlEditorTool
                 {
                     case XmlNodeType.Element:
                         XmlElement childElement = child as XmlElement;
+                        ApplicationManager.GetInstance().XmlElements.Add(childElement);
 
                         string specificNode = (childElement.GetAttribute(NAME) != null ? " \"" + childElement.GetAttribute(NAME) + "\"" : "");
                         if (specificNode.Trim().Equals(""))
                             specificNode = (childElement.GetAttribute(LOC_NAME) != null ? " \"" + childElement.GetAttribute(LOC_NAME) + "\"" : null);
 
+                        int openingTagIndex = childElement.OuterXml.IndexOf("<");
+                        int closingTagIndex = childElement.OuterXml.IndexOf(">");
+
                         TreeViewItem childTreeNode = new TreeViewItem
                         {
                             //Get First attribute where it is equal to value
-                            Header = !specificNode.Trim().Equals("") ? (childElement.Name + specificNode) : childElement.Name,
+                            Header = childElement.OuterXml.Substring(openingTagIndex, closingTagIndex + 1),//!specificNode.Trim().Equals("") ? (childElement.Name + specificNode) : childElement.Name,
                             Name = childElement.Name,
                             //Automatically expand elements
                             IsExpanded = true
