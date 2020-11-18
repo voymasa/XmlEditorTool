@@ -80,7 +80,12 @@
     <Compile Include="Utility\ComponentData.cs" />
     <Compile Include="Utility\ComponentMapperManager.cs" />
     <Compile Include="Utility\DataTemplateSelector.cs" />
+    <Compile Include="Utility\DoubleFieldComponentData.cs" />
+    <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
+    <Compile Include="Utility\QuadFieldComponentData.cs" />
+    <Compile Include="Utility\SingleFieldComponentData.cs" />
+    <Compile Include="Utility\TripleFieldComponentData.cs" />
     <Compile Include="XmlEditorToolHomeView.xaml.cs">
       <DependentUpon>XmlEditorToolHomeView.xaml</DependentUpon>
     </Compile>

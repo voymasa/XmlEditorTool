@@ -27,6 +27,7 @@ namespace XmlEditorTool
             MapperFileTxtBox.Text = Properties.Settings.Default.MapperFile;
             SourceFileDirTxtBox.Text = Properties.Settings.Default.SourceFileDir;
             MacroPrefixTxtBox.Text = Properties.Settings.Default.MacroPrefix;
+            MacroDataFileTxtBox.Text = Properties.Settings.Default.DatatypeMapFile;
         }
 
         private void OpenMapperDialog(object sender, RoutedEventArgs e)
@@ -67,11 +68,35 @@ namespace XmlEditorTool
             }
         }
 
+        private void OpenMacroFileDialog(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".csv";
+            dlg.Filter = "Comma-Seperated Value (*.csv)|*.csv";
+            dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.MapperFile);
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                //TODO -- change this to use a Model/ViewModel later
+                MacroDataFileTxtBox.Text = filename;
+            }
+        }
+
         private void SaveSettings(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.MapperFile = MapperFileTxtBox.Text;
             Properties.Settings.Default.SourceFileDir = SourceFileDirTxtBox.Text;
             Properties.Settings.Default.MacroPrefix = MacroPrefixTxtBox.Text;
+            Properties.Settings.Default.DatatypeMapFile = MacroDataFileTxtBox.Text;
             try
             {
                 Properties.Settings.Default.Save();

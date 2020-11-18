@@ -26,14 +26,6 @@ namespace XmlEditorTool
         public XMLEditorView()
         {
             InitializeComponent();
-            // create/load the datalist here
-            var dataList = new List<ComponentData> { 
-                new ComponentData { AttributeName = "First", Datatype = "String", ContentValue = "hello" },
-                new ComponentData { AttributeName = "Second", Datatype = "Enum", ContentValue = new List<object> { "a","b","ab" } },
-                new ComponentData { AttributeName = "Third", Datatype = "Int", ContentValue = 42},
-                new ComponentData { AttributeName = "Fourth", Datatype = "Boolean", ContentValue= false}
-            };
-            DgGrid.ItemsSource = dataList;
         }
 
         private void UploadDrop(object sender, DragEventArgs e)
@@ -124,13 +116,14 @@ namespace XmlEditorTool
                 data.AttributeName = args[0];
                 data.ContentValue = args[1];
                 // find the corresponding datatype of the macro content value, i.e. default value
-                data.Datatype = data.ContentValue.GetType().Name.ToString(); // this will be determined by some mapper between the macro name and a list
+                data.Datatype = MacroMapperHelper.GetInstance().GetDatatype(macroName); // this will be determined by some mapper between the macro name and a list
                 // get the value of the attribute with the same name, and grab the value
                 XmlElement xmlElement = ApplicationManager.GetInstance().XmlElements.Find(x => x.Name.Equals(itemName) && x.HasAttribute(args[0]));
                 if (xmlElement != null)
                 {
                     string attributeValue = xmlElement.GetAttribute(args[0]);
                     data.ContentValue = attributeValue;
+                    //data.SetContentValue(0, attributeValue);
                 }
                 // add the Data object to the List<Data>
                 componentDataList.Add(data);

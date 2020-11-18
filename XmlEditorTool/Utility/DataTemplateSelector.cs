@@ -21,7 +21,7 @@ namespace XmlEditorTool.Utility
         {
             if (item is ComponentData)
             {
-                if (((item as ComponentData).ContentValue) is Int32)
+                if ((item as ComponentData).ContentValue is Int32)
                     return IntegerTemplate;
                 else if ((item as ComponentData).ContentValue is Boolean)
                     return BooleanTemplate;

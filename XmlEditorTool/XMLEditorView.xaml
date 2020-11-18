@@ -77,6 +77,15 @@
         <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" Background="Navy" 
                Foreground="White"></Label>
+        <TreeView Name="MacroTreeView" Grid.Column="1" Grid.Row="2"
+                  Visibility="Hidden">
+            <TreeView.Resources>
+                <DataTemplate x:Key="BasicStringTemplate">
+                    <DataGrid Name="DgMacros" AutoGenerateColumns="False"></DataGrid>
+                </DataTemplate>
+            </TreeView.Resources>
+            <!-- Using code, Add the TreeViewItems containing DataGrids derived from DataTables -->
+        </TreeView>
         <DataGrid x:Name="DgGrid" Grid.Column="1" Grid.Row="2"
                   AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>

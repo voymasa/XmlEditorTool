@@ -32,6 +32,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -48,7 +49,7 @@
                      HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
             <Button Name="MapperFileBtn" Grid.Row="0" Grid.Column="2"
                     Width="80" Height="35" Click="OpenMapperDialog"
-                    VerticalAlignment="Center" HorizontalAlignment="Right">Browse</Button>
+                    VerticalAlignment="Center" HorizontalAlignment="Center">Browse</Button>
             
             <!-- Source Files -->
             <Label Name="SourceFileDir" Grid.Row="1" Grid.Column="0"
@@ -60,23 +61,38 @@
                        HorizontalAlignment="Center" VerticalContentAlignment="Center">
             </TextBox>
             <Button Name="SourceFileDirBtn" Grid.Row="1" Grid.Column="2"
-                    VerticalAlignment="Center" HorizontalAlignment="Right"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
                     Width="80" Height="35" Click="OpenSourceFileDialog">
                 Browse
             </Button>
             
+            <!-- MacroListFile -->
+            <Label Name="MacroDataFile" Grid.Row="2" Grid.Column="0"
+                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                Macro Data Filename:
+            </Label>
+            <TextBox Name="MacroDataFileTxtBox" Grid.Row="2" Grid.Column="1"
+                       Width="200" Height="35" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center">
+            </TextBox>
+            <Button Name="MacroDataFileBtn" Grid.Row="2" Grid.Column="2"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="80" Height="35" Click="OpenMacroFileDialog">
+                Browse
+            </Button>
+            
             <!-- Macro prefix -->
-            <Label Name="MacroPrefix" Grid.Row="2" Grid.Column="0"
+            <Label Name="MacroPrefix" Grid.Row="3" Grid.Column="0"
                    VerticalAlignment="Center" HorizontalAlignment="Left">
                 Macro Prefix:
             </Label>
-            <TextBox Name="MacroPrefixTxtBox" Grid.Row="2" Grid.Column="1"
+            <TextBox Name="MacroPrefixTxtBox" Grid.Row="3" Grid.Column="1"
                        Width="200" Height="35" VerticalAlignment="Center"
                        HorizontalAlignment="Center" VerticalContentAlignment="Center">
             </TextBox>
             
             <!-- Save settings -->
-            <TextBlock Name="OpMsg" Grid.Row="3" Grid.Column="1"></TextBlock>
+            <TextBlock Name="OpMsg" Grid.Row="4" Grid.Column="1"></TextBlock>
             <Button Name="SaveChanges" Grid.Row="4" Grid.Column="2"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
                     Width="80" Height="35" Click="SaveSettings">

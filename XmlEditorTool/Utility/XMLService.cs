@@ -21,10 +21,14 @@ namespace XmlEditorTool
             doc.Load(filepath);
             ApplicationManager.GetInstance().XmlDocument = doc;
             ApplicationManager.GetInstance().XmlElements.Add(doc.DocumentElement);
+
+            int openTagIndex = doc.DocumentElement.OuterXml.IndexOf("<");
+            int closeTagIndex = doc.DocumentElement.OuterXml.IndexOf(">");
+
             TreeViewItem treeNode = new TreeViewItem
             {
                 //Should be Root
-                Header = doc.DocumentElement.Name,
+                Header = doc.DocumentElement.OuterXml.Substring(openTagIndex,closeTagIndex + 1),
                 Name = doc.DocumentElement.GetAttribute(NAME),
                 IsExpanded = true
             };
