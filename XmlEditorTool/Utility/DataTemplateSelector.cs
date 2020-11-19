@@ -15,19 +15,24 @@ namespace XmlEditorTool.Utility
         public DataTemplate IntegerTemplate { get; set; }
         public DataTemplate StringTemplate { get; set; }
         public DataTemplate BooleanTemplate { get; set; }
+        public DataTemplate DynamicComponentTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item,
             System.Windows.DependencyObject container)
         {
-            if (item is ComponentData)
+            if (item is DynamicallySizedComponentData)
             {
-                if ((item as ComponentData).ContentValue is Int32)
+                return DynamicComponentTemplate;
+            }
+            else if (item is ComponentData)
+            {
+                if ((item as ComponentData).Datatype.Equals("int"))
                     return IntegerTemplate;
-                else if ((item as ComponentData).ContentValue is Boolean)
+                else if ((item as ComponentData).Datatype.Equals("boolean"))
                     return BooleanTemplate;
-                else if ((item as ComponentData).ContentValue is string)
+                else if ((item as ComponentData).Datatype.Equals("string"))
                     return StringTemplate;
-                else if ((item as ComponentData).ContentValue is IList<object>)
+                else if ((item as ComponentData).Datatype.Equals("enum"))
                     return EnumTemplate;
             }
             return null;

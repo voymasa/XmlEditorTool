@@ -80,59 +80,63 @@
         <TreeView Name="MacroTreeView" Grid.Column="1" Grid.Row="2"
                   Visibility="Hidden">
             <TreeView.Resources>
-                <DataTemplate x:Key="BasicStringTemplate">
-                    <DataGrid Name="DgMacros" AutoGenerateColumns="False"></DataGrid>
+                <DataTemplate x:Key="DynamicComponentTemplate">
+                    <DataGrid Name="DgMacros" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Attribute">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding AttributeName}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Datatype">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Datatype}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="{Binding Header1}" Binding="{Binding ContentValue1}"/>
+                            <DataGridTextColumn Header="{Binding Header2}" Binding="{Binding ContentValue2}"/>
+                            <DataGridTextColumn Header="{Binding Header3}" Binding="{Binding ContentValue3}"/>
+                            <DataGridTextColumn Header="{Binding Header4}" Binding="{Binding ContentValue4}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </DataTemplate>
+
+                <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
+                                                    DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"/>
             </TreeView.Resources>
             <!-- Using code, Add the TreeViewItems containing DataGrids derived from DataTables -->
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate>
+                    <Grid></Grid>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
         </TreeView>
         <DataGrid x:Name="DgGrid" Grid.Column="1" Grid.Row="2"
                   AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>
-                <DataTemplate x:Key="BasicStringTemplate">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Path=AttributeName}"/>
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=String1}"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=Datatype}"/>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=String1Datatype}"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="{Binding Path=AttributeValue}"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=String1Value}"/>
-                    </Grid>
-                </DataTemplate>
-                <DataTemplate x:Key="BasicStringSizeTemplate">
-                    <TextBlock Text="{Binding ContentValue}"/>
-                    <!-- Figure out a way to have multiple columns for this template -->
-                </DataTemplate>
-
                 <DataTemplate x:Key="IntegerTemplate">
-                    <TextBox Text="{Binding ContentValue}"/>
+                    <TextBox Text="{Binding ContentValue1}"/>
                 </DataTemplate>
                 <DataTemplate x:Key="StringTemplate">
-                    <TextBox Text="{Binding ContentValue}"/>
+                    <TextBox Text="{Binding ContentValue1}"/>
                 </DataTemplate>
                 <DataTemplate x:Key="EnumTemplate">
-                    <ComboBox ItemsSource="{Binding ContentValue}">
+                    <ComboBox ItemsSource="{Binding ContentValue1}">
                     </ComboBox>
                 </DataTemplate>
                 <DataTemplate x:Key="BooleanTemplate">
-                    <CheckBox Content="{Binding ContentValue}">
+                    <CheckBox Content="{Binding ContentValue1}">
                         <CheckBox.Style>
                             <Style TargetType="CheckBox">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ContentValue}" Value="True">
+                                    <DataTrigger Binding="{Binding ContentValue1}" Value="True">
                                         <Setter Property="IsChecked" Value="True"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding ContentValue}" Value="False">
+                                    <DataTrigger Binding="{Binding ContentValue1}" Value="False">
                                         <Setter Property="IsChecked" Value="False"/>
                                     </DataTrigger>
                                 </Style.Triggers>

@@ -98,7 +98,7 @@ namespace XmlEditorTool
 
             FileNameLabel.Content = fileToUse;
 
-            List<ComponentData> componentDataList = new List<ComponentData>();
+            List<DynamicallySizedComponentData> componentDataList = new List<DynamicallySizedComponentData>();
 
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
             List<string> macroList = XMLService.ParseMacroList(fileToUse);
@@ -106,7 +106,7 @@ namespace XmlEditorTool
             foreach (string s in macroList)
             {
                 // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
-                ComponentData data = new ComponentData();
+                DynamicallySizedComponentData data = new DynamicallySizedComponentData();
                 int openParIndex = s.IndexOf("(");
                 int closeParIndex = s.IndexOf(")");
                 if (openParIndex < 0)
@@ -114,7 +114,7 @@ namespace XmlEditorTool
                 string macroName = s.Substring(0, openParIndex);
                 string[] args = s.Substring(openParIndex, closeParIndex - openParIndex).Replace("(","").Replace(")","").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 data.AttributeName = args[0];
-                data.ContentValue = args[1];
+                data.AddContentValue(args[1]);
                 // find the corresponding datatype of the macro content value, i.e. default value
                 data.Datatype = MacroMapperHelper.GetInstance().GetDatatype(macroName); // this will be determined by some mapper between the macro name and a list
                 // get the value of the attribute with the same name, and grab the value
@@ -122,7 +122,7 @@ namespace XmlEditorTool
                 if (xmlElement != null)
                 {
                     string attributeValue = xmlElement.GetAttribute(args[0]);
-                    data.ContentValue = attributeValue;
+                    data.SetContentValue(0, attributeValue);
                     //data.SetContentValue(0, attributeValue);
                 }
                 // add the Data object to the List<Data>

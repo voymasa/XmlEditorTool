@@ -36,7 +36,7 @@ namespace XmlEditorTool.Utility
         protected class Content
         {
             public event PropertyChangedEventHandler PropertyChanged;
-
+            private string header;
             private string contentname;
             private object contentvalue;
             
@@ -44,8 +44,14 @@ namespace XmlEditorTool.Utility
 
             public Content(int index, object newContent)
             {
+                header = "Header" + (index + 1);
                 contentname = "ContentValue" + (index + 1);
                 ContentValue = newContent;
+            }
+
+            public string Header
+            {
+                get { return header; }
             }
 
             public object ContentValue { 
@@ -68,6 +74,11 @@ namespace XmlEditorTool.Utility
         public DynamicallySizedComponentData()
         {
             contentList = new List<Content>();
+        }
+
+        public string GetHeader(int index)
+        {
+            return contentList[index].Header;
         }
 
         public object GetContentValue(int index)
