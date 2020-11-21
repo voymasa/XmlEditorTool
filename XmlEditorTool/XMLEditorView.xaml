@@ -81,37 +81,63 @@
                   Visibility="Hidden">
             <TreeView.Resources>
                 <DataTemplate x:Key="DynamicComponentTemplate">
-                    <DataGrid Name="DgMacros" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Attribute">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding AttributeName}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Header="Datatype">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Datatype}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="{Binding Header1}" Binding="{Binding ContentValue1}"/>
-                            <DataGridTextColumn Header="{Binding Header2}" Binding="{Binding ContentValue2}"/>
-                            <DataGridTextColumn Header="{Binding Header3}" Binding="{Binding ContentValue3}"/>
-                            <DataGridTextColumn Header="{Binding Header4}" Binding="{Binding ContentValue4}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <TreeViewItem Name="MacroTreeItem">
+                        <DataGrid Name="MacroDg" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Attribute">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding AttributeName}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Datatype">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Datatype}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="{Binding Header1}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue1}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="{Binding Header2}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue2}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="{Binding Header3}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue3}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="{Binding Header4}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue4}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TreeViewItem>
                 </DataTemplate>
 
                 <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
                                                     DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"/>
             </TreeView.Resources>
             <!-- Using code, Add the TreeViewItems containing DataGrids derived from DataTables -->
+
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate>
-                    <Grid></Grid>
+                <HierarchicalDataTemplate ItemTemplateSelector="{StaticResource TemplateSelector}">
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

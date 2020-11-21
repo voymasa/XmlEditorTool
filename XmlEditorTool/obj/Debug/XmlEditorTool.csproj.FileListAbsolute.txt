@@ -2,13 +2,11 @@ C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\XmlEditorTool.
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\XmlEditorTool.exe
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\XmlEditorTool.pdb
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\MainWindow.g.cs
-C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorToolHomeView.g.cs
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XMLEditorView.g.cs
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\App.g.cs
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool_MarkupCompile.cache
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool_MarkupCompile.lref
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\MainWindow.baml
-C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorToolHomeView.baml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XMLEditorView.baml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool.g.resources
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool.Properties.Resources.resources
@@ -26,8 +24,6 @@ C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\System.Runtime
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool.csprojAssemblyReference.cache
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\XmlEditorTool.csproj.CopyComplete
-C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsPageView.g.cs
-C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsPageView.baml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsWindowView.g.cs
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\SettingsWindowView.baml
 C:\Users\Aaron\source\repos\XmlEditorTool\XmlEditorTool\obj\Debug\GeneratedInternalTypeHelper.g.cs

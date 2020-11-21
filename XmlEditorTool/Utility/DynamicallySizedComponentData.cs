@@ -12,6 +12,14 @@ namespace XmlEditorTool.Utility
         public event PropertyChangedEventHandler PropertyChanged;
         private string attributename;
         private string datatype;
+        private string header1;
+        private string header2;
+        private string header3;
+        private string header4;
+        private object content1;
+        private object content2;
+        private object content3;
+        private object content4;
 
         public string AttributeName
         {
@@ -33,70 +41,115 @@ namespace XmlEditorTool.Utility
             }
         }
 
-        protected class Content
+        public string Header1
         {
-            public event PropertyChangedEventHandler PropertyChanged;
-            private string header;
-            private string contentname;
-            private object contentvalue;
-            
-            public Content(int index) : this(index, new object()) {}
-
-            public Content(int index, object newContent)
+            get { return header1; }
+            set
             {
-                header = "Header" + (index + 1);
-                contentname = "ContentValue" + (index + 1);
-                ContentValue = newContent;
+                header1 = value;
+                OnPropertyChanged("Header1");
             }
-
-            public string Header
+        }
+        public string Header2
+        {
+            get { return header2; }
+            set
             {
-                get { return header; }
+                header2 = value;
+                OnPropertyChanged("Header2");
             }
-
-            public object ContentValue { 
-                get { return contentvalue; }
-                set { 
-                    contentvalue = value;
-                    OnPropertyChanged(contentname);
-                }
-            }
-
-            private void OnPropertyChanged(string propertyname)
+        }
+        public string Header3
+        {
+            get { return header3; }
+            set
             {
-                var handler = this.PropertyChanged;
-                if (handler != null) this.PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+                header3 = value;
+                OnPropertyChanged("Header3");
             }
         }
 
-        private List<Content> contentList { get; set; }
-
-        public DynamicallySizedComponentData()
+        public string Header4
         {
-            contentList = new List<Content>();
+            get { return header4; }
+            set
+            {
+                header4 = value;
+                OnPropertyChanged("Header4");
+            }
         }
 
-        public string GetHeader(int index)
+        public object ContentValue1
         {
-            return contentList[index].Header;
+            get { return content1; }
+            set
+            {
+                content1 = value;
+                OnPropertyChanged("ContentValue1");
+            }
         }
 
-        public object GetContentValue(int index)
+        public object ContentValue2
         {
-            return contentList[index].ContentValue;
+            get { return content2; }
+            set
+            {
+                content2 = value;
+                OnPropertyChanged("ContentValue2");
+            }
+        }
+
+        public object ContentValue3
+        {
+            get { return content3; }
+            set
+            {
+                content3 = value;
+                OnPropertyChanged("ContentValue3");
+            }
+        }
+
+        public object ContentValue4
+        {
+            get { return content4; }
+            set
+            {
+                content4 = value;
+                OnPropertyChanged("ContentValue4");
+            }
+        }
+
+        public void SetHeaderAndContent(int index, string header, object value)
+        {
+            switch (index)
+            {
+                case 0: Header1 = header; ContentValue1 = value; break;
+                case 1: Header2 = header; ContentValue2 = value; break;
+                case 2: Header3 = header; ContentValue3 = value; break;
+                case 3: Header4 = header; ContentValue4 = value; break;
+            }
         }
 
         public void SetContentValue(int index, object value)
         {
-            contentList[index].ContentValue = value;
-            //OnPropertyChanged("ContentValue" + (index + 1));
+            switch(index)
+            {
+                case 0: ContentValue1 = value; break;
+                case 1: ContentValue2 = value; break;
+                case 2: ContentValue3 = value; break;
+                case 3: ContentValue4 = value; break;
+            }
         }
 
-        public void AddContentValue(object value)
+        public void SetHeader(int index, string header)
         {
-            Content content = new Content(contentList.Count, value);
-            contentList.Add(content);
-            //OnPropertyChanged("ContentValue" + contentList.Count);
+            switch (index)
+            {
+                case 0: Header1 = header; break;
+                case 1: Header2 = header; break;
+                case 2: Header3 = header; break;
+                case 3: Header4 = header; break;
+            }
         }
 
         public void OnPropertyChanged(string propertyname)
