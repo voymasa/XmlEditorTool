@@ -160,6 +160,18 @@ namespace XmlEditorTool.Utility
             }
         }
 
+        public string GetHeader(int index)
+        {
+            switch(index)
+            {
+                case 0: return Header1;
+                case 1: return Header2;
+                case 2: return Header3;
+                case 3: return Header4;
+                default: return Header1;
+            }
+        }
+
         public void OnPropertyChanged(string propertyname)
         {
             var handler = this.PropertyChanged;

@@ -98,10 +98,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Header1}"/>
-                                    </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn Header="{Binding Path=Header1}">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox Text="{Binding ContentValue1}"/>

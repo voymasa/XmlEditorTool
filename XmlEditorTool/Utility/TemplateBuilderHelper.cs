@@ -15,7 +15,7 @@ namespace XmlEditorTool.Utility
         public static void BuildComponentDataTreeView(DataTemplate template, TreeView treeView, List<string> dataList, string itemName)
         {
             List<TreeViewItem> tvItemList = new List<TreeViewItem>();
-
+            
             // iterate through the list and compare the substring preceding the ( to the macro table/enums
             foreach (string s in dataList)
             {
@@ -46,9 +46,8 @@ namespace XmlEditorTool.Utility
                         //data.SetContentValue(0, attributeValue);
                     }
                 }
-                
-                //DataGrid dataGrid = BuildDataGrid(data);
 
+                //DataGrid dataGrid = BuildDataGrid(data);
                 TreeViewItem item = (TreeViewItem)template.LoadContent();
                 item.Header = data.AttributeName;
                 item.Name = data.AttributeName;
@@ -57,6 +56,10 @@ namespace XmlEditorTool.Utility
 
                 componentDataList.Add(data);
                 (item.Items.GetItemAt(0) as DataGrid).ItemsSource = componentDataList;
+                for (int i = 0; i < 4; i++)
+                {
+                    (item.Items.GetItemAt(0) as DataGrid).Columns[i + 2].Header = data.GetHeader(i);
+                }
                 tvItemList.Add(item);
             }
 
