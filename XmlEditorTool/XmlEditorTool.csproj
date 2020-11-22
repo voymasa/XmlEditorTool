@@ -70,9 +70,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SettingsPageView.xaml.cs">
-      <DependentUpon>SettingsPageView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SettingsWindowView.xaml.cs">
       <DependentUpon>SettingsWindowView.xaml</DependentUpon>
     </Compile>
@@ -80,10 +77,9 @@
     <Compile Include="Utility\ComponentData.cs" />
     <Compile Include="Utility\ComponentMapperManager.cs" />
     <Compile Include="Utility\DataTemplateSelector.cs" />
+    <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
-    <Compile Include="XmlEditorToolHomeView.xaml.cs">
-      <DependentUpon>XmlEditorToolHomeView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Utility\TemplateBuilderHelper.cs" />
     <Compile Include="XMLEditorView.xaml.cs">
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
     </Compile>
@@ -100,15 +96,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SettingsPageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="SettingsWindowView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XmlEditorToolHomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

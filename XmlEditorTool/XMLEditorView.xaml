@@ -77,53 +77,98 @@
         <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" Background="Navy" 
                Foreground="White"></Label>
+        <TreeView Name="MacroTreeView" Grid.Column="1" Grid.Row="2"
+                  Visibility="Hidden">
+            <TreeView.Resources>
+                <DataTemplate x:Key="DynamicComponentTemplate">
+                    <TreeViewItem Name="MacroTreeItem">
+                        <DataGrid Name="MacroDg" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Attribute">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding AttributeName}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Datatype">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Datatype}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Header1}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue1}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Header2}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue2}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Header3}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue3}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Header4}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding ContentValue4}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TreeViewItem>
+                </DataTemplate>
+
+                <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
+                                                    DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"/>
+            </TreeView.Resources>
+        </TreeView>
         <DataGrid x:Name="DgGrid" Grid.Column="1" Grid.Row="2"
                   AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>
-                <DataTemplate x:Key="BasicStringTemplate">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="{Binding Path=AttributeName}"/>
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=String1}"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=Datatype}"/>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=String1Datatype}"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="{Binding Path=AttributeValue}"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=String1Value}"/>
-                    </Grid>
-                </DataTemplate>
-                <DataTemplate x:Key="BasicStringSizeTemplate">
-                    <TextBlock Text="{Binding ContentValue}"/>
-                    <!-- Figure out a way to have multiple columns for this template -->
-                </DataTemplate>
-
                 <DataTemplate x:Key="IntegerTemplate">
-                    <TextBox Text="{Binding ContentValue}"/>
+                    <TextBox Text="{Binding ContentValue1}"/>
                 </DataTemplate>
                 <DataTemplate x:Key="StringTemplate">
-                    <TextBox Text="{Binding ContentValue}"/>
+                    <TextBox Text="{Binding ContentValue1}"/>
                 </DataTemplate>
                 <DataTemplate x:Key="EnumTemplate">
-                    <ComboBox ItemsSource="{Binding ContentValue}">
+                    <ComboBox ItemsSource="{Binding ContentValue1}">
                     </ComboBox>
                 </DataTemplate>
                 <DataTemplate x:Key="BooleanTemplate">
-                    <CheckBox Content="{Binding ContentValue}">
+                    <CheckBox Content="{Binding ContentValue1}">
                         <CheckBox.Style>
                             <Style TargetType="CheckBox">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ContentValue}" Value="True">
+                                    <DataTrigger Binding="{Binding ContentValue1}" Value="True">
                                         <Setter Property="IsChecked" Value="True"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding ContentValue}" Value="False">
+                                    <DataTrigger Binding="{Binding ContentValue1}" Value="False">
                                         <Setter Property="IsChecked" Value="False"/>
                                     </DataTrigger>
                                 </Style.Triggers>
