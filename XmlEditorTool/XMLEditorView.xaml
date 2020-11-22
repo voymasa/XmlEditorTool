@@ -98,28 +98,40 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="{Binding Header1}">
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Header1}"/>
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox Text="{Binding ContentValue1}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="{Binding Header2}">
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Header2}"/>
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox Text="{Binding ContentValue2}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="{Binding Header3}">
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Header3}"/>
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox Text="{Binding ContentValue3}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="{Binding Header4}">
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Header4}"/>
+                                    </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox Text="{Binding ContentValue4}"/>
@@ -134,12 +146,6 @@
                 <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
                                                     DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"/>
             </TreeView.Resources>
-            <!-- Using code, Add the TreeViewItems containing DataGrids derived from DataTables -->
-
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemTemplateSelector="{StaticResource TemplateSelector}">
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
         </TreeView>
         <DataGrid x:Name="DgGrid" Grid.Column="1" Grid.Row="2"
                   AutoGenerateColumns="False" CanUserAddRows="False">

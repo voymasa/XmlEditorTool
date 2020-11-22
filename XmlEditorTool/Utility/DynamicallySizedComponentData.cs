@@ -21,6 +21,14 @@ namespace XmlEditorTool.Utility
         private object content3;
         private object content4;
 
+        public DynamicallySizedComponentData()
+        {
+            header1 = "";
+            header2 = "";
+            header3 = "";
+            header4 = "";
+        }
+
         public string AttributeName
         {
             get { return attributename; }

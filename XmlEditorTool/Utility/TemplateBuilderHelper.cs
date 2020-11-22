@@ -20,7 +20,6 @@ namespace XmlEditorTool.Utility
             foreach (string s in dataList)
             {
                 List<DynamicallySizedComponentData> componentDataList = new List<DynamicallySizedComponentData>();
-                List<object> list = new List<object>();
 
                 // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
                 DynamicallySizedComponentData data = new DynamicallySizedComponentData();
