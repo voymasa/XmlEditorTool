@@ -18,6 +18,7 @@ namespace XmlEditorTool
         public static void BuildTree(String filepath, System.Windows.Controls.TreeView treeView)
         {
             XmlDocument doc = new XmlDocument();
+            ApplicationManager.GetInstance().xmlFilePath = filepath;
             doc.Load(filepath);
             ApplicationManager.GetInstance().XmlDocument = doc;
             ApplicationManager.GetInstance().XmlElements.Add(doc.DocumentElement);
@@ -115,12 +116,32 @@ namespace XmlEditorTool
         /// </summary>
         /// <param name="manager"> The application manager that owns the xml document being modified</param>
         /// <returns>true if the export succeeded, or false if it fails</returns>
-        public Boolean ExportChangesToXML(ApplicationManager manager)
+        public static Boolean ExportChangesToXML(ApplicationManager manager)
         {
             Boolean succeeded = false;
 
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "XmlDocument"; // Default file name
+            dlg.DefaultExt = ".xml"; // Default file extension
+            dlg.Filter = "eXtensible Markup Language (.xml)|*.xml"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+                manager.XmlDocument.Save(filename);
+            }
 
             return succeeded;
+        }
+
+        public static void SaveChangesToXML()
+        {
+            ApplicationManager.GetInstance().XmlDocument.Save(ApplicationManager.GetInstance().xmlFilePath);
         }
     }
 }

@@ -114,20 +114,22 @@ namespace XmlEditorTool
 
         private void ExportXml(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "XmlDocument"; // Default file name
-            dlg.DefaultExt = ".xml"; // Default file extension
-            dlg.Filter = "eXtensible Markup Language (.xml)|*.xml"; // Filter files by extension
+            XMLService.ExportChangesToXML(ApplicationManager.GetInstance());
+        }
 
-            // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+        private void SaveXml(object sender, RoutedEventArgs e)
+        {
+            XMLService.SaveChangesToXML();
+        }
 
-            // Process save file dialog box results
-            if (result == true)
+        private void ApplyChanges(object sender, RoutedEventArgs e)
+        {
+            // iterate through each tree item
+            for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                // Save document
-                string filename = dlg.FileName;
-                ApplicationManager.GetInstance().XmlDocument.Save(filename);
+                // match the component from the datagrid to the xml document element
+                // if the attribute exists, then modify it would the current value
+                // else, create the attribute and add the value
             }
         }
 
