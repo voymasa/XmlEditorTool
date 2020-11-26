@@ -28,7 +28,7 @@ namespace XmlEditorTool
             TreeViewItem treeNode = new TreeViewItem
             {
                 //Should be Root
-                Header = doc.DocumentElement.OuterXml.Substring(openTagIndex,closeTagIndex + 1),
+                Header = doc.DocumentElement.OuterXml.Substring(openTagIndex, closeTagIndex + 1),
                 Name = doc.DocumentElement.GetAttribute(NAME),
                 IsExpanded = true
             };
@@ -66,7 +66,7 @@ namespace XmlEditorTool
                         break;
                     case XmlNodeType.Text:
                         XmlText childText = child as XmlText;
-                        treeNode.Items.Add(new TreeViewItem { Header = childText.Value.Trim() != ""? childText.Value : "", });
+                        treeNode.Items.Add(new TreeViewItem { Header = childText.Value.Trim() != "" ? childText.Value : "", });
                         break;
                 }
             }
@@ -91,7 +91,7 @@ namespace XmlEditorTool
             {
                 // read the file line by line and check if it contains the macro prefix
                 string currentLine = reader.ReadLine();
-                while(currentLine != null)
+                while (currentLine != null)
                 {
                     if (currentLine != null && (currentLine.Trim().StartsWith("//") || currentLine.Trim().StartsWith("#")))
                     {
@@ -108,6 +108,19 @@ namespace XmlEditorTool
             }
 
             return macros;
+        }
+
+        /// <summary>
+        /// This method exports the current Application Manager XML Document, to the selected location
+        /// </summary>
+        /// <param name="manager"> The application manager that owns the xml document being modified</param>
+        /// <returns>true if the export succeeded, or false if it fails</returns>
+        public Boolean ExportChangesToXML(ApplicationManager manager)
+        {
+            Boolean succeeded = false;
+
+
+            return succeeded;
         }
     }
 }

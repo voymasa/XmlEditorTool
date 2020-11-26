@@ -36,6 +36,7 @@
             </Menu.BitmapEffect>
             <MenuItem Header="Application" Name="AppMenu">
                 <MenuItem Header="Settings" Name="Settings" Click="OpenSettings"></MenuItem>
+                <MenuItem Header="Export to XML..." Name="ExportXML" Click="ExportXml"/>
                 <MenuItem Header="Close" Name="Exit" Click="CloseApp"></MenuItem>
             </MenuItem>
         </Menu>
