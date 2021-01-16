@@ -31,9 +31,11 @@ namespace XmlEditorTool
                 //Should be Root
                 Header = doc.DocumentElement.OuterXml.Substring(openTagIndex, closeTagIndex + 1),
                 Name = doc.DocumentElement.GetAttribute(NAME),
+                Tag = doc.DocumentElement.LocalName,
                 IsExpanded = true
             };
             treeView.Items.Add(treeNode);
+            //ApplicationManager.GetInstance().XmlMap.Add(treeNode.Header.ToString(), doc.DocumentElement.NamespaceURI);
             BuildNodes(treeNode, doc.DocumentElement);
         }
 
@@ -59,10 +61,12 @@ namespace XmlEditorTool
                             //Get First attribute where it is equal to value
                             Header = childElement.OuterXml.Substring(openingTagIndex, closingTagIndex + 1),//!specificNode.Trim().Equals("") ? (childElement.Name + specificNode) : childElement.Name,
                             Name = childElement.Name,
+                            Tag = childElement.LocalName,
                             //Automatically expand elements
                             IsExpanded = true
                         };
                         treeNode.Items.Add(childTreeNode);
+                        //ApplicationManager.GetInstance().XmlMap.Add(childTreeNode.Header.ToString(), childElement.NamespaceURI);
                         BuildNodes(childTreeNode, childElement);
                         break;
                     case XmlNodeType.Text:
@@ -71,6 +75,22 @@ namespace XmlEditorTool
                         break;
                 }
             }
+        }
+
+        public static XmlElement GetXmlElementByTagName(TreeViewItem treeViewItem)
+        {
+            XmlNodeList nodes = ApplicationManager.GetInstance().XmlDocument.GetElementsByTagName(treeViewItem.Name);
+            // 1/16/2021 the nodelist at this point will have multiple items for those with the same "name"
+            foreach (XmlNode n in nodes)
+            {
+                int openingTagIndex = n.OuterXml.IndexOf("<");
+                int closingTagIndex = n.OuterXml.IndexOf(">");
+                if (n.OuterXml.Substring(openingTagIndex, closingTagIndex + 1).Equals(treeViewItem.Header.ToString()))
+                {
+                    return n as XmlElement;
+                }
+            }
+            return nodes[0] as XmlElement;
         }
 
         /**

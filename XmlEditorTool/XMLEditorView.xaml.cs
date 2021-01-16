@@ -98,6 +98,9 @@ namespace XmlEditorTool
 
             FileNameLabel.Content = fileToUse;
 
+            // set the selected xml element via the treeviewitem index
+            ApplicationManager.GetInstance().selectedElement = XMLService.GetXmlElementByTagName(e.NewValue as TreeViewItem);
+
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
             List<string> macroList = XMLService.ParseMacroList(fileToUse);
 

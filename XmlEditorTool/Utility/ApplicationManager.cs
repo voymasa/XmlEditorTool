@@ -26,6 +26,8 @@ namespace XmlEditorTool.Utility
 
         public XmlDocument XmlDocument { get; set; }
         public List<XmlElement> XmlElements { get; set; }
+        public Dictionary<string,string> XmlMap { get; set; }
+        public XmlElement selectedElement { get; set; }
         public string xmlFilePath { get; set; }
     }
 }
