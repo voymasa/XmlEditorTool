@@ -89,14 +89,6 @@
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\XMLService.cs" />
-    <Compile Include="XmlFileMvvm\FileLoaderView.xaml.cs">
-      <DependentUpon>FileLoaderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="XmlFileMvvm\XmlFileModel.cs" />
-    <Compile Include="XmlFileMvvm\XmlFileView.xaml.cs">
-      <DependentUpon>XmlFileView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="XmlFileMvvm\XmlFileViewModel.cs" />
     <Page Include="ElementEditorMvvm\ElementEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -118,14 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XMLEditorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XmlFileMvvm\FileLoaderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XmlFileMvvm\XmlFileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
