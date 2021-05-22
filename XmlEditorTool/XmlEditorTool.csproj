@@ -70,6 +70,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ElementEditorMvvm\ElementEditorView.xaml.cs">
+      <DependentUpon>ElementEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ElementEditorMvvm\ElementEditorViewModel.cs" />
+    <Compile Include="ElementEditorMvvm\XmlElementModel.cs" />
     <Compile Include="SettingsWindowView.xaml.cs">
       <DependentUpon>SettingsWindowView.xaml</DependentUpon>
     </Compile>
@@ -84,6 +89,18 @@
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\XMLService.cs" />
+    <Compile Include="XmlFileMvvm\FileLoaderView.xaml.cs">
+      <DependentUpon>FileLoaderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XmlFileMvvm\XmlFileModel.cs" />
+    <Compile Include="XmlFileMvvm\XmlFileView.xaml.cs">
+      <DependentUpon>XmlFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XmlFileMvvm\XmlFileViewModel.cs" />
+    <Page Include="ElementEditorMvvm\ElementEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,6 +118,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XMLEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XmlFileMvvm\FileLoaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XmlFileMvvm\XmlFileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

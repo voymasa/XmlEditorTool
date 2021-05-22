@@ -130,9 +130,7 @@ namespace XmlEditorTool
             // iterate through each tree item
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                // match the component from the datagrid to the xml document element
-                // if the attribute exists, then modify it would the current value
-                // else, create the attribute and add the value
+                XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, ApplicationManager.GetInstance().selectedElement);
             }
         }
 

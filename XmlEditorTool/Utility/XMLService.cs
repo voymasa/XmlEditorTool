@@ -93,6 +93,30 @@ namespace XmlEditorTool
             return nodes[0] as XmlElement;
         }
 
+        public static void UpdateXmlElement(TreeViewItem treeViewItem, XmlElement element)
+        {
+            // if there is no selected xml element, then immediately return
+            if (ApplicationManager.GetInstance().selectedElement == null)
+            {
+                return;
+            }
+            // match the component from the datagrid to the xml document element
+            // if the attribute exists, then modify it would the current value
+            // else, create the attribute and add the value
+            if (element.HasAttribute(treeViewItem.Header.ToString()))
+            {
+                Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+            }
+            else
+            {
+                // TODO --rethink this
+                element.Attributes.Append(treeViewItem.Header as XmlAttribute);
+                // the ItemSource is the data that is populated for each treeviewitem, and contains all of the information related to it
+                element.SetAttribute(treeViewItem.Header.ToString(),treeViewItem.ItemsSource.ToString());
+                Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+            }
+        }
+
         /**
          * This method parses a file as text and adds any lines that contain the MacroPrefix setting
          * to a list of strings.

@@ -1,0 +1,57 @@
+﻿<Page x:Class="XmlEditorTool.XmlMvvm.XmlFileView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:XmlEditorTool.XmlMvvm"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Xml Editor Tool -- File View">
+
+    <Border Background="LightBlue" BorderThickness="2,2,2,2">
+        <Grid>
+            <Grid.Resources>
+                
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="SlateGray" BorderThickness="2,2,0,2" />
+            <Border Grid.Row="3" Background="LightGray" BorderThickness="2,0,2,2" />
+            
+            <!-- Title -->
+            <Label Grid.Row="0" Name="TitleBar" Foreground="GhostWhite" HorizontalContentAlignment="Center">Xml Editor Tool</Label>
+
+            <!-- Menu -->
+            <Border Grid.Row="1" Background="LightGray" BorderThickness="2,2,0,2">
+                <Menu Name="MenuBar" Width="Auto" Background="Transparent" HorizontalAlignment="Left" 
+              VerticalAlignment="Center" IsMainMenu="True" Grid.Row="0">
+                    <Menu.BitmapEffect>
+                        <DropShadowBitmapEffect/>
+                    </Menu.BitmapEffect>
+                    <MenuItem Header="Application" Name="AppMenu">
+                        <MenuItem Header="Settings" Name="Settings" Click="OpenSettings"></MenuItem>
+                        <MenuItem Header="Save XML" Name="Save" Click="SaveXml"/>
+                        <MenuItem Header="Export to XML..." Name="ExportXML" Click="ExportXml"/>
+                        <MenuItem Header="Close" Name="Exit" Click="CloseApp"></MenuItem>
+                    </MenuItem>
+                </Menu>
+            </Border>
+            
+            <!-- Body -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" x:Name="XmlFilePanel" DataContext="FM"/>
+                <StackPanel Grid.Column="1" x:Name="XmlElementDataPanel"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Page>
