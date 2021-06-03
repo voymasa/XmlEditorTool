@@ -93,6 +93,11 @@ namespace XmlEditorTool
             return nodes[0] as XmlElement;
         }
 
+        /// <summary>
+        /// Updates the specified xml element with values from the specified tree view item
+        /// </summary>
+        /// <param name="treeViewItem">The tree view item that contains the values that were modified; this reflects a specific element attribute</param>
+        /// <param name="element">The xml element whose attributes are being modified or added to</param>
         public static void UpdateXmlElement(TreeViewItem treeViewItem, XmlElement element)
         {
             // if there is no selected xml element, then immediately return
@@ -105,6 +110,9 @@ namespace XmlEditorTool
             // else, create the attribute and add the value
             if (element.HasAttribute(treeViewItem.Header.ToString()))
             {
+                // Consider creating a loop hear to iterate through each value of the tree item
+                Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+                element.SetAttribute(treeViewItem.Header.ToString(),treeViewItem.DataContext.ToString());
                 Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
             }
             else

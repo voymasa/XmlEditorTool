@@ -70,11 +70,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModels\PipelineDataModel.cs" />
     <Compile Include="ElementEditorMvvm\ElementEditorView.xaml.cs">
       <DependentUpon>ElementEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ElementEditorMvvm\ElementEditorViewModel.cs" />
-    <Compile Include="ElementEditorMvvm\XmlElementModel.cs" />
+    <Compile Include="DataModels\XmlElementModel.cs" />
     <Compile Include="SettingsWindowView.xaml.cs">
       <DependentUpon>SettingsWindowView.xaml</DependentUpon>
     </Compile>
