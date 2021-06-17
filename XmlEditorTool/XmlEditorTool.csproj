@@ -147,5 +147,8 @@
   <ItemGroup>
     <Resource Include="Resources\File-Adobe-Dreamweaver-XML-01-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataTemplateModels\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
