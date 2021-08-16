@@ -108,20 +108,70 @@ namespace XmlEditorTool
             // match the component from the datagrid to the xml document element
             // if the attribute exists, then modify it would the current value
             // else, create the attribute and add the value
-            if (element.HasAttribute(treeViewItem.Header.ToString()))
+            // TODO -- good Lord this is ugly, and wrong, and needs to be replaced with a method called on the viewmodel to construct
+            // the string value for the attribute
+            var tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1;
+            if (tempData != null)
+            {
+                UpdateWithData(element, treeViewItem.Header.ToString(),
+                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1.ToString().Trim());
+            }
+            tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2;
+            if (tempData != null)
+            {
+                UpdateWithData(element, treeViewItem.Header.ToString(),
+                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2.ToString().Trim());
+            }
+            tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3;
+            if (tempData != null)
+            {
+                UpdateWithData(element, treeViewItem.Header.ToString(),
+                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3.ToString().Trim());
+            }
+            tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4;
+            if (tempData != null)
+            {
+                UpdateWithData(element, treeViewItem.Header.ToString(),
+                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4.ToString().Trim());
+            }
+
+            //if (element.HasAttribute(treeViewItem.Header.ToString()))
+            //{
+            //    // Consider creating a loop hear to iterate through each value of the tree item
+            //    Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+            //    // TODO -- create a method that constructs the attribute and value depending on the attribute
+            //    element.SetAttribute(treeViewItem.Header.ToString(),treeViewItem.DataContext.ToString());
+            //    Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+            //}
+            //else
+            //{
+            //    // TODO -- create a method that constructs the attribute and value depending on the attribute
+            //    // TODO --rethink this
+            //    XmlAttribute temp = ApplicationManager.GetInstance().XmlDocument.CreateAttribute(treeViewItem.Header.ToString());
+            //    temp.Value = treeViewItem.DataContext.ToString();
+            //    element.Attributes.Append(temp);
+            //    Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+            //}
+        }
+
+        private static void UpdateWithData(XmlElement element, string attribute, string data)
+        {
+            if (element.HasAttribute(attribute))
             {
                 // Consider creating a loop hear to iterate through each value of the tree item
-                Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
-                element.SetAttribute(treeViewItem.Header.ToString(),treeViewItem.DataContext.ToString());
-                Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+                Console.WriteLine(element.GetAttribute(attribute));
+                // TODO -- create a method that constructs the attribute and value depending on the attribute
+                element.SetAttribute(attribute, data);
+                Console.WriteLine(element.GetAttribute(attribute));
             }
             else
             {
+                // TODO -- create a method that constructs the attribute and value depending on the attribute
                 // TODO --rethink this
-                element.Attributes.Append(treeViewItem.Header as XmlAttribute);
-                // the ItemSource is the data that is populated for each treeviewitem, and contains all of the information related to it
-                element.SetAttribute(treeViewItem.Header.ToString(),treeViewItem.ItemsSource.ToString());
-                Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
+                XmlAttribute temp = ApplicationManager.GetInstance().XmlDocument.CreateAttribute(attribute);
+                temp.Value = data;
+                element.Attributes.Append(temp);
+                Console.WriteLine(element.GetAttribute(attribute));
             }
         }
 

@@ -104,6 +104,7 @@ namespace XmlEditorTool
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
             List<string> macroList = XMLService.ParseMacroList(fileToUse);
 
+            // TODO: update this after refactoring the method
             TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
         }
 

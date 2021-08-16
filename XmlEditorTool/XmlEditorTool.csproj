@@ -70,12 +70,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModels\ITreeViewItemViewModel.cs" />
     <Compile Include="DataModels\PipelineDataModel.cs" />
-    <Compile Include="ElementEditorMvvm\ElementEditorView.xaml.cs">
-      <DependentUpon>ElementEditorView.xaml</DependentUpon>
+    <Compile Include="Models\XmlAttributeDataGridTreeItemModel.cs" />
+    <Compile Include="Models\XmlElementDataGridTreeViewModel.cs" />
+    <Compile Include="Utility\RelayCommand.cs" />
+    <Compile Include="ViewModels\PipelineBasicStringViewModel.cs" />
+    <Compile Include="ViewModels\PipelineMacroDetailViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelUserControl.xaml.cs">
+      <DependentUpon>ViewModelUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ElementEditorMvvm\ElementEditorViewModel.cs" />
-    <Compile Include="DataModels\XmlElementModel.cs" />
+    <Compile Include="ViewModels\XmlAttributeDataGridTreeItemViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
+    <Compile Include="Models\XmlElementModel.cs" />
+    <Compile Include="Models\SimpleStringModelWithDataGrid.cs" />
     <Compile Include="SettingsWindowView.xaml.cs">
       <DependentUpon>SettingsWindowView.xaml</DependentUpon>
     </Compile>
@@ -86,14 +95,16 @@
     <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
     <Compile Include="Utility\TemplateBuilderHelper.cs" />
+    <Compile Include="ViewModels\ModifyXmlElementViewModel.cs" />
+    <Compile Include="ViewModels\SimpleStringDataGridViewModel.cs" />
+    <Compile Include="ViewModels\XmlElementDataGridTreeViewViewModel.cs" />
+    <Compile Include="Views\PipelineBasicStringView.xaml.cs">
+      <DependentUpon>PipelineBasicStringView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XMLEditorView.xaml.cs">
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\XMLService.cs" />
-    <Page Include="ElementEditorMvvm\ElementEditorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,6 +118,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SettingsWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\ViewModelUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PipelineBasicStringView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

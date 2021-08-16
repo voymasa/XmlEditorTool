@@ -12,6 +12,7 @@ namespace XmlEditorTool.Utility
 {
     class TemplateBuilderHelper
     {
+        // TODO: refactor this to determine the data template to use for each item in the macro list, rather than trying to tell it to use the same data template for each
         public static void BuildComponentDataTreeView(DataTemplate template, TreeView treeView, List<string> dataList, string itemName)
         {
             List<TreeViewItem> tvItemList = new List<TreeViewItem>();
@@ -19,6 +20,8 @@ namespace XmlEditorTool.Utility
             // iterate through the list and compare the substring preceding the ( to the macro table/enums
             foreach (string s in dataList)
             {
+                // TODO: this is where the data template component should be determined
+                // TODO: create the specific data model/view model and fill in its data, then add it to the tree view as a tree view item
                 List<DynamicallySizedComponentData> componentDataList = new List<DynamicallySizedComponentData>();
 
                 // create the Data based upon the macro, and parse the values from the substring between the () and split by ,
@@ -52,7 +55,7 @@ namespace XmlEditorTool.Utility
                 item.Header = data.AttributeName;
                 item.Name = data.AttributeName;
                 item.IsExpanded = true;
-                //item.DataContext = data;
+                item.DataContext = data; // 8/15/2021: added to give access to the "viewModel" containing the data
 
                 componentDataList.Add(data);
                 (item.Items.GetItemAt(0) as DataGrid).ItemsSource = componentDataList;
@@ -72,6 +75,11 @@ namespace XmlEditorTool.Utility
             DataGrid grid = new DataGrid();
 
             return grid;
+        }
+
+        public static void BuildTreeViewItemWithDataGrid(TreeView treeView, List<string> macroList)
+        {
+
         }
     }
 }

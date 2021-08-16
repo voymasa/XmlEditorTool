@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XmlEditorTool"
       xmlns:utility="clr-namespace:XmlEditorTool.Utility"
+      xmlns:vm="clr-namespace:XmlEditorTool.ViewModels"
+      xmlns:vw="clr-namespace:XmlEditorTool.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="720"
+      d:DesignHeight="768" d:DesignWidth="1024"
       Title="Xml Editor Tool - Editor">
 
     <Grid>
@@ -90,6 +92,35 @@
             <TreeView Name="MacroTreeView" Grid.Column="0" Grid.Row="0"
                   Visibility="Hidden">
                 <TreeView.Resources>
+                    <DataTemplate x:Key="SingleStringValueTemplate">
+                        <TreeViewItem Name="MacroTreeItem">
+                            <DataGrid Name="MacroDataGrid" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Attribute">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding AttributeName}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Data Type">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DataType}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="{Binding HeaderA}">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContentA}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TreeViewItem>
+                    </DataTemplate>
                     <DataTemplate x:Key="DynamicComponentTemplate">
                         <TreeViewItem Name="MacroTreeItem">
                             <DataGrid Name="MacroDg" AutoGenerateColumns="False">
@@ -150,8 +181,13 @@
                         </TreeViewItem>
                     </DataTemplate>
 
+                    <DataTemplate DataType="{x:Type vm:PipelineBasicStringViewModel}">
+                        <vw:PipelineBasicStringView />
+                    </DataTemplate>
+
                     <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
-                                                    DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"/>
+                                                    DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"
+                                                    SingleStringValueTemplate="{StaticResource SingleStringValueTemplate}"/>
                 </TreeView.Resources>
             </TreeView>
             <DataGrid x:Name="DgGrid" Grid.Column="0" Grid.Row="0"
@@ -191,25 +227,6 @@
                                                     BooleanTemplate="{StaticResource BooleanTemplate}"
                                                     IntegerTemplate="{StaticResource IntegerTemplate}"/>
                 </DataGrid.Resources>
-
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Attribute">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding AttributeName}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Datatype">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Datatype}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Value" CellTemplateSelector="{StaticResource TemplateSelector}">
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
             </DataGrid>
 
             <Border Grid.Column="0" Grid.Row="1" Background="LightGray"/>
