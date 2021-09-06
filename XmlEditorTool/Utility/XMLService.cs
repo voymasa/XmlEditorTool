@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Xml;
 using XmlEditorTool.Utility;
+using XmlEditorTool.ViewModels;
 
 namespace XmlEditorTool
 {
@@ -134,25 +135,36 @@ namespace XmlEditorTool
                 UpdateWithData(element, treeViewItem.Header.ToString(),
                     (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4.ToString().Trim());
             }
-
-            //if (element.HasAttribute(treeViewItem.Header.ToString()))
-            //{
-            //    // Consider creating a loop hear to iterate through each value of the tree item
-            //    Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
-            //    // TODO -- create a method that constructs the attribute and value depending on the attribute
-            //    element.SetAttribute(treeViewItem.Header.ToString(),treeViewItem.DataContext.ToString());
-            //    Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
-            //}
-            //else
-            //{
-            //    // TODO -- create a method that constructs the attribute and value depending on the attribute
-            //    // TODO --rethink this
-            //    XmlAttribute temp = ApplicationManager.GetInstance().XmlDocument.CreateAttribute(treeViewItem.Header.ToString());
-            //    temp.Value = treeViewItem.DataContext.ToString();
-            //    element.Attributes.Append(temp);
-            //    Console.WriteLine(element.GetAttribute(treeViewItem.Header.ToString()));
-            //}
         }
+
+        //public static void UpdateXmlElementUsingViewModel(TreeViewItem tvi, XmlElement element)
+        //{
+        //    if (ApplicationManager.GetInstance().selectedElement == null)
+        //    {
+        //        throw new ArgumentNullException("no xml element selected");
+        //    }
+
+        //    var viewModel = tvi.DataContext as ViewModelBase;
+        //    Dictionary<string, string> kvp = GetAttributeDictionaryFromViewModel(viewModel);
+        //}
+
+        //private static Dictionary<string, string> GetAttributeDictionaryFromViewModel(ViewModelBase vm)
+        //{
+        //    Dictionary<string, string> tempDict = null;
+
+        //    // TODO -- update this to handle every view model case
+        //    switch (vm.DisplayName)
+        //    {
+        //        case "PipelineBasicStringViewModel":
+        //            tempDict = (vm as PipelineBasicStringViewModel).AttributeDictionary;
+        //            break;
+        //        default:
+        //            tempDict = vm.AttributeDictionary;
+        //            break;
+        //    }
+
+        //    return tempDict;
+        //}
 
         private static void UpdateWithData(XmlElement element, string attribute, string data)
         {

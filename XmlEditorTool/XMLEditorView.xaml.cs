@@ -105,7 +105,8 @@ namespace XmlEditorTool
             List<string> macroList = XMLService.ParseMacroList(fileToUse);
 
             // TODO: update this after refactoring the method
-            TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
+            //TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
+            TemplateBuilderHelper.BuildTreeViewFromPipelineMacros(MacroTreeView, macroList, itemName);
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)
