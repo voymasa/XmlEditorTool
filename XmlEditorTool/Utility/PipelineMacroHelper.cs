@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using XmlEditorTool.Views;
 using XmlEditorTool.ViewModels;
 using System.Xml;
+using XmlEditorTool.Models;
 
 namespace XmlEditorTool.Utility
 {
@@ -22,10 +23,15 @@ namespace XmlEditorTool.Utility
             {
                 case "PIPELINE_BASICSTRING":
                     item = (TreeViewItem)new PipelineBasicStringView().GetDataTemplate().LoadContent();
-                    PipelineBasicStringViewModel vm = new PipelineBasicStringViewModel(macroName,
+                    //PipelineBasicStringViewModel vm = new PipelineBasicStringViewModel(macroName,
+                    //    arguments[0], MacroMapperHelper.GetInstance().GetDatatype(macroName),
+                    //    MacroMapperHelper.GetInstance().GetHeaders(macroName)[0],
+                    //    xmlElement != null? xmlElement.GetAttribute(arguments[0]) : "");
+                    PipelineViewModel<BasicStringModel> vm = new PipelineViewModel<BasicStringModel>(
+                        new BasicStringModel(), macroName,
                         arguments[0], MacroMapperHelper.GetInstance().GetDatatype(macroName),
                         MacroMapperHelper.GetInstance().GetHeaders(macroName)[0],
-                        xmlElement != null? xmlElement.GetAttribute(arguments[0]) : "");
+                        xmlElement != null ? xmlElement.GetAttribute(arguments[0]) : "");
                     item.Header = vm.AttributeName;
                     item.Name = vm.AttributeName;
                     item.DataContext = vm;

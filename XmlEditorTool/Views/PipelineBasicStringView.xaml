@@ -24,7 +24,7 @@
                         <DataGridTemplateColumn Header="Data Type">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ViewModelDataType}"/>
+                                    <TextBlock Text="{Binding DataType}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

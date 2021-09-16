@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace XmlEditorTool.ViewModels
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public string MacroName { get; set; }
-        public string ContentErrorMsg { get; }
+        //public string ContentErrorMsg { get; }
         public Dictionary<string, string> AttributeValueDictionary { get; set; }
 
         public virtual Dictionary<string, string> CreateAttributeValueDictionaryFromData() { return AttributeValueDictionary; }
