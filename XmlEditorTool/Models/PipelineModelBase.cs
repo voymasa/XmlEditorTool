@@ -10,7 +10,6 @@ namespace XmlEditorTool.Models
     {
         public string AttributeName { get; set; }
         public string DataType { get; set; }
-        public List<MacroContentBase> ContentItems { get; set; }
         public string ContentHeader { get; set; }
         public string ContentValue { get; set; }
 

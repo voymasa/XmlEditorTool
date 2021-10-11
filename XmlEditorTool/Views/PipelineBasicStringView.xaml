@@ -12,31 +12,31 @@
         <DataTemplate x:Key="PipelineBasicStringTemplate">
             <!-- Add the template pieces here-->
             <TreeViewItem Name="MacroTreeItem">
-                <DataGrid Name="MacroDataGrid" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Attribute">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding AttributeName}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Data Type">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding DataType}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{Binding ContentHeader}">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding ContentValue}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                <StackPanel Name="MacroStackPanel">
+                    <TextBlock Name="txtAttributeName">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}: {1}">
+                                <Binding Source="Attribute Name"/>
+                                <Binding Path="AttributeName" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Name="txtDataType">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}: {1}">
+                                <Binding Source="Data Type"/>
+                                <Binding Path="DataType"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="txtContentHeader">
+                            <Run Text="{Binding ContentHeader}"/>
+                            <Run Text=": "/>
+                        </TextBlock>
+                        <TextBox Name="txtContentValue" Text="{Binding ContentValue}"/>
+                    </StackPanel>
+                </StackPanel>
             </TreeViewItem>
         </DataTemplate>
     </UserControl.Resources>

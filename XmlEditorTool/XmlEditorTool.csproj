@@ -72,13 +72,18 @@
     </ApplicationDefinition>
     <Compile Include="DataModels\ITreeViewItemViewModel.cs" />
     <Compile Include="DataModels\PipelineDataModel.cs" />
+    <Compile Include="Models\BasicStringModel.cs" />
+    <Compile Include="Models\MacroContentBase.cs" />
     <Compile Include="Models\PipelineBasicStringModel.cs" />
+    <Compile Include="Models\PipelineModelBase.cs" />
     <Compile Include="Models\XmlAttributeDataGridTreeItemModel.cs" />
     <Compile Include="Models\XmlElementDataGridTreeViewModel.cs" />
     <Compile Include="Utility\PipelineMacroHelper.cs" />
     <Compile Include="Utility\RelayCommand.cs" />
+    <Compile Include="ViewModels\MacroContentItemViewModel.cs" />
     <Compile Include="ViewModels\PipelineBasicStringViewModel.cs" />
     <Compile Include="ViewModels\PipelineMacroDetailViewModel.cs" />
+    <Compile Include="ViewModels\PipelineViewModel.cs" />
     <Compile Include="ViewModels\ViewModelUserControl.xaml.cs">
       <DependentUpon>ViewModelUserControl.xaml</DependentUpon>
     </Compile>
@@ -100,6 +105,9 @@
     <Compile Include="ViewModels\ModifyXmlElementViewModel.cs" />
     <Compile Include="ViewModels\SimpleStringDataGridViewModel.cs" />
     <Compile Include="ViewModels\XmlElementDataGridTreeViewViewModel.cs" />
+    <Compile Include="Views\MacroContentItemView.xaml.cs">
+      <DependentUpon>MacroContentItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PipelineBasicStringView.xaml.cs">
       <DependentUpon>PipelineBasicStringView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewModels\ViewModelUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MacroContentItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

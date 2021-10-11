@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace XmlEditorTool.Models
 {
-    class PipelineBasicStringModel
+    public class PipelineBasicStringModel
     {
         public string AttributeName { get; set; }
         public string ContentHeader { get; set; }
         public string ContentValue { get; set; }
-        public string ViewModelDataType { get; set; }
+        public string DataType { get; set; }
         public string ContentDefault { get; set; }
         public bool IsDefaultSet { get; set; }
         public bool ContentValid { get; set; }

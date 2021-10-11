@@ -8,7 +8,7 @@ using XmlEditorTool.Models;
 
 namespace XmlEditorTool.ViewModels
 {
-    class PipelineBasicStringViewModel : ViewModelBase
+    public class PipelineBasicStringViewModel : ViewModelBase
     {
         public PipelineBasicStringModel Model { get; protected set; }
         public List<PipelineBasicStringModel> Models { get; private set; }
@@ -22,8 +22,8 @@ namespace XmlEditorTool.ViewModels
         }
         public string ViewModelDataType
         {
-            get { return Model.ViewModelDataType; }
-            set { Model.ViewModelDataType = value; }
+            get { return Model.DataType; }
+            set { Model.DataType = value; }
         }
         public string ContentHeader
         {
@@ -54,7 +54,7 @@ namespace XmlEditorTool.ViewModels
             Models = new List<PipelineBasicStringModel>();
             MacroName = macroName;
             Model.AttributeName = attributeName;
-            Model.ViewModelDataType = dataType;
+            Model.DataType = dataType;
             Model.ContentHeader = header;
             Model.ContentValue = content;
             Model.ContentDefault = content;
