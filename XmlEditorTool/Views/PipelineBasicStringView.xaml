@@ -29,13 +29,28 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <StackPanel Orientation="Horizontal">
+                    <!--StackPanel Orientation="Horizontal">
                         <TextBlock Name="txtContentHeader">
                             <Run Text="{Binding ContentHeader}"/>
                             <Run Text=": "/>
                         </TextBlock>
                         <TextBox Name="txtContentValue" Text="{Binding ContentValue}"/>
-                    </StackPanel>
+                    </StackPanel-->
+                    <TreeView Name="ContentTreeView" Visibility="Hidden">
+                        <!--TreeView.Resources>
+                            <DataTemplate x:Key="ContentDataTemplate">
+                                <TreeViewItem Name="ContentTreeItem">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Name="txtContentHeader">
+                                            <Run Text="{Binding ContentHeader}"/>
+                                            <Run Text=": "/>
+                                        </TextBlock>
+                                        <TextBox Name="txtContentValue" Text="{Binding ContentValue}"/>
+                                    </StackPanel>
+                                </TreeViewItem>
+                            </DataTemplate>
+                        </TreeView.Resources-->
+                    </TreeView>
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>

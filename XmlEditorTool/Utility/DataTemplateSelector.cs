@@ -16,6 +16,7 @@ namespace XmlEditorTool.Utility
         public DataTemplate StringTemplate { get; set; }
         public DataTemplate BooleanTemplate { get; set; }
         public DataTemplate DynamicComponentTemplate { get; set; }
+        public DataTemplate SingleStringValueTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item,
             System.Windows.DependencyObject container)

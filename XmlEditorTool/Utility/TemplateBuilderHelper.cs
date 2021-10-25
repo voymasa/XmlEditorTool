@@ -90,7 +90,9 @@ namespace XmlEditorTool.Utility
                 string[] args = s.Substring(openParIndex, closeParIndex - openParIndex).Replace("(", "")
                     .Replace(")", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                TreeViewItem treeViewItem = PipelineMacroHelper.CreateMacroTreeViewItem(macroName.Trim(), args, elementName);
+                //TreeViewItem treeViewItem = PipelineMacroHelper.CreateMacroTreeViewItem(macroName.Trim(), args, elementName);
+                TreeViewItem treeViewItem = PipelineMacroHelper.BuildTreeViewItem(macroName.Trim(), args, elementName);
+
 
                 if (treeViewItem != null)
                 {
