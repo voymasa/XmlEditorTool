@@ -61,11 +61,5 @@ namespace XmlEditorTool.ViewModels
             Model.IsDefaultSet = true;
             Models.Add(Model);
         }
-
-        override public Dictionary<string, string> CreateAttributeValueDictionaryFromData()
-        {
-            AttributeValueDictionary = Model.BuildAttributeContentDictionary();
-            return AttributeValueDictionary;
-        }
     }
 }

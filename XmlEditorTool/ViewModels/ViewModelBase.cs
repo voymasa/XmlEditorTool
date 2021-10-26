@@ -12,9 +12,6 @@ namespace XmlEditorTool.ViewModels
     {
         public string MacroName { get; set; }
         //public string ContentErrorMsg { get; }
-        public Dictionary<string, string> AttributeValueDictionary { get; set; }
-
-        public virtual Dictionary<string, string> CreateAttributeValueDictionaryFromData() { return AttributeValueDictionary; }
 
         #region Constructor
         protected ViewModelBase()

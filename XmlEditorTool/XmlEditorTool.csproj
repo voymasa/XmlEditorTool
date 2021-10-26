@@ -94,6 +94,9 @@
     <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
     <Compile Include="Utility\TemplateBuilderHelper.cs" />
+    <Compile Include="Views\ContentItemView.xaml.cs">
+      <DependentUpon>ContentItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MacroContentItemView.xaml.cs">
       <DependentUpon>MacroContentItemView.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SettingsWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

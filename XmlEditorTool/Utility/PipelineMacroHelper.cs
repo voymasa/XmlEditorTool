@@ -9,6 +9,7 @@ using XmlEditorTool.Views;
 using XmlEditorTool.ViewModels;
 using System.Xml;
 using XmlEditorTool.Models;
+using System.Collections.ObjectModel;
 
 namespace XmlEditorTool.Utility
 {
@@ -47,7 +48,8 @@ namespace XmlEditorTool.Utility
 
         public static TreeViewItem BuildTreeViewItem(string macroName, string[] args, string elementName)
         {
-            TreeViewItem item = (TreeViewItem)new PipelineMacroView().GetPipelineTemplate().LoadContent();
+            PipelineMacroView pmv = new PipelineMacroView();
+            TreeViewItem item = pmv.PipelineTreeItem;
             XmlElement xmlElement = ApplicationManager.GetInstance().XmlElements.Find(x => x.Name.Equals(elementName) && x.HasAttribute(args[0]));
 
             // create contentlist
@@ -70,13 +72,37 @@ namespace XmlEditorTool.Utility
             pipelineModel.DataType = MacroMapperHelper.GetInstance().GetDatatype(macroName);
             pipelineModel.ContentList = ContentItemList;
             PipelineModelList.Add(pipelineModel);
+            ObservableCollection<PipelineMacroViewModel> pmvmCollection = new ObservableCollection<PipelineMacroViewModel>();
+            //item.ItemsSource = pmvmCollection;
+            foreach (PipelineMacroModel p in PipelineModelList)
+            {
+                pmvmCollection.Add(new PipelineMacroViewModel(p));
+            }
             // create component model
-            ComponentViewModel cvm = new ComponentViewModel(PipelineModelList);
+            //ComponentViewModel cvm = new ComponentViewModel(PipelineModelList);
             // add component model to item data context
-            item.Header = cvm.PipelineMacroViewModelCollection[0].AttributeName;
-            item.Name = cvm.PipelineMacroViewModelCollection[0].AttributeName;
-            item.DataContext = cvm;
+            pmv.ContentTreeView.ItemTemplate = pmv.GetContentTemplate();
+            pmv.ContentTreeView.ItemsSource = pmvmCollection[0].ContentItemViewModelCollection;
+            pmv.ContentTreeView.Header = "Content";
+            //pmv.ContentTreeView.DataContext = pmvmCollection[0].ContentItemViewModelCollection;
+            pmv.ContentTreeView.IsExpanded = true;
+            item.Header = pmvmCollection[0].AttributeName;
+            //item.Name = pmvmCollection[0].AttributeName;
+            item.DataContext = pmvmCollection[0];
             item.IsExpanded = true;
+            return item;
+        }
+
+        public static TreeViewItem BuildContentTreeView(TreeView view, string macroName, string[] args, string elementName, List<ContentItemModel> contentList)
+        {
+            List<TreeViewItem> itemsList = new List<TreeViewItem>();
+            foreach(ContentItemModel cim in contentList)
+            {
+
+            }
+            TreeViewItem item = (TreeViewItem)new PipelineMacroView().GetContentTemplate().LoadContent();
+            XmlElement xmlElement = ApplicationManager.GetInstance().XmlElements.Find(x => x.Name.Equals(elementName) && x.HasAttribute(args[0]));
+
             return item;
         }
 
