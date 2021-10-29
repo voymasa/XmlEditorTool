@@ -4,6 +4,5 @@
              xmlns:local="clr-namespace:XmlEditorTool"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

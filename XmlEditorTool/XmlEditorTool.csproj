@@ -70,6 +70,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BasicStringModel.cs" />
+    <Compile Include="Models\MacroContentBase.cs" />
+    <Compile Include="Models\PipelineBasicStringModel.cs" />
+    <Compile Include="Models\PipelineModelBase.cs" />
+    <Compile Include="Utility\PipelineMacroHelper.cs" />
+    <Compile Include="Models\ContentItemModel.cs" />
+    <Compile Include="ViewModels\ComponentViewModel.cs" />
+    <Compile Include="ViewModels\ContentItemViewModel.cs" />
+    <Compile Include="ViewModels\MacroContentItemViewModel.cs" />
+    <Compile Include="ViewModels\PipelineBasicStringViewModel.cs" />
+    <Compile Include="Models\PipelineMacroModel.cs" />
+    <Compile Include="ViewModels\PipelineMacroViewModel.cs" />
+    <Compile Include="ViewModels\PipelineViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="SettingsWindowView.xaml.cs">
       <DependentUpon>SettingsWindowView.xaml</DependentUpon>
     </Compile>
@@ -80,6 +94,18 @@
     <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
     <Compile Include="Utility\TemplateBuilderHelper.cs" />
+    <Compile Include="Views\ContentItemView.xaml.cs">
+      <DependentUpon>ContentItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MacroContentItemView.xaml.cs">
+      <DependentUpon>MacroContentItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PipelineBasicStringView.xaml.cs">
+      <DependentUpon>PipelineBasicStringView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PipelineMacroView.xaml.cs">
+      <DependentUpon>PipelineMacroView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XMLEditorView.xaml.cs">
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
     </Compile>
@@ -97,6 +123,22 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SettingsWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MacroContentItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PipelineBasicStringView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PipelineMacroView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,5 +179,6 @@
   <ItemGroup>
     <Resource Include="Resources\File-Adobe-Dreamweaver-XML-01-icon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

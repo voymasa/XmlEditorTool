@@ -1,0 +1,167 @@
+<GameEntity LocName="LOC_EXTERMINATOR" IsGood="true" CanZoom="true" CharIndex="CHAR_EXTERMINATOR" source="../../data/GameObjects/Characters/Battle_Character_Common.xml">
+  <ColourBlendControllerComponent Name="ColourBlendControllerComponent" />
+  <ShadowComponent Name="ShadowComponent" />
+  <ColourBlendControllerComponent Name="ColourBlendControllerComponentEnd" Begin="false" />
+  <!--<CharacterWadeVolumeControllerComponent Name="CharacterWadeVolumeControllerComponent" Begin="True"/>-->
+  <AnimationGroupComponent>
+    <AnimationComponent Name="AnimComp" Mirror="Horizontal" AnimFileName="animations/Characters/Party/Exterminator/Exterminator.anim" VerticalAlignment="Right" InitialAnim="IdleLeft" />
+  </AnimationGroupComponent>
+  <!--<CharacterWadeVolumeControllerComponent Name="CharacterWadeVolumeControllerComponentEnd" Begin="False-->
+  <SubObject Name="HealthBarSubObject">
+    <Entity Name="HealthBarSubObject" Hidden="false" Active="false" CanCull="false" Priority="1001">
+      <HealthBarComponent Name="HealthBarComponent" />
+    </Entity>
+  </SubObject>
+  <SubObject Name="SubObject1" LayerOffset="-1">
+    <Entity Name="Prop-SubObject1" Hidden="false" Active="false" CanCull="false" Priority="1">
+      <SelectionWheelComponent Name="SelectionWheelComponent" UseInputPosition="True" />
+    </Entity>
+  </SubObject>
+  <EXPManagerComponent Name="SBEXPManager" WorldLevel2Flag="ExterminatorWorldLevel2" WorldLevel3Flag="ExterminatorWorldLevel3" WorldLevel2Description="LOC_EXTERMINATOR_WORLD_ABILITY_2" WorldLevel3Description="LOC_EXTERMINATOR_WORLD_ABILITY_3" />
+  <RectangleCollisionComponent Name="Player ColComp" Height="160" Width="330" XCollisionOffset="0" YCollisionOffset="-90" IsStatic="false" CanInteract="true" InteractPriority="1" />
+  <SelectableBoundsComponent Name="Selectable" Dimensions.y="420" Dimensions.x="400" SelectOffset.x="0" SelectOffset.y="-220" />
+  <DialogueComponent Name="Dialogue Comp" LoadImages="false" CharacterAnimName="Animations/Characters/PartyDialogue/Exterminator/Exterminator.anim" DialogueOffset.y="50" />
+  <GameBattleEntityHeroComponent MovementDirection="Left" Name="Exterminator Battle Comp" RunSpeed="750.0" WalkSpeed="500">
+    <!--Start of Skills-->
+    <ActionList>
+      <Action GotoActionList="Tactical" LocName="LOC_COMMANDSET_EXTERMINATOR_1" DescriptionText="LOC_COMMANDSET_EXTERMINATOR_1_DESC">
+      </Action>
+      <Action GotoActionList="Offense" LocName="LOC_COMMANDSET_EXTERMINATOR_2" DescriptionText="LOC_COMMANDSET_EXTERMINATOR_2_DESC">
+      </Action>
+      <Action GotoActionList="Support" LocName="LOC_COMMANDSET_EXTERMINATOR_3" DescriptionText="LOC_COMMANDSET_EXTERMINATOR_3_DESC">
+      </Action>
+    </ActionList>
+    <!--Ability List-->
+    <ActionList Trigger="HashName" TriggerHashName="Tactical" CategoryType="Tactical" LocName="LOC_COMMANDSET_EXTERMINATOR_1" DescriptionText="LOC_COMMANDSET_EXTERMINATOR_1_DESC">
+      <!--Sticky Spray-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/AttackAll.xml" LocName="LOC_ACTION_EXTERMINATOR_2" DescriptionText="LOC_ACTION_EXTERMINATOR_2_DESC" PreMinigameAnim="AttackWindupPre" Anim="AttackPost" MinigameScene="GAME_FILL_GAUGE" MinigameDifficulty="0" Level="1" MPCost="-1" ActionTargetType="All Frontline Enemies" BaseDamageMultiplier="0.9">
+        <SubAction ActivationChance="1.0">
+          <SupportAction source="../../data/GameObjects/Actions/Support/DebuffOne.xml" CanMiss="False" StatusEffect1="Spd_Down" StatusEffectChance="0.6" />
+        </SubAction>
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToFiringCentre.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--Fumigate-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/BioSpecialAll.xml" LocName="LOC_ACTION_EXTERMINATOR_1" DescriptionText="LOC_ACTION_EXTERMINATOR_1_DESC" PreMinigameAnim="AttackWindupPre" Anim="AttackPost" MinigameScene="GAME_FILL_GAUGE" Level="9" MPCost="-1" MinigameDifficulty="1" ActionTargetType="All Frontline Enemies" BaseDamageMultiplier="0.9">
+        <SubAction ActivationChance="1.0">
+          <SupportAction source="../../data/GameObjects/Actions/Support/DebuffOne.xml" CanMiss="False" StatusEffect1="Poison" StatusEffectChance="0.6" />
+        </SubAction>
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToFiringCentre.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--EMP-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/ElecSpecialAll.xml" LocName="LOC_ACTION_EXTERMINATOR_4" DescriptionText="LOC_ACTION_EXTERMINATOR_4_DESC" PreMinigameAnim="AttackWindupPreElecGas" Anim="AttackPost" MinigameScene="GAME_FILL_GAUGE" Level="18" MPCost="2" MinigameDifficulty="2" ActionTargetType="All Frontline Enemies" BaseDamageMultiplier="1.8">
+        <SubAction ActivationChance="1.0">
+          <SupportAction source="../../data/GameObjects/Actions/Support/DebuffOne.xml" CanMiss="False" StatusEffectHeal1="Atk_Up" StatusEffectHeal2="Def_Up" StatusEffectHeal3="Spd_Up" StatusEffectHeal4="Regen" />
+        </SubAction>
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToFiringCentre.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--Meltdown-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/VerbalSpecialAll.xml" LocName="LOC_ACTION_EXTERMINATOR_9" DescriptionText="LOC_ACTION_EXTERMINATOR_9_DESC" PreMinigameAnim="AttackWindupPreQuantumGas" Anim="AttackPost" MinigameScene="GAME_FILL_GAUGE" Level="25" MPCost="3" MinigameDifficulty="3" RequireNotStatusEffect="Poison Blind Panic Sleep Stop Heal_Block" ActionTargetType="All Frontline Enemies" BaseDamageMultiplier="2.0">
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToFiringCentre.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--Meltdown w/ Ails-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/VerbalSpecialAll.xml" LocName="LOC_ACTION_EXTERMINATOR_9" DescriptionText="LOC_ACTION_EXTERMINATOR_9_DESC" PreMinigameAnim="AttackWindupPreQuantumGas" Anim="AttackPost" MinigameScene="GAME_FILL_GAUGE" Weight="-99999" Level="25" MPCost="3" MinigameDifficulty="3" RequireAnyStatusEffect="Poison Blind Panic Sleep Stop Heal_Block" ActionTargetType="All Frontline Enemies" BaseDamageMultiplier="3.0">
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToFiringCentre.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+        <SubAction ActivationChance="1.0">
+          <SupportAction source="../../data/GameObjects/Actions/Support/DebuffAll.xml" CanMiss="False" StatusEffectMoveFromMe1="Poison" StatusEffectMoveFromMe2="Blind" StatusEffectMoveFromMe3="Panic" StatusEffectMoveFromMe4="Sleep" StatusEffectMoveFromMe5="Stop" StatusEffectMoveFromMe6="Heal_Block" />
+        </SubAction>
+      </AttackAction>
+    </ActionList>
+    <!--Ability List-->
+    <ActionList Trigger="HashName" TriggerHashName="Offense" CategoryType="Offensive" LocName="LOC_COMMANDSET_EXTERMINATOR_2" DescriptionText="LOC_COMMANDSET_EXTERMINATOR_2_DESC">
+      <!--Torch-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/FireSpecial.xml" LocName="LOC_ACTION_EXTERMINATOR_10" DescriptionText="LOC_ACTION_EXTERMINATOR_10_DESC" PreMinigameAnim="AttackWindupPreGasShotgun" Anim="AttackPreFireShotgun" MinigameScene="MASH_THROW" Level="1" MPCost="1" MinigameDifficulty="0" ActionTargetType="Single Frontline Enemy" BaseDamageMultiplier="1.5" StatusEffect1="Heal_Block" StatusEffectChance="0.8">
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToTarget.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--Short Circuit-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/ElecSpecial.xml" LocName="LOC_ACTION_EXTERMINATOR_3" DescriptionText="LOC_ACTION_EXTERMINATOR_3_DESC" PreMinigameAnim="AttackWindupPreGasShotgun" Anim="AttackPreElecShotgun" MinigameScene="MASH_THROW" Level="11" MPCost="2" MinigameDifficulty="1" ActionTargetType="Single Frontline Enemy" BaseDamageMultiplier="2.1" StatusEffect1="Stop" StatusEffectChance="0.5">
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToTarget.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--Extinguish-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/IceSpecial.xml" LocName="LOC_ACTION_EXTERMINATOR_11" DescriptionText="LOC_ACTION_EXTERMINATOR_11_DESC" PreMinigameAnim="AttackWindupPreGasShotgun" Anim="AttackPreIceShotgun" MinigameScene="MASH_THROW" Level="15" MPCost="2" MinigameDifficulty="2" ActionTargetType="Single Frontline Enemy" BaseDamageMultiplier="2.1">
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToTarget.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+      <!--Dissolve-->
+      <AttackAction source="../../data/GameObjects/Actions/Attack/BioSpecial.xml" LocName="LOC_ACTION_EXTERMINATOR_5" DescriptionText="LOC_ACTION_EXTERMINATOR_5_DESC" PreMinigameAnim="AttackWindupPreGasShotgun" Anim="AttackPreGasShotgun" MinigameScene="MASH_THROW" Level="20" MPCost="3" MinigameDifficulty="3" ActionTargetType="Single Frontline Enemy" BaseDamageMultiplier="2.8" TargetDefenseModForDivision="0.5" StatusEffect1="Poison" StatusEffectChance="0.7">
+        <ScriptComponent Name="ScriptComponent">
+          <ScriptData Name="DoPreAction" ScriptSource="GameObjects/Scripts/Actions/JumpToTarget.src" />
+          <ScriptData Name="DoPostAction" ScriptSource="GameObjects/Scripts/Actions/JumpBackToStart.src" />
+        </ScriptComponent>
+      </AttackAction>
+    </ActionList>
+    <!--Ability List-->
+    <ActionList Trigger="HashName" TriggerHashName="Support" CategoryType="Supportive" LocName="LOC_COMMANDSET_EXTERMINATOR_3" DescriptionText="LOC_COMMANDSET_EXTERMINATOR_3_DESC">
+      <!--Quarantine-->
+      <SupportAction source="../../data/GameObjects/Actions/Support/BuffAll.xml" LocName="LOC_ACTION_EXTERMINATOR_7" DescriptionText="LOC_ACTION_EXTERMINATOR_7_DESC" Anim="Buff" Level="1" MPCost="0" ActionTargetType="All Allies Except Me" CanMiss="False" StatusEffectMoveToMe1="Poison" StatusEffectMoveToMe2="Blind" StatusEffectMoveToMe3="Panic" StatusEffectMoveToMe4="Sleep" StatusEffectMoveToMe5="Stop" StatusEffectMoveToMe6="Heal_Block" StatusEffectMoveToMe7="Atk_Down" StatusEffectMoveToMe8="Def_Down" StatusEffectMoveToMe9="Spd_Down" />
+      <!--Contaminate-->
+      <SupportAction source="../../data/GameObjects/Actions/Support/DebuffAll.xml" LocName="LOC_ACTION_EXTERMINATOR_6" DescriptionText="LOC_ACTION_EXTERMINATOR_6_DESC" Anim="Buff" MinigameScene="BUTTON_MASH" MinigameDifficulty="0" Level="10" MPCost="1" ActionTargetType="All Frontline" StatusEffect1="Atk_Down" StatusEffect2="Def_Down" StatusEffect3="Spd_Down" StatusEffectChance="0.66" />
+      <!--Smoke Screen-->
+      <SupportAction source="../../data/GameObjects/Actions/Support/DebuffAll.xml" LocName="LOC_ACTION_EXTERMINATOR_12" DescriptionText="LOC_ACTION_EXTERMINATOR_12_DESC" Anim="Buff" MinigameScene="BUTTON_MASH" MinigameDifficulty="1" Level="13" MPCost="1" ActionTargetType="All Frontline Enemies" StatusEffect1="Sleep" StatusEffect2="Blind" StatusEffectChance="0.5" />
+      <!--Virotherapy-->
+      <SupportAction source="../../data/GameObjects/Actions/Support/HealAll.xml" LocName="LOC_ACTION_EXTERMINATOR_8" DescriptionText="LOC_ACTION_EXTERMINATOR_8_DESC" Anim="Buff" MinigameScene="BUTTON_MASH" MinigameDifficulty="2" Level="18" MPCost="1" RequireNotStatusEffect="Poison Blind Panic Sleep Stop Heal_Block" ActionTargetType="All Frontline Allies" CanMiss="False" DamageType="Magic" Overworld="1" HealthMultiplier="0.1" StatusEffectHeal1="Poison" StatusEffectHeal2="Blind" StatusEffectHeal3="Panic" StatusEffectHeal4="Sleep" StatusEffectHeal5="Stop" StatusEffectHeal6="Heal_Block" />
+      <!--Virotherapy w/ Ailment-->
+      <SupportAction source="../../data/GameObjects/Actions/Support/HealAll.xml" LocName="LOC_ACTION_EXTERMINATOR_8" DescriptionText="LOC_ACTION_EXTERMINATOR_8_DESC" Weight="-99999" Anim="Buff" MinigameScene="BUTTON_MASH" MinigameDifficulty="3" Level="18" MPCost="-1" RequireAnyStatusEffect="Poison Blind Panic Sleep Stop Heal_Block" ActionTargetType="All Frontline Allies" CanMiss="False" DamageType="Magic" Overworld="1" HealthMultiplier="0.75" StatusEffectHeal1="Poison" StatusEffectHeal2="Blind" StatusEffectHeal3="Panic" StatusEffectHeal4="Sleep" StatusEffectHeal5="Stop" StatusEffectHeal6="Heal_Block" />
+    </ActionList>
+    <!--End of Skills-->
+  </GameBattleEntityHeroComponent>
+  <EmitterComponent Name="GasEmitter" EmitterName="ExterminatorGas" StartAutomatically="False" Offset.x="340" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <EmitterComponent Name="ShotgunEmitter" EmitterName="ExterminatorShotgun" StartAutomatically="False" Offset.x="720" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <EmitterComponent Name="ElecGasEmitter" EmitterName="ExterminatorElecGas" StartAutomatically="False" Offset.x="340" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <EmitterComponent Name="QuantumGasEmitter" EmitterName="ExterminatorQuantumGas" StartAutomatically="False" Offset.x="340" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <EmitterComponent Name="ElecShotgunEmitter" EmitterName="ExterminatorElecShotgun" StartAutomatically="False" Offset.x="720" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <EmitterComponent Name="FireShotgunEmitter" EmitterName="ExterminatorFireShotgun" StartAutomatically="False" Offset.x="720" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <EmitterComponent Name="IceShotgunEmitter" EmitterName="ExterminatorIceShotgun" StartAutomatically="False" Offset.x="720" Offset.y="-260" LoadAutomatically="True" ChangeIntensityByCollisionSize="false" PreSeed="False" ClearOnUnload="False" ParticleGroupModifier="0" />
+  <AudioComponent Name="AudioComponent">
+    <AudioData AudioName="ExterminatorAttack" Name="Attack" />
+    <AudioData AudioName="ExterminatorDamage" Name="Hurt" />
+    <AudioData AudioName="ExterminatorAttackVO" Name="AttackVO" />
+    <AudioData AudioName="ExterminatorDamageVO" Name="HurtVO" />
+    <AudioData AudioName="ExterminatorStartBattle" Name="StartBattle" />
+    <AudioData AudioName="ExterminatorNextBattle" Name="NextBattle" />
+    <AudioData AudioName="ExterminatorEnemyDefeat" Name="EnemyDefeat" />
+    <AudioData AudioName="ExterminatorDeath" Name="Death" />
+    <AudioData AudioName="ExterminatorBattleWin" Name="BattleWin" />
+    <AudioData AudioName="ExterminatorLevelUp" Name="LevelUp" />
+    <AudioData AudioName="ExterminatorReceiveItem" Name="ReceiveItem" />
+    <AudioData AudioName="ExterminatorBlock" Name="Block" />
+    <AudioData AudioName="ExterminatorFailBlock" Name="FailBlock" />
+    <AudioData AudioName="ExterminatorSwapIn" Name="SwapIn" />
+    <AudioData AudioName="ExterminatorBuff" Name="Buff" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_AWE" Name="Awe" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_BYE" Name="Bye" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_DECLARATIVE" Name="Declarative" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_HAPPY" Name="Happy" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_GREETING" Name="Hi" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_NO" Name="No" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_QUESTION" Name="Question" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_RECRUIT" Name="Recruit" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_SAD" Name="Sad" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_SARCASTIC" Name="Sarcastic" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_SURPRISED" Name="Surprised" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_THANKS" Name="Thanks" />
+    <AudioData AudioName="LOC_FLAVOR_EXTERMINATOR_YES" Name="Yes" />
+  </AudioComponent>
+</GameEntity>

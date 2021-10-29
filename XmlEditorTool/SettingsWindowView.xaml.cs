@@ -38,7 +38,7 @@ namespace XmlEditorTool
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".csv";
             dlg.Filter = "Comma-Seperated Value (*.csv)|*.csv";
-            dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.MapperFile);
+            dlg.InitialDirectory = ValidatePathwayForNullOrEmpty(Properties.Settings.Default.MapperFile);
 
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
@@ -59,7 +59,7 @@ namespace XmlEditorTool
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.ShowNewFolderButton = true;
-                dlg.SelectedPath = Properties.Settings.Default.SourceFileDir;
+                dlg.SelectedPath = ValidatePathwayForNullOrEmpty(Properties.Settings.Default.SourceFileDir);
                 DialogResult result = dlg.ShowDialog();
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
@@ -76,7 +76,7 @@ namespace XmlEditorTool
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".csv";
             dlg.Filter = "Comma-Seperated Value (*.csv)|*.csv";
-            dlg.InitialDirectory = System.IO.Path.GetDirectoryName(Properties.Settings.Default.MapperFile);
+            dlg.InitialDirectory = ValidatePathwayForNullOrEmpty(Properties.Settings.Default.MapperFile);
 
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
@@ -113,6 +113,24 @@ namespace XmlEditorTool
         private void CloseSettings(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// This method is used to check for a null or empty string for the given pathway, and
+        /// default to the user's home folder.
+        /// </summary>
+        /// <param name="path">a string representation of the path to validate</param>
+        /// <returns>the path passed in, or the user home directory if the path is null or empty</returns>
+        private string ValidatePathwayForNullOrEmpty(string path)
+        {
+            if (String.IsNullOrEmpty(path))
+            {
+                return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            }
+            else
+            {
+                return path;
+            }
         }
     }
 }

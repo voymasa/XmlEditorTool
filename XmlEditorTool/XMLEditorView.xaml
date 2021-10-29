@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XmlEditorTool"
       xmlns:utility="clr-namespace:XmlEditorTool.Utility"
+      xmlns:vm="clr-namespace:XmlEditorTool.ViewModels"
+      xmlns:vw="clr-namespace:XmlEditorTool.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="720"
+      d:DesignHeight="768" d:DesignWidth="1024"
       Title="Xml Editor Tool - Editor">
 
     <Grid>
@@ -36,6 +38,8 @@
             </Menu.BitmapEffect>
             <MenuItem Header="Application" Name="AppMenu">
                 <MenuItem Header="Settings" Name="Settings" Click="OpenSettings"></MenuItem>
+                <MenuItem Header="Save XML" Name="Save" Click="SaveXml"/>
+                <MenuItem Header="Export to XML..." Name="ExportXML" Click="ExportXml"/>
                 <MenuItem Header="Close" Name="Exit" Click="CloseApp"></MenuItem>
             </MenuItem>
         </Menu>
@@ -77,129 +81,156 @@
         <Label Name="FileNameLabel" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"
                HorizontalContentAlignment="Center" Background="Navy" 
                Foreground="White"></Label>
-        <TreeView Name="MacroTreeView" Grid.Column="1" Grid.Row="2"
+        <Grid x:Name="RightPanelGrid" Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <TreeView Name="MacroTreeView" Grid.Column="0" Grid.Row="0"
                   Visibility="Hidden">
-            <TreeView.Resources>
-                <DataTemplate x:Key="DynamicComponentTemplate">
-                    <TreeViewItem Name="MacroTreeItem">
-                        <DataGrid Name="MacroDg" AutoGenerateColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTemplateColumn Header="Attribute">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding AttributeName}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Datatype">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Datatype}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="{Binding Path=Header1}">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Text="{Binding ContentValue1}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Path=Header2}"/>
-                                    </DataGridTemplateColumn.Header>
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Text="{Binding ContentValue2}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Path=Header3}"/>
-                                    </DataGridTemplateColumn.Header>
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Text="{Binding ContentValue3}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn>
-                                    <DataGridTemplateColumn.Header>
-                                        <TextBlock Text="{Binding Path=Header4}"/>
-                                    </DataGridTemplateColumn.Header>
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox Text="{Binding ContentValue4}"/>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </TreeViewItem>
-                </DataTemplate>
+                <TreeView.Resources>
+                    <DataTemplate x:Key="SingleStringValueTemplate">
+                        <TreeViewItem Name="MacroTreeItem">
+                            <DataGrid Name="MacroDataGrid" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Attribute">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding AttributeName}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Data Type">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding DataType}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="{Binding HeaderA}">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContentA}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TreeViewItem>
+                    </DataTemplate>
+                    <DataTemplate x:Key="DynamicComponentTemplate">
+                        <TreeViewItem Name="MacroTreeItem">
+                            <DataGrid Name="MacroDg" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Attribute">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding AttributeName}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="Datatype">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Datatype}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Header="{Binding Path=Header1}">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContentValue1}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock Text="{Binding Path=Header2}"/>
+                                        </DataGridTemplateColumn.Header>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContentValue2}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock Text="{Binding Path=Header3}"/>
+                                        </DataGridTemplateColumn.Header>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContentValue3}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn>
+                                        <DataGridTemplateColumn.Header>
+                                            <TextBlock Text="{Binding Path=Header4}"/>
+                                        </DataGridTemplateColumn.Header>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding ContentValue4}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TreeViewItem>
+                    </DataTemplate>
 
-                <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
-                                                    DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"/>
-            </TreeView.Resources>
-        </TreeView>
-        <DataGrid x:Name="DgGrid" Grid.Column="1" Grid.Row="2"
+                    <DataTemplate DataType="{x:Type vm:PipelineBasicStringViewModel}">
+                        <vw:PipelineBasicStringView />
+                    </DataTemplate>
+
+                    <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
+                                                    DynamicComponentTemplate="{StaticResource DynamicComponentTemplate}"
+                                                    SingleStringValueTemplate="{StaticResource SingleStringValueTemplate}"/>
+                </TreeView.Resources>
+            </TreeView>
+            <DataGrid x:Name="DgGrid" Grid.Column="0" Grid.Row="0"
                   AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Resources>
-                <DataTemplate x:Key="IntegerTemplate">
-                    <TextBox Text="{Binding ContentValue1}"/>
-                </DataTemplate>
-                <DataTemplate x:Key="StringTemplate">
-                    <TextBox Text="{Binding ContentValue1}"/>
-                </DataTemplate>
-                <DataTemplate x:Key="EnumTemplate">
-                    <ComboBox ItemsSource="{Binding ContentValue1}">
-                    </ComboBox>
-                </DataTemplate>
-                <DataTemplate x:Key="BooleanTemplate">
-                    <CheckBox Content="{Binding ContentValue1}">
-                        <CheckBox.Style>
-                            <Style TargetType="CheckBox">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ContentValue1}" Value="True">
-                                        <Setter Property="IsChecked" Value="True"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding ContentValue1}" Value="False">
-                                        <Setter Property="IsChecked" Value="False"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </CheckBox.Style>
-                    </CheckBox>
-                </DataTemplate>
+                <DataGrid.Resources>
+                    <DataTemplate x:Key="IntegerTemplate">
+                        <TextBox Text="{Binding ContentValue1}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="StringTemplate">
+                        <TextBox Text="{Binding ContentValue1}"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="EnumTemplate">
+                        <ComboBox ItemsSource="{Binding ContentValue1}">
+                        </ComboBox>
+                    </DataTemplate>
+                    <DataTemplate x:Key="BooleanTemplate">
+                        <CheckBox Content="{Binding ContentValue1}">
+                            <CheckBox.Style>
+                                <Style TargetType="CheckBox">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ContentValue1}" Value="True">
+                                            <Setter Property="IsChecked" Value="True"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ContentValue1}" Value="False">
+                                            <Setter Property="IsChecked" Value="False"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </CheckBox.Style>
+                        </CheckBox>
+                    </DataTemplate>
 
 
-                <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
+                    <utility:DataGridCellTemplateSelector x:Key="TemplateSelector" 
                                                     EnumTemplate="{StaticResource EnumTemplate}"
                                                     StringTemplate="{StaticResource StringTemplate}"
                                                     BooleanTemplate="{StaticResource BooleanTemplate}"
                                                     IntegerTemplate="{StaticResource IntegerTemplate}"/>
-            </DataGrid.Resources>
+                </DataGrid.Resources>
+            </DataGrid>
 
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Attribute">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding AttributeName}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Datatype">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Datatype}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Value" CellTemplateSelector="{StaticResource TemplateSelector}">
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+            <Border Grid.Column="0" Grid.Row="1" Background="LightGray"/>
+            <Button x:Name="Apply" Grid.Column="0" Grid.Row="1" Click="ApplyChanges" Content="Apply Changes" BorderBrush="Black"/>
+        </Grid>
     </Grid>
 </Page>

@@ -98,10 +98,15 @@ namespace XmlEditorTool
 
             FileNameLabel.Content = fileToUse;
 
+            // set the selected xml element via the treeviewitem index
+            ApplicationManager.GetInstance().selectedElement = XMLService.GetXmlElementByTagName(e.NewValue as TreeViewItem);
+
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
             List<string> macroList = XMLService.ParseMacroList(fileToUse);
 
-            TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
+            // TODO: update this after refactoring the method
+            //TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
+            TemplateBuilderHelper.BuildTreeViewFromPipelineMacros(MacroTreeView, macroList, itemName);
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)
@@ -110,6 +115,25 @@ namespace XmlEditorTool
             // Call the show method on that window
             SettingsWindowView settings = new SettingsWindowView();
             settings.Show();
+        }
+
+        private void ExportXml(object sender, RoutedEventArgs e)
+        {
+            XMLService.ExportChangesToXML(ApplicationManager.GetInstance());
+        }
+
+        private void SaveXml(object sender, RoutedEventArgs e)
+        {
+            XMLService.SaveChangesToXML();
+        }
+
+        private void ApplyChanges(object sender, RoutedEventArgs e)
+        {
+            // iterate through each tree item
+            for (int i = 0; i < MacroTreeView.Items.Count; i++)
+            {
+                XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, ApplicationManager.GetInstance().selectedElement);
+            }
         }
 
         private void CloseApp(object sender, RoutedEventArgs e)
