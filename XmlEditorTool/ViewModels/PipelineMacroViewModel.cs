@@ -61,5 +61,10 @@ namespace XmlEditorTool.ViewModels
                 ContentItemViewModelCollection.Add(new ContentItemViewModel(cim));
             }
         }
+
+        public Dictionary<string,string> GetContentForUpdate()
+        {
+            return PipelineModel.GetContentAttributePairs();
+        }
     }
 }
