@@ -141,6 +141,16 @@ namespace XmlEditorTool
              * Get the attribute name/value pairs for the content in the viewmodel
              */
             PipelineMacroViewModel pmvm = treeViewItem.DataContext as PipelineMacroViewModel;
+            Dictionary<string, string> content = pmvm.GetContentForUpdate();
+            foreach (string k in content.Keys)
+            {
+                // Call the method that creates the information to update the element with
+                Console.WriteLine(k);
+                Console.WriteLine(content[k]);
+                var AttributeToUpdateOrCreate = k;
+                var DataForTheAttribute = content[k];
+                UpdateWithData(element, AttributeToUpdateOrCreate, DataForTheAttribute);
+            }
         }
 
         //public static void UpdateXmlElementUsingViewModel(TreeViewItem tvi, XmlElement element)
