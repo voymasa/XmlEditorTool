@@ -34,13 +34,26 @@ namespace XmlEditorTool.ViewModels
                     ContentModel.ContentValue = value;
                     if (ContentModel.DefaultValue == value)
                     {
-                        ContentModel.IsDefaultValue = true;
+                        IsDefaultValue = true;
                     }
                     else
                     {
-                        ContentModel.IsDefaultValue = false;
+                        IsDefaultValue = false;
                     }
                     RaisePropertyChanged(() => ContentValue);
+                }
+            }
+        }
+
+        public bool IsDefaultValue
+        {
+            get { return ContentModel.IsDefaultValue; }
+            set
+            {
+                if (ContentModel.IsDefaultValue != value)
+                {
+                    ContentModel.IsDefaultValue = value;
+                    RaisePropertyChanged(() => IsDefaultValue);
                 }
             }
         }

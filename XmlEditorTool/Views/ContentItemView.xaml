@@ -9,6 +9,16 @@
     <UserControl.Resources>
         <DataTemplate x:Key="ContentItemTemplate">
             <TreeViewItem>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsDefaultValue}" Value="true">
+                            <Setter Property="TextBlock.Background" Value="LightGray"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsDefaultValue}" Value="false">
+                            <Setter Property="TextBlock.Background" Value="White"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Name="txtContentHeader">
                     <Run Text="{Binding ContentHeader}"/>
