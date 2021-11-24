@@ -41,5 +41,10 @@ namespace XmlEditorTool.ViewModels
         {
             this.ContentModel = ContentModel;
         }
+
+        public KeyValuePair<string, string> GetContentHeaderValuePair(string? stringToAddToContentHeader, bool isKey)
+        {
+            return ContentModel.GetContentHeaderValuePair(stringToAddToContentHeader, isKey);
+        }
     }
 }

@@ -61,5 +61,28 @@ namespace XmlEditorTool.ViewModels
                 ContentItemViewModelCollection.Add(new ContentItemViewModel(cim));
             }
         }
+
+        public Dictionary<string,string> GetContentForUpdate()
+        {
+            Dictionary<string, string> temp = new Dictionary<string, string>();
+
+            if (_contentViewModelCollection.Count > 1)
+            {
+                foreach (ContentItemViewModel c in _contentViewModelCollection)
+                {
+                    KeyValuePair<string, string> kvp = c.GetContentHeaderValuePair(AttributeName + ".", false);
+                    temp.Add(kvp.Key, kvp.Value);
+                }
+            }
+            else if (_contentViewModelCollection.Count == 1)
+            {
+                foreach (ContentItemViewModel c in _contentViewModelCollection)
+                {
+                    KeyValuePair<string, string> kvp = c.GetContentHeaderValuePair(AttributeName, true);
+                    temp.Add(kvp.Key, kvp.Value);
+                }
+            }
+            return temp;
+        }
     }
 }

@@ -99,41 +99,57 @@ namespace XmlEditorTool
         /// </summary>
         /// <param name="treeViewItem">The tree view item that contains the values that were modified; this reflects a specific element attribute</param>
         /// <param name="element">The xml element whose attributes are being modified or added to</param>
-        public static void UpdateXmlElement(TreeViewItem treeViewItem, XmlElement element)
+        public static void UpdateXmlElement (TreeViewItem treeViewItem, XmlElement element)
         {
             // if there is no selected xml element, then immediately return
             if (ApplicationManager.GetInstance().selectedElement == null)
             {
                 return;
             }
-            // match the component from the datagrid to the xml document element
-            // if the attribute exists, then modify it would the current value
-            // else, create the attribute and add the value
-            // TODO -- good Lord this is ugly, and wrong, and needs to be replaced with a method called on the viewmodel to construct
-            // the string value for the attribute
-            var tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1;
-            if (tempData != null)
+            //// match the component from the datagrid to the xml document element
+            //// if the attribute exists, then modify it would the current value
+            //// else, create the attribute and add the value
+            //// TODO -- good Lord this is ugly, and wrong, and needs to be replaced with a method called on the viewmodel to construct
+            //// the string value for the attribute
+            //var tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1;
+            //if (tempData != null)
+            //{
+            //    UpdateWithData(element, treeViewItem.Header.ToString(),
+            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1.ToString().Trim());
+            //}
+            //tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2;
+            //if (tempData != null)
+            //{
+            //    UpdateWithData(element, treeViewItem.Header.ToString(),
+            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2.ToString().Trim());
+            //}
+            //tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3;
+            //if (tempData != null)
+            //{
+            //    UpdateWithData(element, treeViewItem.Header.ToString(),
+            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3.ToString().Trim());
+            //}
+            //tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4;
+            //if (tempData != null)
+            //{
+            //    UpdateWithData(element, treeViewItem.Header.ToString(),
+            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4.ToString().Trim());
+            //}
+
+            /*
+             * For each treeviewitem get the datacontext of the viewmodel
+             * Get the attribute name/value pairs for the content in the viewmodel
+             */
+            PipelineMacroViewModel pmvm = treeViewItem.DataContext as PipelineMacroViewModel;
+            Dictionary<string, string> content = pmvm.GetContentForUpdate();
+            foreach (string k in content.Keys)
             {
-                UpdateWithData(element, treeViewItem.Header.ToString(),
-                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1.ToString().Trim());
-            }
-            tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2;
-            if (tempData != null)
-            {
-                UpdateWithData(element, treeViewItem.Header.ToString(),
-                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2.ToString().Trim());
-            }
-            tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3;
-            if (tempData != null)
-            {
-                UpdateWithData(element, treeViewItem.Header.ToString(),
-                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3.ToString().Trim());
-            }
-            tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4;
-            if (tempData != null)
-            {
-                UpdateWithData(element, treeViewItem.Header.ToString(),
-                    (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4.ToString().Trim());
+                // Call the method that creates the information to update the element with
+                Console.WriteLine(k);
+                Console.WriteLine(content[k]);
+                var AttributeToUpdateOrCreate = k;
+                var DataForTheAttribute = content[k];
+                UpdateWithData(element, AttributeToUpdateOrCreate, DataForTheAttribute);
             }
         }
 
