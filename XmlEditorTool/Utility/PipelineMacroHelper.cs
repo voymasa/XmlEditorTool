@@ -60,9 +60,14 @@ namespace XmlEditorTool.Utility
             List<string> headerList = MacroMapperHelper.GetInstance().GetHeaders(macroName);
             for (int i = 0; i < headerList.Count; i++)
             {
-                ContentItemModel contentModel = new ContentItemModel();
+                ContentItemModel contentModel = new ContentItemModel(args[i + 1]); // the plus 1 is to bypass the attribute name from the arg list
                 contentModel.ContentHeader = headerList[i];
-                contentModel.ContentValue = xmlElement != null ? xmlElement.GetAttribute(args[0]) : "";
+                // set to default value first, then to the value, if any, from the existing xml element
+                if (xmlElement != null)
+                {
+                    contentModel.ContentValue = xmlElement.GetAttribute(args[0]);
+                    contentModel.IsDefaultValue = false;
+                }
                 ContentItemList.Add(contentModel);
             }
             // create pipelinemodellist

@@ -6,6 +6,15 @@ namespace XmlEditorTool.Models
     {
         public string ContentHeader { get; set; }
         public string ContentValue { get; set; }
+        public bool IsDefaultValue { get; set; }
+        public string DefaultValue { get; set; }
+
+        public ContentItemModel(string defaultValue)
+        {
+            ContentValue = defaultValue;
+            this.DefaultValue = defaultValue;
+            IsDefaultValue = true;
+        }
 
         /// <summary>
         /// This method creates a kvp out of the header and value.
@@ -16,7 +25,9 @@ namespace XmlEditorTool.Models
         /// <returns></returns>
         public KeyValuePair<string, string> GetContentHeaderValuePair(string? stringForHeader, bool isKey)
         {
-            return new KeyValuePair<string, string>(isKey? stringForHeader : (stringForHeader + ContentHeader), ContentValue);
+            var AttributeName = isKey ? stringForHeader : (stringForHeader + ContentHeader);
+            var AttributeValue = IsDefaultValue || string.IsNullOrEmpty(ContentValue) ? null : ContentValue;
+            return new KeyValuePair<string, string>(AttributeName, AttributeValue);
         }
     }
 }

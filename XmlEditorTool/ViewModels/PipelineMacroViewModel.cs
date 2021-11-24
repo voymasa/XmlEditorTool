@@ -71,7 +71,10 @@ namespace XmlEditorTool.ViewModels
                 foreach (ContentItemViewModel c in _contentViewModelCollection)
                 {
                     KeyValuePair<string, string> kvp = c.GetContentHeaderValuePair(AttributeName + ".", false);
-                    temp.Add(kvp.Key, kvp.Value);
+                    if (kvp.Value != null)
+                    {
+                        temp.Add(kvp.Key, kvp.Value);
+                    }
                 }
             }
             else if (_contentViewModelCollection.Count == 1)
@@ -79,7 +82,10 @@ namespace XmlEditorTool.ViewModels
                 foreach (ContentItemViewModel c in _contentViewModelCollection)
                 {
                     KeyValuePair<string, string> kvp = c.GetContentHeaderValuePair(AttributeName, true);
-                    temp.Add(kvp.Key, kvp.Value);
+                    if (kvp.Value != null)
+                    {
+                        temp.Add(kvp.Key, kvp.Value);
+                    }
                 }
             }
             return temp;
