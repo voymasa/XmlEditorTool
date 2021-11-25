@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using XmlEditorTool.Utility;
+using XmlEditorTool.ViewModels;
 
 namespace XmlEditorTool
 {
@@ -92,7 +93,7 @@ namespace XmlEditorTool
 
         private void XmlTreeViewItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            DgGrid.Visibility = Visibility.Hidden;
+            //DgGrid.Visibility = Visibility.Hidden;
             string itemName = (e.NewValue as TreeViewItem).Name;
             string fileToUse = ComponentMapperManager.GetInstance().GetSourceFile(itemName);
 
@@ -133,6 +134,48 @@ namespace XmlEditorTool
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
                 XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, ApplicationManager.GetInstance().selectedElement);
+            }
+        }
+
+        private void ExpandAllProperties(object sender, RoutedEventArgs e)
+        {
+            for(int i=0; i < MacroTreeView.Items.Count; i++)
+            {
+                (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = true;
+            }
+        }
+
+        private void ExpandModifiedProperties(object sender, RoutedEventArgs e)
+        {
+            CollapseAllProperties();
+
+            for(int i=0; i < MacroTreeView.Items.Count; i++)
+            {
+                (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
+
+                var dc = (MacroTreeView.Items[i] as TreeViewItem).DataContext as PipelineMacroViewModel;
+                
+                foreach (ContentItemViewModel c in dc.ContentItemViewModelCollection)
+                {
+                    if(!c.ContentModel.IsDefaultValue)
+                    {
+                        (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void CollapseAllProperties(object sender, RoutedEventArgs e)
+        {
+            CollapseAllProperties();
+        }
+
+        private void CollapseAllProperties()
+        {
+            for (int i = 0; i < MacroTreeView.Items.Count; i++)
+            {
+                (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
             }
         }
 
