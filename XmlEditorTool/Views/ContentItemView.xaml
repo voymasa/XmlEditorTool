@@ -12,10 +12,10 @@
                 <Style>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=IsDefaultValue}" Value="true">
-                            <Setter Property="TextBlock.Background" Value="LightGray"/>
+                            <Setter Property="TextBox.Background" Value="Gray"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=IsDefaultValue}" Value="false">
-                            <Setter Property="TextBlock.Background" Value="White"/>
+                            <Setter Property="TextBox.Background" Value="White"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -24,7 +24,7 @@
                     <Run Text="{Binding ContentHeader}"/>
                     <Run Text=": "/>
                     </TextBlock>
-                    <TextBox Name="txtContentValue" Text="{Binding ContentValue}"/>
+                    <TextBox Name="txtContentValue" Text="{Binding ContentValue}" Background="Gray"/>
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
