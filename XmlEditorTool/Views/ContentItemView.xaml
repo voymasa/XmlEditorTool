@@ -18,5 +18,16 @@
                 </StackPanel>
             </TreeViewItem>
         </DataTemplate>
+        <DataTemplate x:Key="ContentItemEnumTemplate">
+            <TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Name="txtContentHeader">
+                        <Run Text="{Binding ContentHeader}"/>
+                        <Run Text=": "/>
+                    </TextBlock>
+                    <ListBox Name="lbContentValue" SelectedItem="{Binding ContentValue}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
     </UserControl.Resources>
 </UserControl>

@@ -34,5 +34,15 @@ namespace XmlEditorTool.Views
         {
             return this.Resources["PipelineMacroTemplate"] as HierarchicalDataTemplate;
         }
+
+        public DataTemplate GetEnumTemplate()
+        {
+            return this.Resources["ContentItemEnumTemplate"] as DataTemplate;
+        }
+
+        public void PopulateContentValueListBoxitems(ListBox listBox, List<ListBoxItem> list)
+        {
+            listBox.ItemsSource = list;
+        }
     }
 }

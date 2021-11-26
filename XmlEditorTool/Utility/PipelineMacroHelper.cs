@@ -97,28 +97,5 @@ namespace XmlEditorTool.Utility
             item.IsExpanded = true;
             return item;
         }
-
-        public static TreeViewItem BuildContentTreeView(TreeView view, string macroName, string[] args, string elementName, List<ContentItemModel> contentList)
-        {
-            List<TreeViewItem> itemsList = new List<TreeViewItem>();
-            foreach(ContentItemModel cim in contentList)
-            {
-
-            }
-            TreeViewItem item = (TreeViewItem)new PipelineMacroView().GetContentTemplate().LoadContent();
-            XmlElement xmlElement = ApplicationManager.GetInstance().XmlElements.Find(x => x.Name.Equals(elementName) && x.HasAttribute(args[0]));
-
-            return item;
-        }
-
-        /// <summary>
-        /// Using the contents of the model, create the treeview items from the template and add it to the treeview
-        /// </summary>
-        /// <param name="treeView">the treeview for the contents of the view</param>
-        /// <param name="model">the model that contains the contents to use for the building</param>
-        private static void BuildTreeViewItemsFromContent(TreeView treeView, DataTemplate dataTemplate, PipelineModelBase model)
-        {
-            // TODO: will want to abstract the model better
-        }
     }
 }
