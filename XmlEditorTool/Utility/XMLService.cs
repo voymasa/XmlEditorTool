@@ -16,7 +16,7 @@ namespace XmlEditorTool
         private const string NAME = "Name";
         private const string LOC_NAME = "LocName";
 
-        public static void BuildTree(String filepath, System.Windows.Controls.TreeView treeView)
+        public static void BuildTree(string filepath, System.Windows.Controls.TreeView treeView)
         {
             XmlDocument doc = new XmlDocument();
             ApplicationManager.GetInstance().xmlFilePath = filepath;
@@ -213,12 +213,34 @@ namespace XmlEditorTool
         {
             List<string> macros = new List<string>();
 
-            if (!sourceFile.Contains(".h")) // TODO -- figure out a better "null"check
+            /*
+             * @modified: 11/28/2021
+             * @by: Aaron Voymas
+             * Checking that a file is a .h file limits this tool too much, and if the mapper file has a non .h file which contains pipeline macros
+             * there is no reason to prevent that from loading. Changing this to a simple null check;
+             */
+            if (string.IsNullOrWhiteSpace(sourceFile))
                 return macros;
-            string filepath = Properties.Settings.Default.SourceFileDir + "/" + sourceFile;
-            if (String.IsNullOrWhiteSpace(Properties.Settings.Default.MacroPrefix))
+            //string filepath = Properties.Settings.Default.SourceFileDir + "/*/" + sourceFile;
+            DirectoryInfo dirInfo = new DirectoryInfo(Properties.Settings.Default.SourceFileDir);
+            DirectoryInfo[] subdirs = FileService.SetTopLevelDirs(dirInfo,
+                new FileInfo(ApplicationManager.GetInstance().xmlFilePath));
+            FileInfo[] fileInfo = null;
+            foreach (DirectoryInfo d in subdirs)
+            {
+                fileInfo = d.GetFiles(sourceFile, SearchOption.AllDirectories);
+                // this foreach loop is designed to bounce out at the first file that matches
+            }
+            
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.MacroPrefix))
+            {
                 return null;
-            using (StreamReader reader = new StreamReader(filepath))
+            }
+            if (fileInfo.Length < 1)
+            {
+                return null;
+            }
+            using (StreamReader reader = new StreamReader(fileInfo[0].FullName))
             {
                 // read the file line by line and check if it contains the macro prefix
                 string currentLine = reader.ReadLine();

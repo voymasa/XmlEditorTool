@@ -44,8 +44,8 @@ namespace XmlEditorTool.Utility
              * load the csv file
              * parse the contents with a csv parser, into the dictionary
              */
-            // TODO -- change the const string reference to use a settings value
-            using (var stream = new StreamReader(Settings.Default.MapperFile))
+            FileInfo file = new FileInfo(Settings.Default.MapperFile);
+            using (var stream = new StreamReader(file.FullName))
             using (var csv = new CsvReader(stream, CultureInfo.InvariantCulture))
             {
                 using (var dr = new CsvDataReader(csv))

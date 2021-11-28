@@ -21,13 +21,36 @@ namespace XmlEditorTool
     /// </summary>
     public partial class SettingsWindowView : Window
     {
+        // default values
+        private const string RPGBASE_DIR_NAME = "\\RPGBase\\";
+        private const string SKETCH_ENGINE_DIR_NAME = "\\SketchEngine\\";
+        private const string MACRO_PREFIX = "PIPELINE_";
+
         public SettingsWindowView()
         {
             InitializeComponent();
-            MapperFileTxtBox.Text = Properties.Settings.Default.MapperFile;
-            SourceFileDirTxtBox.Text = Properties.Settings.Default.SourceFileDir;
-            MacroPrefixTxtBox.Text = Properties.Settings.Default.MacroPrefix;
-            MacroDataFileTxtBox.Text = Properties.Settings.Default.DatatypeMapFile;
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.MapperFile))
+            {
+                FileInfo file = new FileInfo("..\\..\\Resources\\ComponentToSrcFileMap.csv");
+                Properties.Settings.Default.MapperFile = file.FullName;//Properties.Resources.ComponentToSourceFileMap;
+            }
+       
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SourceFileDir))
+            {
+                DirectoryInfo dir = new DirectoryInfo("..\\..\\..\\");
+                Properties.Settings.Default.SourceFileDir = dir.FullName;
+            }
+
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.MacroPrefix))
+            {
+                Properties.Settings.Default.MacroPrefix = MACRO_PREFIX;
+            }
+
+            if (string.IsNullOrWhiteSpace(Properties.Settings.Default.DatatypeMapFile))
+            {
+                FileInfo file = new FileInfo("..\\..\\Resources\\MacroDatatypeCsv.csv");
+                Properties.Settings.Default.DatatypeMapFile = file.FullName;
+            }
         }
 
         private void OpenMapperDialog(object sender, RoutedEventArgs e)

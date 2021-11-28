@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:XmlEditorTool"
+        xmlns:props="clr-namespace:XmlEditorTool.Properties"
         mc:Ignorable="d"
         Title="Xml Editor Tool - Settings" Height="480" Width="640">
 
@@ -13,18 +14,17 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- Menu Bar--> 
-        <Border Grid.Row="0" Background="LightGray" BorderThickness="2,2,0,2"/>
-        <Menu Name="MenuBar" HorizontalAlignment="Left" 
-              VerticalAlignment="Center" IsMainMenu="True" Grid.Row="0">
-            <Menu.BitmapEffect>
-                <DropShadowBitmapEffect/>
-            </Menu.BitmapEffect>
-            <MenuItem Header="Settings" Name="SettingsMenu">
-                <MenuItem Header="Return to Main Window" Click="CloseSettings"/>
-            </MenuItem>
-        </Menu>
-        
+        <!-- Menu Bar-->
+        <DockPanel Grid.Row="0" Margin="8">
+            <Border Background="LightGray" BorderThickness="2,2,0,2"/>
+            <Menu Name="MenuBar" HorizontalAlignment="Left" 
+              VerticalAlignment="Center" IsMainMenu="True" BorderBrush="Black">
+                <MenuItem Header="Settings" Name="SettingsMenu">
+                    <MenuItem Header="Return to Main Window" Click="CloseSettings"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+
         <!-- Settings -->
         <Grid Grid.Row="1" Height="Auto">
             <Grid.RowDefinitions>
@@ -33,71 +33,75 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+
+            <!-- Source Files -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Label Name="SourceFileDir" Margin="8" Width="200"
+                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                    Top-Level  Directory:</Label>
+                <TextBox Name="SourceFileDirTxtBox" Margin="8"
+                       Width="256" Height="35" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Source={x:Static props:Settings.Default}, Path=SourceFileDir}"></TextBox>
+                <Button Name="SourceFileDirBtn" Margin="8"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="80" Height="35" Click="OpenSourceFileDialog">Browse</Button>
+                <Image x:Name="SourceFileDirToolTipIcon" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" Source="info-icon-23810.png"
+                       Width="24" Height="24" ToolTip="This should be the top-level directory that contains the Project, RPGBase, and SketchEngine folders."/>
+            </StackPanel>
             
             <!-- Mapper File -->
-            <Label Name="MapperFileLoc" Grid.Row="0" Grid.Column="0"
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Label Name="MapperFileLoc" Margin="8" Width="200"
                    VerticalAlignment="Center" HorizontalAlignment="Center">
-                Component to Source Mapper File:</Label>
-            <TextBox Name="MapperFileTxtBox" Grid.Row="0" Grid.Column="1"
-                     Width="200" Height="35" VerticalAlignment="Center"
-                     HorizontalAlignment="Center" VerticalContentAlignment="Center"/>
-            <Button Name="MapperFileBtn" Grid.Row="0" Grid.Column="2"
+                    Component to Source Mapper File:</Label>
+                <TextBox Name="MapperFileTxtBox" Margin="8"
+                     Width="256" Height="35" VerticalAlignment="Center"
+                     HorizontalAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Source={x:Static props:Settings.Default}, Path=MapperFile}"/>
+                <Button Name="MapperFileBtn" Margin="8"
                     Width="80" Height="35" Click="OpenMapperDialog"
                     VerticalAlignment="Center" HorizontalAlignment="Center">Browse</Button>
-            
-            <!-- Source Files -->
-            <Label Name="SourceFileDir" Grid.Row="1" Grid.Column="0"
-                   VerticalAlignment="Center" HorizontalAlignment="Left">
-                Source File Directory:
-            </Label>
-            <TextBox Name="SourceFileDirTxtBox" Grid.Row="1" Grid.Column="1"
-                       Width="200" Height="35" VerticalAlignment="Center"
-                       HorizontalAlignment="Center" VerticalContentAlignment="Center">
-            </TextBox>
-            <Button Name="SourceFileDirBtn" Grid.Row="1" Grid.Column="2"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="80" Height="35" Click="OpenSourceFileDialog">
-                Browse
-            </Button>
-            
+                <Image x:Name="MapperToolTipIcon" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" Source="info-icon-23810.png"
+                       Width="24" Height="24" ToolTip="This file allows the tool to find the source file where the macro is for a component."/>
+            </StackPanel>
+
             <!-- MacroListFile -->
-            <Label Name="MacroDataFile" Grid.Row="2" Grid.Column="0"
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                <Label Name="MacroDataFile" Margin="8" Width="200"
                    VerticalAlignment="Center" HorizontalAlignment="Left">
-                Macro Data Filename:
-            </Label>
-            <TextBox Name="MacroDataFileTxtBox" Grid.Row="2" Grid.Column="1"
-                       Width="200" Height="35" VerticalAlignment="Center"
-                       HorizontalAlignment="Center" VerticalContentAlignment="Center">
-            </TextBox>
-            <Button Name="MacroDataFileBtn" Grid.Row="2" Grid.Column="2"
+                    Macro Data Filename:</Label>
+                <TextBox Name="MacroDataFileTxtBox" Margin="8"
+                       Width="256" Height="35" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Source={x:Static props:Settings.Default}, Path=DatatypeMapFile}"></TextBox>
+                <Button Name="MacroDataFileBtn" Margin="8"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="80" Height="35" Click="OpenMacroFileDialog">
-                Browse
-            </Button>
-            
+                    Width="80" Height="35" Click="OpenMacroFileDialog">Browse</Button>
+                <Image x:Name="MacroDataToolTipIcon" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" Source="info-icon-23810.png"
+                       Width="24" Height="24" ToolTip="This is the file that tells the tool how to interpret the Pipeline Macros."/>
+            </StackPanel>
+
             <!-- Macro prefix -->
-            <Label Name="MacroPrefix" Grid.Row="3" Grid.Column="0"
+            <StackPanel Orientation="Horizontal" Grid.Row="4">
+                <Label Name="MacroPrefix" Margin="8" Width="200"
                    VerticalAlignment="Center" HorizontalAlignment="Left">
-                Macro Prefix:
-            </Label>
-            <TextBox Name="MacroPrefixTxtBox" Grid.Row="3" Grid.Column="1"
-                       Width="200" Height="35" VerticalAlignment="Center"
-                       HorizontalAlignment="Center" VerticalContentAlignment="Center">
-            </TextBox>
-            
+                    Macro Prefix:</Label>
+                <TextBox Name="MacroPrefixTxtBox" Margin="8"
+                       Width="256" Height="35" VerticalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Source={x:Static props:Settings.Default}, Path=MacroPrefix}"></TextBox>
+                <Image x:Name="MacroPrefixToolTipIcon" Margin="8" VerticalAlignment="Center" HorizontalAlignment="Center" Source="info-icon-23810.png"
+                       Width="24" Height="24" 
+                       ToolTip="This is the the string that the pipeline macros begins with.\nThis should be by default PIPELINE_ and is used by\nthe tool to identify which lines of a file contain the macros."/>
+            </StackPanel>
+
             <!-- Save settings -->
-            <TextBlock Name="OpMsg" Grid.Row="4" Grid.Column="1"></TextBlock>
-            <Button Name="SaveChanges" Grid.Row="4" Grid.Column="2"
+            <StackPanel Orientation="Vertical" Grid.Row="5" Margin="8">
+                <TextBlock Name="OpMsg" MinHeight="20" Height="Auto"></TextBlock>
+                <Button Name="SaveChanges"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="80" Height="35" Click="SaveSettings">
-                Apply
-            </Button>
+                    Width="80" MinHeight="20" Height="Auto" Click="SaveSettings">
+                    Apply</Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
