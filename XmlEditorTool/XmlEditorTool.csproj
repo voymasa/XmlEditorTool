@@ -74,6 +74,7 @@
     <Compile Include="Models\MacroContentBase.cs" />
     <Compile Include="Models\PipelineBasicStringModel.cs" />
     <Compile Include="Models\PipelineModelBase.cs" />
+    <Compile Include="Utility\FileService.cs" />
     <Compile Include="Utility\PipelineMacroHelper.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
     <Compile Include="ViewModels\ComponentViewModel.cs" />
@@ -179,6 +180,11 @@
   <ItemGroup>
     <Resource Include="Resources\File-Adobe-Dreamweaver-XML-01-icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="File-Adobe-Dreamweaver-XML-01-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="info-icon-23810.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
