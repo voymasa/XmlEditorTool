@@ -37,7 +37,7 @@ namespace XmlEditorTool
        
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.SourceFileDir))
             {
-                DirectoryInfo dir = new DirectoryInfo("..\\..\\..\\");
+                DirectoryInfo dir = new DirectoryInfo("..\\..\\..\\..\\"); // TODO -- adjust this once it is known in relation to the top level
                 Properties.Settings.Default.SourceFileDir = dir.FullName;
             }
 

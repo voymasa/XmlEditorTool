@@ -230,6 +230,10 @@ namespace XmlEditorTool
             {
                 fileInfo = d.GetFiles(sourceFile, SearchOption.AllDirectories);
                 // this foreach loop is designed to bounce out at the first file that matches
+                if (fileInfo.Length > 0)
+                {
+                    break;
+                }
             }
             
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.MacroPrefix))
