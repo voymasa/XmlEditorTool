@@ -29,66 +29,10 @@ namespace XmlEditorTool
             InitializeComponent();
         }
 
-        private void UploadDrop(object sender, DragEventArgs e)
+        public XMLEditorView(string xmlFile)
         {
-            if (XmlTreeView.IsVisible)
-            {
-                XmlTreeView.Visibility = Visibility.Hidden;
-            }
-            // Make sure the file is an xml file
-            String[] format = e.Data.GetFormats(false);
-            bool validFormat = false;
-            foreach (String s in format)
-            {
-                if (s.Equals("FileName"))
-                {
-                    string[] str = e.Data.GetData(s) as string[];
-                    if (str[0].Contains(".xml"))
-                        validFormat = true;
-                }
-            }
-
-            // only load the information if it is an xml and there is data present
-            if (validFormat && e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                // Note that you can have more than one file.
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                // Assuming you have one file that you care about, pass it off to whatever
-                // handling code you have defined.
-                XMLService.BuildTree(files[0], XmlTreeView);
-                XmlTreeView.Visibility = Visibility.Visible;
-            }
-        }
-
-        /**
-         * This method opens the file selected from the Open Dialogue and displays its
-         * contents in the left window panel
-         */
-        private void UploadFileClick(object sender, RoutedEventArgs e)
-        {
-            if (XmlTreeView.IsVisible)
-            {
-                XmlTreeView.Visibility = Visibility.Hidden;
-            }
-            // Create OpenFileDialog 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension 
-            dlg.DefaultExt = ".xml";
-            dlg.Filter = "eXtensible Markup Language (*.xml)|*.xml";
-
-            // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
-            {
-                // Open document 
-                string filename = dlg.FileName;
-                XMLService.BuildTree(filename, XmlTreeView);
-                XmlTreeView.Visibility = Visibility.Visible;
-            }
+            InitializeComponent();
+            XMLService.BuildTree(xmlFile, XmlTreeView);
         }
 
         private void XmlTreeViewItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -108,24 +52,6 @@ namespace XmlEditorTool
             // TODO: update this after refactoring the method
             //TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
             TemplateBuilderHelper.BuildTreeViewFromPipelineMacros(MacroTreeView, macroList, itemName);
-        }
-
-        private void OpenSettings(object sender, RoutedEventArgs e)
-        {
-            // Create object of the settings window object type
-            // Call the show method on that window
-            SettingsWindowView settings = new SettingsWindowView();
-            settings.Show();
-        }
-
-        private void ExportXml(object sender, RoutedEventArgs e)
-        {
-            XMLService.ExportChangesToXML(ApplicationManager.GetInstance());
-        }
-
-        private void SaveXml(object sender, RoutedEventArgs e)
-        {
-            XMLService.SaveChangesToXML();
         }
 
         private void ApplyChanges(object sender, RoutedEventArgs e)
@@ -177,11 +103,6 @@ namespace XmlEditorTool
             {
                 (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
             }
-        }
-
-        private void CloseApp(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }
