@@ -74,6 +74,7 @@
     <Compile Include="Models\MacroContentBase.cs" />
     <Compile Include="Models\PipelineBasicStringModel.cs" />
     <Compile Include="Models\PipelineModelBase.cs" />
+    <Compile Include="Models\XmlModel.cs" />
     <Compile Include="Utility\FileService.cs" />
     <Compile Include="Utility\PipelineMacroHelper.cs" />
     <Compile Include="Models\ContentItemModel.cs" />

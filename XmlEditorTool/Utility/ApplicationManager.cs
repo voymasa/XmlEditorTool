@@ -21,13 +21,13 @@ namespace XmlEditorTool.Utility
 
         private ApplicationManager()
         {
-            XmlElements = new List<XmlElement>();
+            //XmlElements = new List<XmlElement>();
         }
 
-        public XmlDocument XmlDocument { get; set; }
-        public List<XmlElement> XmlElements { get; set; }
-        public Dictionary<string,string> XmlMap { get; set; }
-        public XmlElement selectedElement { get; set; }
-        public string xmlFilePath { get; set; }
+        //public XmlDocument XmlDocument { get; set; }
+        //public List<XmlElement> XmlElements { get; set; }
+        //public Dictionary<string,string> XmlMap { get; set; }
+        //public XmlElement selectedElement { get; set; }
+        //public string xmlFilePath { get; set; }
     }
 }

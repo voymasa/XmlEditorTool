@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using XmlEditorTool.Models;
 using XmlEditorTool.Utility;
 using XmlEditorTool.ViewModels;
 
@@ -24,6 +25,7 @@ namespace XmlEditorTool
     /// </summary>
     public partial class XMLEditorView : Page
     {
+        public XmlModel Model { get; private set; }
         public XMLEditorView()
         {
             InitializeComponent();
@@ -32,26 +34,24 @@ namespace XmlEditorTool
         public XMLEditorView(string xmlFile)
         {
             InitializeComponent();
-            XMLService.BuildTree(xmlFile, XmlTreeView);
+            Model = new XmlModel(xmlFile);
+            XMLService.BuildTree(Model, XmlTreeView);
         }
 
         private void XmlTreeViewItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            //DgGrid.Visibility = Visibility.Hidden;
             string itemName = (e.NewValue as TreeViewItem).Name;
             string fileToUse = ComponentMapperManager.GetInstance().GetSourceFile(itemName);
 
             FileNameLabel.Content = fileToUse;
 
             // set the selected xml element via the treeviewitem index
-            ApplicationManager.GetInstance().selectedElement = XMLService.GetXmlElementByTagName(e.NewValue as TreeViewItem);
+            Model.SelectedElement = XMLService.GetXmlElementByTagName(e.NewValue as TreeViewItem, Model);
 
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
-            List<string> macroList = XMLService.ParseMacroList(fileToUse);
+            List<string> macroList = XMLService.ParseMacroList(Model, fileToUse);
 
-            // TODO: update this after refactoring the method
-            //TemplateBuilderHelper.BuildComponentDataTreeView(MacroTreeView.Resources["DynamicComponentTemplate"] as DataTemplate, MacroTreeView, macroList, itemName);
-            TemplateBuilderHelper.BuildTreeViewFromPipelineMacros(MacroTreeView, macroList, itemName);
+            TemplateBuilderHelper.BuildTreeViewFromPipelineMacros(MacroTreeView, macroList, Model, itemName);
         }
 
         private void ApplyChanges(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ namespace XmlEditorTool
             // iterate through each tree item
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, ApplicationManager.GetInstance().selectedElement);
+                XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, Model, Model.SelectedElement);
             }
         }
 
@@ -108,12 +108,12 @@ namespace XmlEditorTool
         // TODO -- these should be modified so that the variables and values are local to this window rather than global to the app
         private void ExportXml(object sender, RoutedEventArgs e)
         {
-            XMLService.ExportChangesToXML(ApplicationManager.GetInstance());
+            XMLService.ExportChangesToXML(Model);
         }
 
         private void SaveXml(object sender, RoutedEventArgs e)
         {
-            XMLService.SaveChangesToXML();
+            XMLService.SaveChangesToXML(Model);
         }
 
         private void CloseThisWindow(object sender, RoutedEventArgs e)
