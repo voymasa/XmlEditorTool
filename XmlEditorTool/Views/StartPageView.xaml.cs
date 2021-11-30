@@ -105,16 +105,6 @@ namespace XmlEditorTool.Views
             settings.Show();
         }
 
-        private void ExportXml(object sender, RoutedEventArgs e)
-        {
-            XMLService.ExportChangesToXML(ApplicationManager.GetInstance());
-        }
-
-        private void SaveXml(object sender, RoutedEventArgs e)
-        {
-            XMLService.SaveChangesToXML();
-        }
-
         private void CloseApp(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:XmlEditorTool.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="768" d:DesignWidth="1024"
+      d:DesignHeight="360" d:DesignWidth="640"
       Title="XML Editor - File Loader Page">
 
     <Grid>
@@ -28,9 +28,7 @@
                 <MenuItem Header="Application" Name="AppMenu">
                     <MenuItem Header="Open..." Name="OpenFile" Click="UploadFileClick"/>
                     <MenuItem Header="Settings" Name="Settings" Click="OpenSettings"></MenuItem>
-                    <MenuItem Header="Save XML" Name="Save" Click="SaveXml"/>
-                    <MenuItem Header="Export to XML..." Name="ExportXML" Click="ExportXml"/>
-                    <MenuItem Header="Close" Name="Exit" Click="CloseApp"></MenuItem>
+                    <MenuItem Header="Exit" Name="Exit" Click="CloseApp"></MenuItem>
                 </MenuItem>
             </Menu>
         </StackPanel>

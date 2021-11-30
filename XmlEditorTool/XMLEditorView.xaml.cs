@@ -104,5 +104,21 @@ namespace XmlEditorTool
                 (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
             }
         }
+
+        // TODO -- these should be modified so that the variables and values are local to this window rather than global to the app
+        private void ExportXml(object sender, RoutedEventArgs e)
+        {
+            XMLService.ExportChangesToXML(ApplicationManager.GetInstance());
+        }
+
+        private void SaveXml(object sender, RoutedEventArgs e)
+        {
+            XMLService.SaveChangesToXML();
+        }
+
+        private void CloseThisWindow(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Window.GetWindow(this).Close();
+        }
     }
 }
