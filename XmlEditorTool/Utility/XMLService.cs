@@ -19,11 +19,6 @@ namespace XmlEditorTool
 
         public static void BuildTree(XmlModel model, System.Windows.Controls.TreeView treeView)
         {
-            //XmlDocument doc = new XmlDocument();
-            //ApplicationManager.GetInstance().xmlFilePath = filepath;
-            //doc.Load(filepath);
-            //ApplicationManager.GetInstance().XmlDocument = doc;
-            //ApplicationManager.GetInstance().XmlElements.Add(doc.DocumentElement);
             model.XmlElement.Add(model.Document.DocumentElement);
 
             int openTagIndex = model.Document.DocumentElement.OuterXml.IndexOf("<");
@@ -38,7 +33,6 @@ namespace XmlEditorTool
                 IsExpanded = true
             };
             treeView.Items.Add(treeNode);
-            //ApplicationManager.GetInstance().XmlMap.Add(treeNode.Header.ToString(), doc.DocumentElement.NamespaceURI);
             BuildNodes(treeNode, model, model.Document.DocumentElement);
         }
 
@@ -69,7 +63,6 @@ namespace XmlEditorTool
                             IsExpanded = true
                         };
                         treeNode.Items.Add(childTreeNode);
-                        //ApplicationManager.GetInstance().XmlMap.Add(childTreeNode.Header.ToString(), childElement.NamespaceURI);
                         BuildNodes(childTreeNode, model, childElement);
                         break;
                     case XmlNodeType.Text:
@@ -162,7 +155,6 @@ namespace XmlEditorTool
              */
             if (string.IsNullOrWhiteSpace(sourceFile))
                 return macros;
-            //string filepath = Properties.Settings.Default.SourceFileDir + "/*/" + sourceFile;
             DirectoryInfo dirInfo = new DirectoryInfo(Properties.Settings.Default.SourceFileDir);
             DirectoryInfo[] subdirs = FileService.SetTopLevelDirs(dirInfo,
                 new FileInfo(model.XmlFilePath));
