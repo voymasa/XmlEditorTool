@@ -74,6 +74,7 @@
     <Compile Include="Models\MacroContentBase.cs" />
     <Compile Include="Models\PipelineBasicStringModel.cs" />
     <Compile Include="Models\PipelineModelBase.cs" />
+    <Compile Include="Models\XmlModel.cs" />
     <Compile Include="Utility\FileService.cs" />
     <Compile Include="Utility\PipelineMacroHelper.cs" />
     <Compile Include="Models\ContentItemModel.cs" />
@@ -95,9 +96,6 @@
     <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
     <Compile Include="Utility\TemplateBuilderHelper.cs" />
-    <Compile Include="Views\ContentItemView.xaml.cs">
-      <DependentUpon>ContentItemView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MacroContentItemView.xaml.cs">
       <DependentUpon>MacroContentItemView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +104,12 @@
     </Compile>
     <Compile Include="Views\PipelineMacroView.xaml.cs">
       <DependentUpon>PipelineMacroView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageView.xaml.cs">
+      <DependentUpon>StartPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XMLEditorViewWindow.xaml.cs">
+      <DependentUpon>XMLEditorViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLEditorView.xaml.cs">
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
@@ -127,10 +131,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContentItemView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MacroContentItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,6 +140,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PipelineMacroView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XMLEditorViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

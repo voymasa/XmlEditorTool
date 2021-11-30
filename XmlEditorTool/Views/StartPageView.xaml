@@ -1,0 +1,43 @@
+﻿<Page x:Class="XmlEditorTool.Views.StartPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:XmlEditorTool.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="360" d:DesignWidth="640"
+      Title="XML Editor - File Loader Page">
+
+    <Grid>
+        <Grid.Resources>
+            <Image x:Key="UploadImage" Height="64"
+                   Source="..\Resources\File-Adobe-Dreamweaver-XML-01-icon.png"/>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Menu -->
+        <StackPanel Grid.Row="0" Background="Gray">
+            <Menu Name="MenuBar" Width="Auto" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" IsMainMenu="True">
+                <Menu.BitmapEffect>
+                    <DropShadowBitmapEffect/>
+                </Menu.BitmapEffect>
+                <MenuItem Header="Application" Name="AppMenu">
+                    <MenuItem Header="Open..." Name="OpenFile" Click="UploadFileClick"/>
+                    <MenuItem Header="Settings" Name="Settings" Click="OpenSettings"></MenuItem>
+                    <MenuItem Header="Exit" Name="Exit" Click="CloseApp"></MenuItem>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+
+        <!-- File Upload Panel -->
+        <DockPanel Name="FileUploadPanel" Grid.Row="1" Background="LightGray" Drop="UploadDrop" AllowDrop="True">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Click="UploadFileClick" Content="{StaticResource UploadImage}"
+                        ToolTip="Drop a .xml file onto the window or click the button to open a file dialog window."/>
+        </DockPanel>
+
+    </Grid>
+</Page>

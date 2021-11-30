@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Xml;
+using XmlEditorTool.Models;
 using XmlEditorTool.Utility;
 using XmlEditorTool.ViewModels;
 
@@ -16,31 +17,26 @@ namespace XmlEditorTool
         private const string NAME = "Name";
         private const string LOC_NAME = "LocName";
 
-        public static void BuildTree(string filepath, System.Windows.Controls.TreeView treeView)
+        public static void BuildTree(XmlModel model, System.Windows.Controls.TreeView treeView)
         {
-            XmlDocument doc = new XmlDocument();
-            ApplicationManager.GetInstance().xmlFilePath = filepath;
-            doc.Load(filepath);
-            ApplicationManager.GetInstance().XmlDocument = doc;
-            ApplicationManager.GetInstance().XmlElements.Add(doc.DocumentElement);
+            model.XmlElement.Add(model.Document.DocumentElement);
 
-            int openTagIndex = doc.DocumentElement.OuterXml.IndexOf("<");
-            int closeTagIndex = doc.DocumentElement.OuterXml.IndexOf(">");
+            int openTagIndex = model.Document.DocumentElement.OuterXml.IndexOf("<");
+            int closeTagIndex = model.Document.DocumentElement.OuterXml.IndexOf(">");
 
             TreeViewItem treeNode = new TreeViewItem
             {
                 //Should be Root
-                Header = doc.DocumentElement.OuterXml.Substring(openTagIndex, closeTagIndex + 1),
-                Name = doc.DocumentElement.GetAttribute(NAME),
-                Tag = doc.DocumentElement.LocalName,
+                Header = model.Document.DocumentElement.OuterXml.Substring(openTagIndex, closeTagIndex + 1),
+                Name = model.Document.DocumentElement.GetAttribute(NAME),
+                Tag = model.Document.DocumentElement.LocalName,
                 IsExpanded = true
             };
             treeView.Items.Add(treeNode);
-            //ApplicationManager.GetInstance().XmlMap.Add(treeNode.Header.ToString(), doc.DocumentElement.NamespaceURI);
-            BuildNodes(treeNode, doc.DocumentElement);
+            BuildNodes(treeNode, model, model.Document.DocumentElement);
         }
 
-        private static void BuildNodes(TreeViewItem treeNode, XmlElement element)
+        private static void BuildNodes(TreeViewItem treeNode, XmlModel model, XmlElement element)
         {
             foreach (XmlNode child in element.ChildNodes)
             {
@@ -48,7 +44,7 @@ namespace XmlEditorTool
                 {
                     case XmlNodeType.Element:
                         XmlElement childElement = child as XmlElement;
-                        ApplicationManager.GetInstance().XmlElements.Add(childElement);
+                        model.XmlElement.Add(childElement);
 
                         string specificNode = (childElement.GetAttribute(NAME) != null ? " \"" + childElement.GetAttribute(NAME) + "\"" : "");
                         if (specificNode.Trim().Equals(""))
@@ -67,8 +63,7 @@ namespace XmlEditorTool
                             IsExpanded = true
                         };
                         treeNode.Items.Add(childTreeNode);
-                        //ApplicationManager.GetInstance().XmlMap.Add(childTreeNode.Header.ToString(), childElement.NamespaceURI);
-                        BuildNodes(childTreeNode, childElement);
+                        BuildNodes(childTreeNode, model, childElement);
                         break;
                     case XmlNodeType.Text:
                         XmlText childText = child as XmlText;
@@ -78,9 +73,9 @@ namespace XmlEditorTool
             }
         }
 
-        public static XmlElement GetXmlElementByTagName(TreeViewItem treeViewItem)
+        public static XmlElement GetXmlElementByTagName(TreeViewItem treeViewItem, XmlModel model)
         {
-            XmlNodeList nodes = ApplicationManager.GetInstance().XmlDocument.GetElementsByTagName(treeViewItem.Name);
+            XmlNodeList nodes = model.Document.GetElementsByTagName(treeViewItem.Name);
             // 1/16/2021 the nodelist at this point will have multiple items for those with the same "name"
             foreach (XmlNode n in nodes)
             {
@@ -99,43 +94,14 @@ namespace XmlEditorTool
         /// </summary>
         /// <param name="treeViewItem">The tree view item that contains the values that were modified; this reflects a specific element attribute</param>
         /// <param name="element">The xml element whose attributes are being modified or added to</param>
-        public static void UpdateXmlElement (TreeViewItem treeViewItem, XmlElement element)
+        public static void UpdateXmlElement (TreeViewItem treeViewItem, XmlModel model, XmlElement element)
         {
             // if there is no selected xml element, then immediately return
-            if (ApplicationManager.GetInstance().selectedElement == null)
+            if (model.SelectedElement == null)
             {
                 return;
             }
-            //// match the component from the datagrid to the xml document element
-            //// if the attribute exists, then modify it would the current value
-            //// else, create the attribute and add the value
-            //// TODO -- good Lord this is ugly, and wrong, and needs to be replaced with a method called on the viewmodel to construct
-            //// the string value for the attribute
-            //var tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1;
-            //if (tempData != null)
-            //{
-            //    UpdateWithData(element, treeViewItem.Header.ToString(),
-            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue1.ToString().Trim());
-            //}
-            //tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2;
-            //if (tempData != null)
-            //{
-            //    UpdateWithData(element, treeViewItem.Header.ToString(),
-            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue2.ToString().Trim());
-            //}
-            //tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3;
-            //if (tempData != null)
-            //{
-            //    UpdateWithData(element, treeViewItem.Header.ToString(),
-            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue3.ToString().Trim());
-            //}
-            //tempData = (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4;
-            //if (tempData != null)
-            //{
-            //    UpdateWithData(element, treeViewItem.Header.ToString(),
-            //        (treeViewItem.DataContext as DynamicallySizedComponentData).ContentValue4.ToString().Trim());
-            //}
-
+            
             /*
              * For each treeviewitem get the datacontext of the viewmodel
              * Get the attribute name/value pairs for the content in the viewmodel
@@ -147,59 +113,27 @@ namespace XmlEditorTool
                 // Call the method that creates the information to update the element with
                 Console.WriteLine(k);
                 Console.WriteLine(content[k]);
-                var AttributeToUpdateOrCreate = k;
-                var DataForTheAttribute = content[k];
-                UpdateWithData(element, AttributeToUpdateOrCreate, DataForTheAttribute);
+                string AttributeToUpdateOrCreate = k;
+                string DataForTheAttribute = content[k];
+                UpdateWithData(model, element, AttributeToUpdateOrCreate, DataForTheAttribute);
             }
         }
 
-        //public static void UpdateXmlElementUsingViewModel(TreeViewItem tvi, XmlElement element)
-        //{
-        //    if (ApplicationManager.GetInstance().selectedElement == null)
-        //    {
-        //        throw new ArgumentNullException("no xml element selected");
-        //    }
-
-        //    var viewModel = tvi.DataContext as ViewModelBase;
-        //    Dictionary<string, string> kvp = GetAttributeDictionaryFromViewModel(viewModel);
-        //}
-
-        //private static Dictionary<string, string> GetAttributeDictionaryFromViewModel(ViewModelBase vm)
-        //{
-        //    Dictionary<string, string> tempDict = null;
-
-        //    // TODO -- update this to handle every view model case
-        //    switch (vm.DisplayName)
-        //    {
-        //        case "PipelineBasicStringViewModel":
-        //            tempDict = (vm as PipelineBasicStringViewModel).AttributeDictionary;
-        //            break;
-        //        default:
-        //            tempDict = vm.AttributeDictionary;
-        //            break;
-        //    }
-
-        //    return tempDict;
-        //}
-
-        private static void UpdateWithData(XmlElement element, string attribute, string data)
+        private static void UpdateWithData(XmlModel model, XmlElement element, string attribute, string data)
         {
             if (element.HasAttribute(attribute))
             {
                 // Consider creating a loop hear to iterate through each value of the tree item
-                Console.WriteLine(element.GetAttribute(attribute));
                 // TODO -- create a method that constructs the attribute and value depending on the attribute
                 element.SetAttribute(attribute, data);
-                Console.WriteLine(element.GetAttribute(attribute));
             }
             else
             {
                 // TODO -- create a method that constructs the attribute and value depending on the attribute
                 // TODO --rethink this
-                XmlAttribute temp = ApplicationManager.GetInstance().XmlDocument.CreateAttribute(attribute);
+                XmlAttribute temp = model.Document.CreateAttribute(attribute);
                 temp.Value = data;
                 element.Attributes.Append(temp);
-                Console.WriteLine(element.GetAttribute(attribute));
             }
         }
 
@@ -209,7 +143,7 @@ namespace XmlEditorTool
          * @param sourceFile a string of the filepath to the sourcefile containing the macros
          * returns List<string> containing the lines that are macros, or null if the MacroPrefix setting hasn't been set
          */
-        public static List<string> ParseMacroList(string sourceFile)
+        public static List<string> ParseMacroList(XmlModel model, string sourceFile)
         {
             List<string> macros = new List<string>();
 
@@ -221,10 +155,9 @@ namespace XmlEditorTool
              */
             if (string.IsNullOrWhiteSpace(sourceFile))
                 return macros;
-            //string filepath = Properties.Settings.Default.SourceFileDir + "/*/" + sourceFile;
             DirectoryInfo dirInfo = new DirectoryInfo(Properties.Settings.Default.SourceFileDir);
             DirectoryInfo[] subdirs = FileService.SetTopLevelDirs(dirInfo,
-                new FileInfo(ApplicationManager.GetInstance().xmlFilePath));
+                new FileInfo(model.XmlFilePath));
             FileInfo[] fileInfo = null;
             foreach (DirectoryInfo d in subdirs)
             {
@@ -272,9 +205,9 @@ namespace XmlEditorTool
         /// </summary>
         /// <param name="manager"> The application manager that owns the xml document being modified</param>
         /// <returns>true if the export succeeded, or false if it fails</returns>
-        public static Boolean ExportChangesToXML(ApplicationManager manager)
+        public static bool ExportChangesToXML(XmlModel model)
         {
-            Boolean succeeded = false;
+            bool succeeded = false;
 
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "XmlDocument"; // Default file name
@@ -282,22 +215,22 @@ namespace XmlEditorTool
             dlg.Filter = "eXtensible Markup Language (.xml)|*.xml"; // Filter files by extension
 
             // Show save file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
+            bool? result = dlg.ShowDialog();
 
             // Process save file dialog box results
             if (result == true)
             {
                 // Save document
                 string filename = dlg.FileName;
-                manager.XmlDocument.Save(filename);
+                model.Document.Save(filename);
             }
 
             return succeeded;
         }
 
-        public static void SaveChangesToXML()
+        public static void SaveChangesToXML(XmlModel model)
         {
-            ApplicationManager.GetInstance().XmlDocument.Save(ApplicationManager.GetInstance().xmlFilePath);
+            model.Document.Save(model.XmlFilePath);
         }
     }
 }
