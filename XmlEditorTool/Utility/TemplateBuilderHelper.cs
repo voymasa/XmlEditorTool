@@ -44,37 +44,5 @@ namespace XmlEditorTool.Utility
             treeView.ItemsSource = treeViewItems;
             treeView.Visibility = Visibility.Visible;
         }
-
-        public static void BuildTreeViewItemFromContent(TreeView treeView, string macroName, List<MacroContentBase> contents)
-        {
-            List<TreeViewItem> treeViewItems = new List<TreeViewItem>();
-            foreach (MacroContentBase mcb in contents)
-            {
-                TreeViewItem treeViewItem = CreateTreeViewItemFromContents(macroName, mcb);// Code to return TreeViewItem built with contents
-
-                if (treeViewItem != null)
-                {
-                    treeViewItems.Add(treeViewItem);
-                }
-            }
-            treeView.ItemsSource = treeViewItems;
-            treeView.Visibility = Visibility.Visible;
-        }
-
-        public static TreeViewItem CreateTreeViewItemFromContents(string macroName, MacroContentBase m)
-        {
-            TreeViewItem item = (TreeViewItem)new MacroContentItemView().GetDataTemplate().LoadContent();
-            MacroContentItemViewModel vm = new MacroContentItemViewModel(
-                m,
-                MacroMapperHelper.GetInstance().GetHeaders(macroName)[0],
-                m.ContentValue
-                );
-            item.Header = vm.ContentHeader;
-            item.Name = vm.ContentHeader;
-            item.DataContext = vm;
-            (item.Items.GetItemAt(0) as ItemsControl).ItemsSource = vm.Contents;
-            item.IsExpanded = true;
-            return item;
-        }
     }
 }
