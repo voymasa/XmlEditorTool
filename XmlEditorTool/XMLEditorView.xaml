@@ -23,7 +23,7 @@
                 <Menu.BitmapEffect>
                     <DropShadowBitmapEffect/>
                 </Menu.BitmapEffect>
-                <MenuItem Header="Application" Name="AppMenu">
+                <MenuItem Header="Actions" Name="AppMenu">
                     <MenuItem Header="Save XML" Name="Save" Click="SaveXml"/>
                     <MenuItem Header="Export to XML..." Name="ExportXML" Click="ExportXml"/>
                     <MenuItem Header="Close Window" Name="CloseWindow" Click="CloseThisWindow"></MenuItem>
