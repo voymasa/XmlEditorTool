@@ -25,7 +25,7 @@ namespace XmlEditorTool
     /// </summary>
     public partial class XMLEditorView : Page
     {
-        public XmlModel Model { get; private set; }
+        public XmlModel Model { get; protected set; }
         public XMLEditorView()
         {
             InitializeComponent();
@@ -40,11 +40,15 @@ namespace XmlEditorTool
 
         private void XmlTreeViewItemSelected(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            string itemName = (e.NewValue as TreeViewItem).Name;
+            string itemName = ((e.NewValue as TreeViewItem).DataContext as XmlElementViewModel).ElementComponentName;
             string fileToUse = ComponentMapperManager.GetInstance().GetSourceFile(itemName);
 
             FileNameLabel.Content = fileToUse;
-
+            
+            if (string.IsNullOrWhiteSpace(fileToUse)) // at this point the label will display there is not source file found but the rest of this method will null exception
+            {
+                return;
+            }
             // set the selected xml element via the treeviewitem index
             Model.SelectedElement = XMLService.GetXmlElementByTagName(e.NewValue as TreeViewItem, Model);
 
