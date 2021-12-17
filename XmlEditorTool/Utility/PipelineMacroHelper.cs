@@ -17,6 +17,10 @@ namespace XmlEditorTool.Utility
     {
         public static TreeViewItem BuildTreeViewItem(XmlModel model, string macroName, string[] args, string elementName)
         {
+            if (!MacroMapperHelper.GetInstance().HasMacroInfo(macroName))
+            {
+                return null;
+            }
             PipelineMacroView pmv = new PipelineMacroView();
             TreeViewItem item = pmv.PipelineTreeItem;
             XmlElement xmlElement = model.XmlElement.Find(x => x.Name.Equals(elementName) && x.HasAttribute(args[0]));
@@ -26,7 +30,15 @@ namespace XmlEditorTool.Utility
             /*
              * for each header in the macro csv file, create a contentitem model and assign the values
              */
-            List<string> headerList = MacroMapperHelper.GetInstance().GetHeaders(macroName);
+            List<string> headerList;
+            try
+            {
+                headerList = MacroMapperHelper.GetInstance().GetHeaders(macroName);
+            }
+            catch (NullReferenceException nre)
+            {
+                return null;
+            }
             for (int i = 0; i < headerList.Count; i++)
             {
                 ContentItemModel contentModel = new ContentItemModel(args[i + 1]); // the plus 1 is to bypass the attribute name from the arg list
