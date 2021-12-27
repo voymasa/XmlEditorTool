@@ -9,6 +9,7 @@ using System.Xml;
 using XmlEditorTool.Models;
 using XmlEditorTool.Utility;
 using XmlEditorTool.ViewModels;
+using XmlEditorTool.Views;
 
 namespace XmlEditorTool
 {
@@ -19,19 +20,7 @@ namespace XmlEditorTool
 
         public static void BuildTree(XmlModel model, System.Windows.Controls.TreeView treeView)
         {
-            model.XmlElement.Add(model.Document.DocumentElement);
-
-            int openTagIndex = model.Document.DocumentElement.OuterXml.IndexOf("<");
-            int closeTagIndex = model.Document.DocumentElement.OuterXml.IndexOf(">");
-
-            TreeViewItem treeNode = new TreeViewItem
-            {
-                //Should be Root
-                Header = model.Document.DocumentElement.OuterXml.Substring(openTagIndex, closeTagIndex + 1),
-                Name = model.Document.DocumentElement.GetAttribute(NAME),
-                Tag = model.Document.DocumentElement.LocalName,
-                IsExpanded = true
-            };
+            TreeViewItem treeNode = BuildXmlTreeViewItem(model, model.Document.DocumentElement);
             treeView.Items.Add(treeNode);
             BuildNodes(treeNode, model, model.Document.DocumentElement);
         }
@@ -44,24 +33,7 @@ namespace XmlEditorTool
                 {
                     case XmlNodeType.Element:
                         XmlElement childElement = child as XmlElement;
-                        model.XmlElement.Add(childElement);
-
-                        string specificNode = (childElement.GetAttribute(NAME) != null ? " \"" + childElement.GetAttribute(NAME) + "\"" : "");
-                        if (specificNode.Trim().Equals(""))
-                            specificNode = (childElement.GetAttribute(LOC_NAME) != null ? " \"" + childElement.GetAttribute(LOC_NAME) + "\"" : null);
-
-                        int openingTagIndex = childElement.OuterXml.IndexOf("<");
-                        int closingTagIndex = childElement.OuterXml.IndexOf(">");
-
-                        TreeViewItem childTreeNode = new TreeViewItem
-                        {
-                            //Get First attribute where it is equal to value
-                            Header = childElement.OuterXml.Substring(openingTagIndex, closingTagIndex + 1),//!specificNode.Trim().Equals("") ? (childElement.Name + specificNode) : childElement.Name,
-                            Name = childElement.Name,
-                            Tag = childElement.LocalName,
-                            //Automatically expand elements
-                            IsExpanded = true
-                        };
+                        TreeViewItem childTreeNode = BuildXmlTreeViewItem(model, childElement);
                         treeNode.Items.Add(childTreeNode);
                         BuildNodes(childTreeNode, model, childElement);
                         break;
@@ -73,18 +45,53 @@ namespace XmlEditorTool
             }
         }
 
-        public static XmlElement GetXmlElementByTagName(TreeViewItem treeViewItem, XmlModel model)
+        public static TreeViewItem BuildXmlTreeViewItem(XmlModel model, XmlElement element)
         {
-            XmlNodeList nodes = model.Document.GetElementsByTagName(treeViewItem.Name);
+            XmlElementView xdv = new XmlElementView();
+            TreeViewItem item = new TreeViewItem();//xdv.XmlTreeItem;
+            //childTree = xdv.XmlChildTree;
+
+            XmlElementViewModel xevm = new XmlElementViewModel(element);
+            model.XmlElement.Add(element);
+            model.ViewModels.Add(xevm);
+
+            item.ItemTemplate = xdv.GetXmlTemplate();
+            //item.Items.Clear();
+            //item.ItemsSource = xevm.XmlViewModelCollection; // this equals the collection of vms?
+            item.Header = xevm.ElementInfo;//xevm.ElementComponentName + ": " + xevm.ElementName; // this equals the element name
+            item.DataContext = xevm; // this is the view model
+            //xevm.PopulateCollectionWithElementViewModels();
+            item.IsExpanded = true;
+            item.Tag = xevm.ElementName;
+
+            return item;
+        }
+
+        public static XmlElement GetXmlElementByTagName(XmlElementViewModel xmlViewModel, XmlModel model)
+        {
+            XmlNodeList nodes = model.Document.DocumentElement.GetElementsByTagName(xmlViewModel.ElementComponentName);
             // 1/16/2021 the nodelist at this point will have multiple items for those with the same "name"
             foreach (XmlNode n in nodes)
             {
-                int openingTagIndex = n.OuterXml.IndexOf("<");
-                int closingTagIndex = n.OuterXml.IndexOf(">");
-                if (n.OuterXml.Substring(openingTagIndex, closingTagIndex + 1).Equals(treeViewItem.Header.ToString()))
+                XmlElement element = n as XmlElement;
+                //int openingTagIndex = n.OuterXml.IndexOf("<");
+                //int closingTagIndex = n.OuterXml.IndexOf(">");
+                if (element.GetAttribute(LOC_NAME).Equals(xmlViewModel.ElementName))
                 {
-                    return n as XmlElement;
+                    return element;
                 }
+                else if (element.GetAttribute(NAME).Equals(xmlViewModel.ElementName))
+                {
+                    return element;
+                }
+                else if (element.LocalName.Equals(xmlViewModel.ElementName))
+                {
+                    return element;
+                }
+                //if (n.OuterXml.Substring(openingTagIndex, closingTagIndex + 1).Equals(xmlViewModel.ElementName))
+                //{
+                //    return n as XmlElement;
+                //}
             }
             return nodes[0] as XmlElement;
         }

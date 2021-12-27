@@ -50,7 +50,8 @@ namespace XmlEditorTool
                 return;
             }
             // set the selected xml element via the treeviewitem index
-            Model.SelectedElement = XMLService.GetXmlElementByTagName(e.NewValue as TreeViewItem, Model);
+            XmlElementViewModel xmlData = (e.NewValue as TreeViewItem).DataContext as XmlElementViewModel;
+            Model.SelectedElement = XMLService.GetXmlElementByTagName(xmlData, Model);
 
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
             List<string> macroList = XMLService.ParseMacroList(Model, fileToUse);
@@ -69,7 +70,7 @@ namespace XmlEditorTool
 
         private void ExpandAllProperties(object sender, RoutedEventArgs e)
         {
-            for(int i=0; i < MacroTreeView.Items.Count; i++)
+            for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
                 (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = true;
             }
@@ -79,15 +80,15 @@ namespace XmlEditorTool
         {
             CollapseAllProperties();
 
-            for(int i=0; i < MacroTreeView.Items.Count; i++)
+            for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
                 (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
 
-                var dc = (MacroTreeView.Items[i] as TreeViewItem).DataContext as PipelineMacroViewModel;
+                PipelineMacroViewModel dc = (MacroTreeView.Items[i] as TreeViewItem).DataContext as PipelineMacroViewModel;
                 
                 foreach (ContentItemViewModel c in dc.ContentItemViewModelCollection)
                 {
-                    if(!c.ContentModel.IsDefaultValue)
+                    if (!c.ContentModel.IsDefaultValue)
                     {
                         (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = true;
                         break;
@@ -109,7 +110,6 @@ namespace XmlEditorTool
             }
         }
 
-        // TODO -- these should be modified so that the variables and values are local to this window rather than global to the app
         private void ExportXml(object sender, RoutedEventArgs e)
         {
             XMLService.ExportChangesToXML(Model);
@@ -122,7 +122,7 @@ namespace XmlEditorTool
 
         private void CloseThisWindow(object sender, RoutedEventArgs e)
         {
-            System.Windows.Window.GetWindow(this).Close();
+            Window.GetWindow(this).Close();
         }
     }
 }
