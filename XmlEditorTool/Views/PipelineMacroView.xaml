@@ -42,5 +42,6 @@
                     <Run Text="{Binding DataType}"/>
             </TextBlock>
         </StackPanel>
+        <TreeViewItem Name="ContentTreeView" Header="ContentItems"/>
     </TreeViewItem>
 </UserControl>

@@ -51,6 +51,7 @@ namespace XmlEditorTool
             }
             // set the selected xml element via the treeviewitem index
             XmlElementViewModel xmlData = (e.NewValue as TreeViewItem).DataContext as XmlElementViewModel;
+            Model.SelectedElementViewModel = xmlData;
             Model.SelectedElement = XMLService.GetXmlElementByTagName(xmlData, Model);
 
             // read through the file and store in a List<string> each line that contains the Macro Prefix setting
@@ -64,15 +65,48 @@ namespace XmlEditorTool
             // iterate through each tree item
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, Model, Model.SelectedElement);
+                //XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeViewItem, Model, Model.SelectedElement);
+                XMLService.UpdateXmlElement(MacroTreeView.Items.GetItemAt(i) as TreeView, Model, Model.SelectedElement, Model.SelectedElementViewModel);
             }
+            var targetTreeItem = FindTreeViewItemByTag(XmlTreeView.Items, Model.SelectedElementViewModel.ElementName);
+            if (targetTreeItem != null)
+            {
+                targetTreeItem.Header = (targetTreeItem.DataContext as XmlElementViewModel).ElementInfo; //this updates the visual of the xml tree
+            }
+        }
+
+        private static TreeViewItem FindTreeViewItemByTag(ItemCollection itemCollection, string tagValue)
+        {
+            TreeViewItem treeViewResult = null;
+            foreach (var item in itemCollection)
+            {
+                TreeViewItem treeViewItem = item as TreeViewItem;
+                if (treeViewItem.Tag == tagValue)
+                {
+                    treeViewResult = treeViewItem;
+                    break;
+                }
+                if (treeViewItem.Items.Count > 0)
+                {
+                    treeViewResult = FindTreeViewItemByTag(treeViewItem.Items, tagValue);
+                    if (treeViewResult != null)
+                    {
+                        break;
+                    }
+                }
+            }
+            return treeViewResult;
         }
 
         private void ExpandAllProperties(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = true;
+                var tree = MacroTreeView.Items[i] as TreeView;
+                foreach (TreeViewItem item in tree.Items)
+                {
+                    item.IsExpanded = true;
+                }
             }
         }
 
@@ -82,17 +116,18 @@ namespace XmlEditorTool
 
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
-
-                PipelineMacroViewModel dc = (MacroTreeView.Items[i] as TreeViewItem).DataContext as PipelineMacroViewModel;
-                
-                foreach (ContentItemViewModel c in dc.ContentItemViewModelCollection)
+                TreeView pipeTree = MacroTreeView.Items[i] as TreeView; // the pipetree
+                var contentCollection = ((pipeTree.Items[0] as TreeViewItem).DataContext as PipelineViewModel).Model.ContentCollection;
+                foreach (ContentItemViewModel vm in contentCollection)
                 {
-                    if (!c.ContentModel.IsDefaultValue)
+                    if (!vm.IsDefaultValue)
                     {
-                        (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = true;
-                        break;
+                        foreach (TreeViewItem item in pipeTree.Items)
+                        {
+                            item.IsExpanded = true;
+                        }
                     }
+                    
                 }
             }
         }
@@ -106,7 +141,11 @@ namespace XmlEditorTool
         {
             for (int i = 0; i < MacroTreeView.Items.Count; i++)
             {
-                (MacroTreeView.Items[i] as TreeViewItem).IsExpanded = false;
+                var tree = MacroTreeView.Items[i] as TreeView;
+                foreach (TreeViewItem item in tree.Items)
+                {
+                    item.IsExpanded = false;
+                }
             }
         }
 

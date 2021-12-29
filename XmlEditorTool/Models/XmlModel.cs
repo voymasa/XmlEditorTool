@@ -16,6 +16,7 @@ namespace XmlEditorTool.Models
         public List<XmlElementViewModel> ViewModels { get; protected set; }
         //public Dictionary<string, string> XmlMap { get; set; }
         public XmlElement SelectedElement { get; set; }
+        public XmlElementViewModel SelectedElementViewModel { get; set; }
         
         /*
          * 1. set the document to the argument and store the filepath

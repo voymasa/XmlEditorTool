@@ -96,6 +96,7 @@
     <Compile Include="Utility\DynamicallySizedComponentData.cs" />
     <Compile Include="Utility\MacroMapperHelper.cs" />
     <Compile Include="Utility\TemplateBuilderHelper.cs" />
+    <Compile Include="ViewModels\XmlElementViewModel.cs" />
     <Compile Include="Views\MacroContentItemView.xaml.cs">
       <DependentUpon>MacroContentItemView.xaml</DependentUpon>
     </Compile>
@@ -110,6 +111,9 @@
     </Compile>
     <Compile Include="Views\XMLEditorViewWindow.xaml.cs">
       <DependentUpon>XMLEditorViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XmlElementView.xaml.cs">
+      <DependentUpon>XmlElementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="XMLEditorView.xaml.cs">
       <DependentUpon>XMLEditorView.xaml</DependentUpon>
@@ -148,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\XMLEditorViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XmlElementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

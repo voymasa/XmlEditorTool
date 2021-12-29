@@ -72,7 +72,7 @@ namespace XmlEditorTool.ViewModels
                 int openingTagIndex = info.IndexOf("<");
                 int closingTagIndex = info.IndexOf(">");
 
-                return info.Substring(openingTagIndex, closingTagIndex - 1); 
+                return info.Substring(openingTagIndex, closingTagIndex + 1); 
             }
             set
             {
@@ -95,20 +95,13 @@ namespace XmlEditorTool.ViewModels
                 attribute.Value = attrValue;
                 ElementModel.Attributes.Append(attribute);
             }
+            //ElementInfo = ElementModel.Value;
             RaisePropertyChanged(() => ElementInfo);
         }
 
         public XmlElementViewModel(XmlElement e)
         {
             ElementModel = e;
-            //XmlViewModelCollection = new ObservableCollection<XmlElementViewModel>();
-            //foreach (XmlNode x in e.ChildNodes)
-            //{
-            //    if (x != null)
-            //    {
-            //        XmlViewModelCollection.Add(new XmlElementViewModel(x as XmlElement));
-            //    }
-            //}
         }
     }
 }

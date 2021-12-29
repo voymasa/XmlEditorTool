@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <DataTemplate x:Key="XmlTreeTemplate">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Name="txtXmlHeader" Text="{Binding ElementInfo}"/>
+                <TextBlock Name="txtXmlHeader" Text="{Binding ElementInfo, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>

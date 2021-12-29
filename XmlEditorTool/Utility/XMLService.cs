@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Xml;
 using XmlEditorTool.Models;
@@ -123,6 +124,27 @@ namespace XmlEditorTool
                 string AttributeToUpdateOrCreate = k;
                 string DataForTheAttribute = content[k];
                 UpdateWithData(model, element, AttributeToUpdateOrCreate, DataForTheAttribute);
+            }
+        }
+
+        public static void UpdateXmlElement (System.Windows.Controls.TreeView treeView, XmlModel model, XmlElement element, XmlElementViewModel viewModel)
+        {
+            if (model.SelectedElement == null || element == null)
+            {
+                return;
+            }
+
+            PipelineViewModel pipelineViewModel = (treeView.Items[0] as TreeViewItem).DataContext as PipelineViewModel;
+            Dictionary<string, string> attributeContentInformation = pipelineViewModel.Model.GenerateContentAttributeValues();
+            foreach (string k in attributeContentInformation.Keys)
+            {
+                string AttributeToUpdateOrCreate = k;
+                string DataForTheAttribute = attributeContentInformation[k];
+                //Console.WriteLine(AttributeToUpdateOrCreate);
+                //Console.WriteLine(DataForTheAttribute);
+                //UpdateWithData(model, element, AttributeToUpdateOrCreate, DataForTheAttribute);
+                XmlAttribute xmlAttribute = model.Document.CreateAttribute(AttributeToUpdateOrCreate);
+                viewModel.UpdateElementInfo(xmlAttribute, DataForTheAttribute);
             }
         }
 
