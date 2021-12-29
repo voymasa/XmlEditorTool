@@ -27,7 +27,7 @@ namespace XmlEditorTool.Views
 
         public DataTemplate GetDataTemplate()
         {
-            return this.Resources["MacroContentItemTemplate"] as DataTemplate;
+            return this.Resources["ContentTemplate"] as DataTemplate;
         }
     }
 }

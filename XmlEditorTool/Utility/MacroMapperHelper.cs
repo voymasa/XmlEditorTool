@@ -76,6 +76,11 @@ namespace XmlEditorTool.Utility
             return MacroDatatypeMapperProperty.Find(x => x.ItemArray[0].Equals(macro.Trim()));
         }
 
+        public bool HasMacroInfo(string macro)
+        {
+            return MacroDatatypeMapperProperty.Find(x => x.ItemArray[0].Equals(macro.Trim())) != null;
+        }
+
         /// <summary>
         /// This method gets the data type stored in the macro data file
         /// </summary>
@@ -118,6 +123,10 @@ namespace XmlEditorTool.Utility
         {
             List<string> headerList = new List<string>();
             DataRow data = SearchPropertyListByMacro(macroArg);
+            if (data == null)
+            {
+                throw new NullReferenceException("No associated macro mapped in the csv.");
+            }
             int numHeaders = GetNumDefaultValues(macroArg);
 
             for (int i = 0; i < numHeaders; i++)

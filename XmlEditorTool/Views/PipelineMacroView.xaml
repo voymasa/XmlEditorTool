@@ -10,59 +10,38 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <DataTemplate x:Key="ContentItemTemplate">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Name="txtContentHeader">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="txtContentHeader">
                     <Run Text="{Binding ContentHeader}"/>
                     <Run Text=": "/>
-                    </TextBlock>
-                    <TextBox Name="txtContentValue" Text="{Binding ContentValue}" MinWidth="50"/>
-                </StackPanel>
+                </TextBlock>
+                <TextBox Name="txtContentValue" Text="{Binding ContentValue}" MinWidth="50"/>
+            </StackPanel>
         </DataTemplate>
-        <HierarchicalDataTemplate x:Key="PipelineMacroTemplate"
-                                  ItemsSource="{Binding ContentItemViewModelCollection}"
-                                  ItemTemplate="{StaticResource ContentItemTemplate}">
-            <TreeViewItem Name="PipelineTreeItem">
-                <StackPanel Name="MacroStackPanel">
-                    <TextBlock Name="txtAttributeName">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0}: {1}">
-                                <Binding Source="Attribute Name"/>
-                                <Binding Path="AttributeName" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                    <TextBlock Name="txtDataType">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0}: {1}">
-                                <Binding Source="Data Type"/>
-                                <Binding Path="DataType"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </StackPanel>
-                <TreeViewItem Name="ContentTreeView"/>
-            </TreeViewItem>
-        </HierarchicalDataTemplate>
+        <DataTemplate x:Key="PipelineMacroItemTemplate">
+            <StackPanel Name="MacroStackPanel" Orientation="Vertical">
+                <TextBlock Name="txtAttributeName">
+                    <Run Text="Attribute Name: "/>
+                    <Run Text="{Binding AttributeName}"/>
+                </TextBlock>
+                <TextBlock Name="txtDataType">
+                    <Run Text="Data Type: "/>
+                    <Run Text="{Binding DataType}"/>
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
-    <TreeViewItem Name="PipelineTreeItem">
-        <StackPanel Name="MacroStackPanel">
+    <TreeViewItem Name="PipelineTreeViewItem">
+        <StackPanel Name="MacroStackPanel" Orientation="Vertical">
             <TextBlock Name="txtAttributeName">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}{0}: {1}">
-                        <Binding Source="Attribute Name"/>
-                        <Binding Path="AttributeName" />
-                    </MultiBinding>
-                </TextBlock.Text>
+                    <Run Text="Attribute Name: "/>
+                    <Run Text="{Binding AttributeName}"/>
             </TextBlock>
             <TextBlock Name="txtDataType">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}{0}: {1}">
-                        <Binding Source="Data Type"/>
-                        <Binding Path="DataType"/>
-                    </MultiBinding>
-                </TextBlock.Text>
+                    <Run Text="Data Type: "/>
+                    <Run Text="{Binding DataType}"/>
             </TextBlock>
         </StackPanel>
-        <TreeViewItem Name="ContentTreeView"/>
+        <TreeViewItem Name="ContentTreeView" Header="ContentItems"/>
     </TreeViewItem>
 </UserControl>

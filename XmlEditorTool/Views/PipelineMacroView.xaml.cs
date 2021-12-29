@@ -34,5 +34,10 @@ namespace XmlEditorTool.Views
         {
             return this.Resources["PipelineMacroTemplate"] as HierarchicalDataTemplate;
         }
+
+        public DataTemplate GetMacroDataTemplate()
+        {
+            return Resources["PipelineMacroItemTemplate"] as DataTemplate;
+        }
     }
 }

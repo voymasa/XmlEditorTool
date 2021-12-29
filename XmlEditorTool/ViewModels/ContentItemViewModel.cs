@@ -7,7 +7,7 @@ using XmlEditorTool.Models;
 
 namespace XmlEditorTool.ViewModels
 {
-    class ContentItemViewModel : ViewModelBase
+    public class ContentItemViewModel : ViewModelBase
     {
         public ContentItemModel ContentModel { get; protected set; }
 
@@ -43,6 +43,11 @@ namespace XmlEditorTool.ViewModels
                     RaisePropertyChanged(() => ContentValue);
                 }
             }
+        }
+
+        public bool IsDefaultValue
+        {
+            get { return ContentModel.IsDefaultValue; }
         }
 
         public ContentItemViewModel(ContentItemModel ContentModel)

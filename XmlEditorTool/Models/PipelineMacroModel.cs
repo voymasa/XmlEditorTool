@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using XmlEditorTool.ViewModels;
 
 namespace XmlEditorTool.Models
 {
@@ -19,6 +21,37 @@ namespace XmlEditorTool.Models
              */
 
             return keyValuePairs;
+        }
+
+        public ObservableCollection<ContentItemViewModel> ContentCollection { get; set; }
+        public Dictionary<string, string> GenerateContentAttributeValues()
+        {
+            Dictionary<string, string> content = new Dictionary<string, string>();
+
+            if (ContentCollection.Count > 1)
+            {
+                foreach (ContentItemViewModel vm in ContentCollection)
+                {
+                    KeyValuePair<string, string> kvp = vm.GetContentHeaderValuePair(AttributeName + ".", false);
+                    if (kvp.Value != null)
+                    {
+                        content.Add(kvp.Key, kvp.Value);
+                    }
+                }
+            }
+            else if (ContentCollection.Count == 1)
+            {
+                foreach (ContentItemViewModel vm in ContentCollection)
+                {
+                    KeyValuePair<string, string> kvp = vm.GetContentHeaderValuePair(AttributeName, true);
+                    if (kvp.Value != null)
+                    {
+                        content.Add(kvp.Key, kvp.Value);
+                    }
+                }
+            }
+
+            return content;
         }
     }
 }
