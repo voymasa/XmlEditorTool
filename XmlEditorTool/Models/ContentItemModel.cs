@@ -8,12 +8,14 @@ namespace XmlEditorTool.Models
         public string ContentValue { get; set; }
         public bool IsDefaultValue { get; set; }
         public string DefaultValue { get; set; }
+        public bool IsValueApplied { get; set; }
 
         public ContentItemModel(string defaultValue)
         {
             ContentValue = defaultValue;
             this.DefaultValue = defaultValue;
             IsDefaultValue = true;
+            IsValueApplied = false;
         }
 
         /// <summary>

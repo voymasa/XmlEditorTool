@@ -81,7 +81,7 @@ namespace XmlEditorTool
             foreach (var item in itemCollection)
             {
                 TreeViewItem treeViewItem = item as TreeViewItem;
-                if (treeViewItem.Tag == tagValue)
+                if (treeViewItem.Tag.ToString() == tagValue)
                 {
                     treeViewResult = treeViewItem;
                     break;

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using XmlEditorTool.ViewModels;
 
 namespace XmlEditorTool.Views
 {
@@ -28,6 +29,13 @@ namespace XmlEditorTool.Views
         public DataTemplate GetDataTemplate()
         {
             return this.Resources["ContentTemplate"] as DataTemplate;
+        }
+
+        private void ContentValueTextChanged(object sender, TextChangedEventArgs args)
+        {
+            var panel = (sender as TextBox).Parent as StackPanel;
+            var viewModel = panel.DataContext as ContentItemViewModel;
+            viewModel.IsValueApplied = false;
         }
     }
 }

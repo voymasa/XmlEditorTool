@@ -12,20 +12,79 @@
         <DataTemplate x:Key="ContentTemplate">
             <StackPanel Name="ContentStackPanel" Orientation="Horizontal">
                 <TextBlock Name="txtContentHeader">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsValueApplied}" Value="True"/>
+                                        <Condition Binding="{Binding IsDefaultValue}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsValueApplied}" Value="False"/>
+                                        <Condition Binding="{Binding IsDefaultValue}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsValueApplied}" Value="False"/>
+                                        <Condition Binding="{Binding IsDefaultValue}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Foreground" Value="DarkGray"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                     <Run Text="{Binding ContentHeader}"/>
                     <Run Text=": "/>
                 </TextBlock>
-                <TextBox Name="txtContentValue" Text="{Binding ContentValue, UpdateSourceTrigger=PropertyChanged}" MinWidth="50"/>
+                <TextBox Name="txtContentValue" Text="{Binding ContentValue, UpdateSourceTrigger=PropertyChanged}" MinWidth="50"
+                         TextChanged="ContentValueTextChanged">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsValueApplied}" Value="True"/>
+                                        <Condition Binding="{Binding IsDefaultValue}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsValueApplied}" Value="False"/>
+                                        <Condition Binding="{Binding IsDefaultValue}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Foreground" Value="Red"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsValueApplied}" Value="False"/>
+                                        <Condition Binding="{Binding IsDefaultValue}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Foreground" Value="DarkGray"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <TreeViewItem Name="ContentTreeItem">
-        <StackPanel Name="ContentStackPanel" Orientation="Horizontal">
-            <TextBlock Name="txtContentHeader">
-                    <Run Text="{Binding ContentHeader}"/>
-                    <Run Text=": "/>
-            </TextBlock>
-            <TextBox Name="txtContentValue" Text="{Binding ContentValue}" MinWidth="50"/>
-        </StackPanel>
-    </TreeViewItem>
 </UserControl>
