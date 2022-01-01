@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Xml;
 using XmlEditorTool.Models;
 using XmlEditorTool.ViewModels;
@@ -33,22 +34,14 @@ namespace XmlEditorTool.Utility
                 string[] args = s.Substring(openParIndex, closeParIndex - openParIndex).Replace("(", "")
                     .Replace(")", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                //TreeViewItem treeViewItem = PipelineMacroHelper.CreateMacroTreeViewItem(macroName.Trim(), args, elementName);
-                //TreeViewItem treeViewItem = PipelineMacroHelper.BuildTreeViewItem(model, macroName.Trim(), args, elementName);
-
-
-                //if (treeViewItem != null)
-                //{
-                //    treeViewItems.Add(treeViewItem);
-                //}
-
                 // Create a treeview to represent the macro and content
                 // Create the pipeline tree item and add it to the tree
                 // Create the content tree items and add them to the tree
                 // Add the pipe treeview to the base treeview
                 TreeView pipeTree = new TreeView
                 {
-                    Visibility = Visibility.Visible
+                    Visibility = Visibility.Visible,
+                    //Background = Brushes.DarkGray
                 };
 
                 TreeViewItem pipelineMacroItem = PipelineMacroHelper.CreatePipelineMacroItem(macroName.Trim(), args, elementName);
@@ -58,6 +51,7 @@ namespace XmlEditorTool.Utility
                 }
 
                 ObservableCollection<TreeViewItem> contentItems = PipelineMacroHelper.CreateContentItemList(model, macroName, args, elementName);
+                var notDefaultValue = false;
                 foreach (TreeViewItem item in contentItems)
                 {
                     if (item != null)
@@ -66,14 +60,27 @@ namespace XmlEditorTool.Utility
                         {
                             var pipelineViewModel = pipelineMacroItem.DataContext as PipelineViewModel;
                             var contentViewModel = item.DataContext as ContentItemViewModel;
+                            //notDefaultValue = notDefaultValue || !contentViewModel.ContentModel.IsDefaultValue; // if at least one of the content items for this macro is not default, then true
                             pipelineViewModel.Model.ContentCollection.Add(contentViewModel);
+                            //notDefaultValue = !contentViewModel.IsDefaultValue;
+                            //if (notDefaultValue)
+                            //{
+                            //    item.Foreground = Brushes.Green;
+                            //}
+                            //else
+                            //{
+                            //    item.Foreground = Brushes.DarkGray;
+                            //}
                         }
                         pipeTree.Items.Add(item);
                     }
                 }
+                if (notDefaultValue)
+                {
+                    //pipeTree.Background = Brushes.White;
+                }
 
                 treeViewItems.Add(pipeTree);
-                //treeView.Items.Add(pipeTree);
             }
             treeView.ItemsSource = treeViewItems;
             treeView.Visibility = Visibility.Visible;

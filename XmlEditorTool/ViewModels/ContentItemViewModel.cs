@@ -29,16 +29,16 @@ namespace XmlEditorTool.ViewModels
             get { return ContentModel.ContentValue; }
             set
             {
-                if (ContentModel.ContentValue != value)
+                if (ContentModel.ContentValue != value.Trim())
                 {
-                    ContentModel.ContentValue = value;
-                    if (ContentModel.DefaultValue == value)
+                    ContentModel.ContentValue = value.Trim();
+                    if (ContentModel.DefaultValue.Trim() == value.Trim())
                     {
-                        ContentModel.IsDefaultValue = true;
+                        IsDefaultValue = true;
                     }
                     else
                     {
-                        ContentModel.IsDefaultValue = false;
+                        IsDefaultValue = false;
                     }
                     RaisePropertyChanged(() => ContentValue);
                 }
@@ -48,6 +48,27 @@ namespace XmlEditorTool.ViewModels
         public bool IsDefaultValue
         {
             get { return ContentModel.IsDefaultValue; }
+            set
+            {
+                if (ContentModel.IsDefaultValue != value)
+                {
+                    ContentModel.IsDefaultValue = value;
+                    RaisePropertyChanged(() => IsDefaultValue);
+                }
+            }
+        }
+        
+        public bool IsValueApplied
+        {
+            get { return ContentModel.IsValueApplied; }
+            set
+            {
+                if (ContentModel.IsValueApplied != value)
+                {
+                    ContentModel.IsValueApplied = value;
+                    RaisePropertyChanged(() => IsValueApplied);
+                }
+            }
         }
 
         public ContentItemViewModel(ContentItemModel ContentModel)
@@ -57,7 +78,12 @@ namespace XmlEditorTool.ViewModels
 
         public KeyValuePair<string, string> GetContentHeaderValuePair(string? stringToAddToContentHeader, bool isKey)
         {
-            return ContentModel.GetContentHeaderValuePair(stringToAddToContentHeader, isKey);
+            var kvp = ContentModel.GetContentHeaderValuePair(stringToAddToContentHeader, isKey);
+            if (kvp.Value != null)
+            {
+                IsValueApplied = true;
+            }
+            return kvp;
         }
     }
 }
