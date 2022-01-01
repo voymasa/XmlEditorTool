@@ -51,6 +51,10 @@ namespace XmlEditorTool.Utility
                 }
 
                 ObservableCollection<TreeViewItem> contentItems = PipelineMacroHelper.CreateContentItemList(model, macroName, args, elementName);
+                if (contentItems == null)
+                {
+                    contentItems = new ObservableCollection<TreeViewItem>();
+                }
                 var notDefaultValue = false;
                 foreach (TreeViewItem item in contentItems)
                 {
