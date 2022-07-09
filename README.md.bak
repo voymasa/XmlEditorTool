@@ -30,7 +30,7 @@ An .xml file may be opened in any of the following ways:
 2. Click on the icon in the window pane and browse to the file.
 3. Drag an .xml file onto the icon and drop it.
 
-Note that the data file **must** exist within a directory inside of your Top-Level directory, or the tool will crash.
+Note that the data file *must* exist within a directory inside of your Top-Level directory, or the tool will crash.
 
 
 ### Editing an .xml data file:
