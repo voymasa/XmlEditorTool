@@ -121,4 +121,11 @@
     <value>../../Resources/ComponentToSrcFileMap.csv</value>
     <comment>csv to map components to source files</comment>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ComponentToSrcFileMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ComponentToSrcFileMap.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="MacroDatatypeCsv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MacroDatatypeCsv.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>

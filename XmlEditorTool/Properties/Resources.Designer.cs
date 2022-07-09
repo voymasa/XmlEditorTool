@@ -19,7 +19,7 @@ namespace XmlEditorTool.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -66,6 +66,38 @@ namespace XmlEditorTool.Properties {
         internal static string ComponentToSourceFileMap {
             get {
                 return ResourceManager.GetString("ComponentToSourceFileMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Component,SourceFile
+        ///AnimationComponent,EngineAnimationComponent.h
+        ///AudioComponent,EngineAudioComponent.h
+        ///Action,Action.h
+        ///.
+        /// </summary>
+        internal static string ComponentToSrcFileMap {
+            get {
+                return ResourceManager.GetString("ComponentToSrcFileMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macro,Datatype,NumDefaultArgs,StartIndex,Header1,Header2,Header3,Header4
+        ///PIPELINE_ANGLE,float,1,1,Angle,,,
+        ///PIPELINE_ANGLE_REQUIRED,float,1,1,Angle,,,
+        ///PIPELINE_BASICSTRING,string,1,1,StringValue,,,
+        ///PIPELINE_BASICSTRING_REQUIRED,string,1,1,StringValue,,,
+        ///PIPELINE_BASICSTRING_SIZE,string,1,1,StringValue,,,
+        ///PIPELINE_BOOL,boolean,1,1,BooleanValue,,,
+        ///PIPELINE_BOOL_REQUIRED,boolean,1,1,BooleanValue,,,
+        ///PIPELINE_CHARACTER,string,1,1,Character,,,
+        ///PIPELINE_CHARACTER_REQUIRED,string,1,1,Character,,,
+        ///PIPELINE_ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MacroDatatypeCsv {
+            get {
+                return ResourceManager.GetString("MacroDatatypeCsv", resourceCulture);
             }
         }
     }
